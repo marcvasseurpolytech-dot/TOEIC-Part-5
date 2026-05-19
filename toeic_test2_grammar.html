@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC — Test 2 — Grammar Part 5</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F6F5;color:#1A1A1A;font-size:15px;line-height:1.6}
+.page{max-width:740px;margin:0 auto;padding:2rem 1rem}
+h1{font-size:22px;font-weight:500;color:#085041;margin-bottom:4px}
+.subtitle{font-size:13px;color:#5A8A80;margin-bottom:2rem}
+.card{background:#fff;border:0.5px solid #D0E8E0;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+label{display:block;font-size:13px;color:#5A8A80;margin-bottom:5px;font-weight:500}
+input[type=text]{width:100%;padding:9px 12px;border:0.5px solid #C8DDD6;border-radius:8px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:#1A1A1A;transition:border-color .15s}
+input[type=text]:focus{border-color:#1D9E75}
+.field{margin-bottom:1rem}
+.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.identity-grid .field:last-child{grid-column:1/-1}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;transition:all .15s}
+.btn-primary{background:#085041;color:#D4F0E8}
+.btn-primary:hover{background:#0F6E56}
+.btn-secondary{background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB}
+.btn-secondary:hover{background:#C8EDE0}
+.progress-bar{height:4px;background:#E1F5EE;border-radius:2px;margin-bottom:1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:#1D9E75;border-radius:2px;transition:width .3s}
+#timer-bar{position:fixed;top:0;left:0;right:0;z-index:999;background:#085041;padding:8px 20px;display:flex;align-items:center;justify-content:space-between}
+#timer-bar.hidden{display:none}
+#timer-label{font-size:12px;color:#9FE1CB;font-weight:500;letter-spacing:.04em}
+#timer-display{font-size:20px;font-weight:500;color:#D4F0E8;font-variant-numeric:tabular-nums}
+#timer-bar.warning #timer-display{color:#FAC775}
+#timer-bar.danger #timer-display{color:#F0997B;animation:blink 1s infinite}
+#timer-track{position:fixed;top:44px;left:0;right:0;height:3px;background:#0A3D30;z-index:999}
+#timer-fill{height:100%;background:#1D9E75;transition:width 1s linear;width:100%}
+#timer-track.hidden{display:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.quiz-offset{padding-top:56px}
+.q-block{padding:14px 0;border-bottom:0.5px solid #EEF5F2}
+.q-block:last-child{border-bottom:none}
+.q-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-num{font-size:12px;font-weight:500;color:#9FE1CB;min-width:36px;padding-top:2px}
+.q-text{font-size:14px;color:#1A1A1A;line-height:1.6}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-left:46px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border:0.5px solid #C8DDD6;border-radius:7px;cursor:pointer;transition:all .15s;font-size:13.5px;color:#2C2C2A;background:#fff}
+.opt:hover{border-color:#1D9E75;background:#F0FBF6}
+.opt.selected{border-color:#1D9E75;background:#E1F5EE;color:#085041}
+.opt.correct{border-color:#1D9E75;background:#E1F5EE;color:#085041;font-weight:500}
+.opt.wrong{border-color:#F0997B;background:#FAECE7;color:#712B13}
+.opt.missed{border-color:#1D9E75;background:#E1F5EE;color:#085041;opacity:.7}
+.opt-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;background:#F0FBF6;border:0.5px solid #C8DDD6;font-size:11px;font-weight:500;color:#5A8A80;flex-shrink:0}
+.opt.selected .opt-letter,.opt.correct .opt-letter,.opt.missed .opt-letter{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.opt.wrong .opt-letter{background:#D85A30;border-color:#D85A30;color:#fff}
+.score-box{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.metric{background:#F4F6F5;border-radius:8px;padding:1rem;text-align:center}
+.metric-val{font-size:26px;font-weight:500;color:#085041}
+.metric-lbl{font-size:12px;color:#5A8A80;margin-top:2px}
+.hidden{display:none}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+.alert{background:#FFF8E7;border:0.5px solid #FAC775;border-radius:8px;padding:10px 14px;font-size:13px;color:#633806;margin-bottom:1rem}
+.result-icon{font-size:15px;font-weight:500;min-width:36px;padding-top:2px}
+.result-icon.ok{color:#1D9E75}
+.result-icon.ko{color:#D85A30}
+.timeout-msg{background:#FAECE7;border:0.5px solid #F0997B;border-radius:8px;padding:10px 14px;font-size:13px;color:#712B13;margin-bottom:1rem}
+@media(max-width:500px){.q-options{grid-template-columns:1fr;padding-left:36px}.identity-grid{grid-template-columns:1fr}.identity-grid .field:last-child{grid-column:1}}
+</style>
+</head>
+<body>
+
+<div id="timer-bar" class="hidden">
+  <span id="timer-label">⏱ Temps restant — Test 2</span>
+  <span id="timer-display">15:00</span>
+</div>
+<div id="timer-track" class="hidden"><div id="timer-fill"></div></div>
+
+<div class="page">
+
+<div id="step-identity">
+  <h1>TOEIC — Grammar Part 5</h1>
+  <p class="subtitle">Polytech Lille · Anglais · Test 2 · 30 questions · 15 minutes</p>
+  <div class="card">
+    <div class="identity-grid">
+      <div class="field"><label>Nom de famille</label><input type="text" id="nom" placeholder="DUPONT" autocomplete="off"></div>
+      <div class="field"><label>Prénom</label><input type="text" id="prenom" placeholder="Marie" autocomplete="off"></div>
+      <div class="field"><label>Département / Filière</label><input type="text" id="dept" placeholder="GIS, GIM, GEII..." autocomplete="off"></div>
+    </div>
+    <div id="id-err" class="alert hidden">Veuillez remplir tous les champs.</div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="startQuiz()">Commencer — le timer démarre</button></div>
+  </div>
+</div>
+
+<div id="step-quiz" class="hidden quiz-offset">
+  <h1>TOEIC — Grammar Part 5 · Test 2</h1>
+  <p class="subtitle" id="quiz-name"></p>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  <div class="card" id="qcontainer"></div>
+  <div id="q-err" class="alert hidden">Veuillez répondre à toutes les questions.</div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goBack()">Retour</button>
+    <button class="btn btn-primary" onclick="corriger()">Corriger</button>
+  </div>
+</div>
+
+<div id="step-results" class="hidden">
+  <h1>Résultats · Test 2</h1>
+  <p class="subtitle" id="res-name"></p>
+  <div id="timeout-notice" class="timeout-msg hidden">⏱ Temps écoulé — le quiz a été corrigé automatiquement.</div>
+  <div class="card">
+    <div class="score-box">
+      <div class="metric"><div class="metric-val" id="r-score">0</div><div class="metric-lbl">Score / 30</div></div>
+      <div class="metric"><div class="metric-val" id="r-pct">0%</div><div class="metric-lbl">Pourcentage</div></div>
+      <div class="metric"><div class="metric-val" id="r-err">0</div><div class="metric-lbl">Erreurs</div></div>
+    </div>
+    <div id="res-list"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="restart()">Recommencer</button>
+    <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+var QS = [
+  {n:101,s:"The projector borrowed by Ms. Reid is ___ back to the IT department by five o'clock.",A:"due",B:"set",C:"paid",D:"prompt",ok:"A"},
+  {n:102,s:"Now that the annual conference is finished, the planning committee will hold meetings ___ often.",A:"below",B:"less",C:"decreased",D:"lower",ok:"B"},
+  {n:103,s:"Before you distribute the report, ask Ms. Burns to check that ___ has all the necessary information.",A:"them",B:"our",C:"her",D:"it",ok:"D"},
+  {n:104,s:"According to consumers, using the new website is no ___ than calling the help center directly.",A:"easily",B:"easy",C:"easiest",D:"easier",ok:"D"},
+  {n:105,s:"Anyone who participates ___ the city's Annual Baking Competition will receive a coupon from Fresh Supermarket.",A:"to",B:"beside",C:"in",D:"among",ok:"C"},
+  {n:106,s:"City officials are still debating Irving Enterprises' request ___ the outdated building.",A:"demolishes",B:"have demolished",C:"to demolish",D:"demolished",ok:"C"},
+  {n:107,s:"Heron Glassworks ___ student groups of all ages for weekday tours of its warehouse and production floor.",A:"conveys",B:"preserves",C:"encloses",D:"welcomes",ok:"D"},
+  {n:108,s:"To combat mental illness, the clinic will take a more comprehensive ___ than it did in the past.",A:"approachably",B:"approached",C:"approach",D:"approachable",ok:"C"},
+  {n:109,s:"Brandy can make withdrawals from any Salis Bank branch, but she usually visits the ___ one.",A:"closing",B:"closely",C:"closure",D:"closest",ok:"D"},
+  {n:110,s:"As a ___ for making contracts with a lot of new clients, Mr. Skinner was given additional vacation days.",A:"reward",B:"progress",C:"solution",D:"routine",ok:"A"},
+  {n:111,s:"Please be seated according to the name cards that have been placed on each table.",A:"personalizes",B:"personalizing",C:"personalize",D:"personalized",ok:"D"},
+  {n:112,s:"The memo sent by Mr. Lee addressed a few ___ that were discovered during the quarterly inspection.",A:"issuing",B:"issue",C:"issues",D:"issued",ok:"C"},
+  {n:113,s:"Many voters in this city are uninterested, and only about 15% of them are ___ active.",A:"politically",B:"political",C:"politics",D:"politician",ok:"A"},
+  {n:114,s:"This year's award winner, Cheryl Garner, taught basic first-aid skills to students and adults ___ the region.",A:"between",B:"throughout",C:"during",D:"toward",ok:"B"},
+  {n:115,s:"___, the cabin will be rented out for the entire month, but the owner would agree to four weekly rentals instead.",A:"Reluctantly",B:"Absolutely",C:"Ideally",D:"Mutually",ok:"C"},
+  {n:116,s:"The non-profit organization released to the press several documents ___ the largest donors and how much they contributed.",A:"detailed",B:"detail",C:"details",D:"detailing",ok:"D"},
+  {n:117,s:"No passengers are allowed on board ___ the aircraft's door has been closed.",A:"that",B:"despite",C:"once",D:"rather",ok:"C"},
+  {n:118,s:"A government ___ will visit the site to talk with protesters directly and seek a resolution.",A:"representative",B:"representation",C:"represent",D:"represented",ok:"A"},
+  {n:119,s:"An extensive ___ conducted by Ivanex Communications revealed that Internet speed was one of the most important factors to customers.",A:"inventory",B:"strategy",C:"coverage",D:"survey",ok:"D"},
+  {n:120,s:"Mr. Denson wanted to purchase a special edition gold-plated watch from Utica Watches, but there were ___ left.",A:"none",B:"nothing",C:"something",D:"some",ok:"A"},
+  {n:121,s:"Ms. May reminded us that the agreement was only ___ because it had not been approved yet.",A:"perishable",B:"imperative",C:"accustomed",D:"tentative",ok:"D"},
+  {n:122,s:"Following the restoration project, the lobby of the historical Kirkwood Hotel looked ___ like its original state.",A:"remarkably",B:"remarking",C:"remark",D:"remarked",ok:"A"},
+  {n:123,s:"___ the right environmental conditions, this tree will yield fresh fruit for most of the year.",A:"With",B:"About",C:"On",D:"As",ok:"A"},
+  {n:124,s:"One of the interns ___ that the logo on the second page of the sales report was upside down.",A:"looked after",B:"accounted for",C:"pointed out",D:"came across",ok:"C"},
+  {n:125,s:"___ the parking lot is closed, both employees and customers will have to make use of street parking.",A:"As if",B:"Until",C:"So that",D:"While",ok:"D"},
+  {n:126,s:"If the new athletic shoes do well in the smaller test markets, their nationwide launch could be ___.",A:"convinced",B:"accelerated",C:"directed",D:"circulated",ok:"B"},
+  {n:127,s:"The city hosted a display of ___ fireworks to celebrate the 100th anniversary of its founding.",A:"impressive",B:"impress",C:"impression",D:"impressively",ok:"A"},
+  {n:128,s:"After investing heavily in Internet marketing campaigns, Bailey Coffee increased its annual profits ___ fifteen percent.",A:"by",B:"among",C:"between",D:"on",ok:"A"},
+  {n:129,s:"The receptionists change the artwork in the clinic's waiting room ___ and rearrange the layout of the furniture.",A:"periodically",B:"relatively",C:"tightly",D:"narrowly",ok:"A"},
+  {n:130,s:"The policy that requires businesses to provide medical insurance applies only to those ___ more than twenty-five people.",A:"employs",B:"employ",C:"employed",D:"employing",ok:"D"}
+];
+
+var answers={};
+var student={};
+var timerInterval=null;
+var secondsLeft=900;
+var totalSeconds=900;
+var timedOut=false;
+
+function show(id){['step-identity','step-quiz','step-results'].forEach(function(s){document.getElementById(s).classList.add('hidden');});document.getElementById(id).classList.remove('hidden');}
+
+function startQuiz(){
+  var n=document.getElementById('nom').value.trim();
+  var p=document.getElementById('prenom').value.trim();
+  var d=document.getElementById('dept').value.trim();
+  if(!n||!p||!d){document.getElementById('id-err').classList.remove('hidden');return;}
+  document.getElementById('id-err').classList.add('hidden');
+  student={nom:n,prenom:p,dept:d};
+  answers={};
+  timedOut=false;
+  buildQuiz();
+  document.getElementById('quiz-name').textContent=p+' '+n+' · '+d;
+  show('step-quiz');
+  window.scrollTo(0,0);
+  startTimer();
+}
+
+function startTimer(){
+  secondsLeft=totalSeconds;
+  document.getElementById('timer-bar').classList.remove('hidden','warning','danger');
+  document.getElementById('timer-track').classList.remove('hidden');
+  document.getElementById('timer-fill').style.width='100%';
+  updateTimerDisplay();
+  timerInterval=setInterval(function(){
+    secondsLeft--;
+    updateTimerDisplay();
+    var pct=(secondsLeft/totalSeconds)*100;
+    document.getElementById('timer-fill').style.width=pct+'%';
+    var bar=document.getElementById('timer-bar');
+    if(secondsLeft<=120&&secondsLeft>60){bar.classList.add('warning');bar.classList.remove('danger');}
+    else if(secondsLeft<=60){bar.classList.add('danger');bar.classList.remove('warning');}
+    if(secondsLeft<=0){clearInterval(timerInterval);timedOut=true;corriger();}
+  },1000);
+}
+
+function stopTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('timer-bar').classList.add('hidden');
+  document.getElementById('timer-track').classList.add('hidden');
+}
+
+function updateTimerDisplay(){
+  var m=Math.floor(secondsLeft/60);
+  var s=secondsLeft%60;
+  document.getElementById('timer-display').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+
+function buildQuiz(){
+  var c=document.getElementById('qcontainer');c.innerHTML='';
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var block=document.createElement('div');block.className='q-block';
+    var hdr=document.createElement('div');hdr.className='q-header';
+    var num=document.createElement('div');num.className='q-num';num.textContent=q.n;
+    var txt=document.createElement('div');txt.className='q-text';txt.textContent=q.s;
+    hdr.appendChild(num);hdr.appendChild(txt);block.appendChild(hdr);
+    var opts=document.createElement('div');opts.className='q-options';
+    ['A','B','C','D'].forEach(function(L){
+      var o=document.createElement('div');
+      o.className='opt';o.id='opt-'+q.n+'-'+L;
+      o.setAttribute('data-q',q.n);o.setAttribute('data-l',L);
+      o.innerHTML='<span class="opt-letter">'+L+'</span> '+q[L];
+      o.onclick=function(){selectOpt(this);};
+      opts.appendChild(o);
+    });
+    block.appendChild(opts);c.appendChild(block);
+  }
+}
+
+function selectOpt(el){
+  var qn=el.getAttribute('data-q');
+  var l=el.getAttribute('data-l');
+  ['A','B','C','D'].forEach(function(L){document.getElementById('opt-'+qn+'-'+L).classList.remove('selected');});
+  el.classList.add('selected');
+  answers[qn]=l;
+  updateProgress();
+}
+
+function updateProgress(){
+  var n=Object.keys(answers).length;
+  document.getElementById('progress').style.width=Math.round(n/QS.length*100)+'%';
+}
+
+function corriger(){
+  stopTimer();
+  if(Object.keys(answers).length<QS.length&&!timedOut){
+    document.getElementById('q-err').classList.remove('hidden');
+    startTimer();
+    return;
+  }
+  document.getElementById('q-err').classList.add('hidden');
+  var ok=0;
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var chosen=answers[q.n]||'';
+    if(chosen===q.ok)ok++;
+    ['A','B','C','D'].forEach(function(L){
+      var o=document.getElementById('opt-'+q.n+'-'+L);
+      if(!o)return;
+      o.onclick=null;
+      if(L===q.ok&&chosen===q.ok){o.className='opt correct';}
+      else if(L===chosen&&chosen!==q.ok){o.className='opt wrong';}
+      else if(L===q.ok&&chosen!==q.ok){o.className='opt missed';}
+      else{o.className='opt';}
+    });
+  }
+  buildResults(ok);
+  show('step-results');
+  if(timedOut)document.getElementById('timeout-notice').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function buildResults(ok){
+  var pct=Math.round(ok/QS.length*100);
+  document.getElementById('res-name').textContent=student.prenom+' '+student.nom+' · '+student.dept;
+  document.getElementById('r-score').textContent=ok+'/30';
+  document.getElementById('r-pct').textContent=pct+'%';
+  document.getElementById('r-err').textContent=(QS.length-ok);
+  var list=document.getElementById('res-list');list.innerHTML='';
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var chosen=answers[q.n]||'';
+    var good=chosen===q.ok;
+    var block=document.createElement('div');block.className='q-block';
+    var hdr=document.createElement('div');hdr.className='q-header';
+    var icon=document.createElement('div');icon.className='result-icon '+(good?'ok':'ko');icon.textContent=good?'✓':'✗';
+    var txt=document.createElement('div');txt.className='q-text';txt.style.fontSize='13.5px';txt.textContent=q.s;
+    if(!good){
+      var hint=document.createElement('div');
+      hint.style.cssText='font-size:12px;margin-top:4px;color:#712B13';
+      hint.textContent='Votre réponse : '+(chosen?'('+chosen+') '+q[chosen]:'—')+' — Correct : ('+q.ok+') '+q[q.ok];
+      txt.appendChild(hint);
+    }
+    hdr.appendChild(icon);hdr.appendChild(txt);block.appendChild(hdr);list.appendChild(block);
+  }
+}
+
+function goBack(){stopTimer();show('step-identity');window.scrollTo(0,0);}
+function restart(){timedOut=false;document.getElementById('timeout-notice').classList.add('hidden');document.getElementById('nom').value='';document.getElementById('prenom').value='';document.getElementById('dept').value='';show('step-identity');window.scrollTo(0,0);}
+</script>
+</body>
+</html>

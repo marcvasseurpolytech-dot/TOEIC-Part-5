@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC — Test 9 — Grammar Part 5</title>
+<style>
+:root{--accent:#8B4513;--accent-dark:#5C2D0A;--accent-mid:#C4713B;--accent-light:#FFF0E6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F6F5;color:#1A1A1A;font-size:15px;line-height:1.6}
+.page{max-width:740px;margin:0 auto;padding:2rem 1rem}
+h1{font-size:22px;font-weight:500;color:var(--accent);margin-bottom:4px}
+.subtitle{font-size:13px;color:#5A8A80;margin-bottom:2rem}
+.card{background:#fff;border:0.5px solid #D0E8E0;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+label{display:block;font-size:13px;color:#5A8A80;margin-bottom:5px;font-weight:500}
+input[type=text]{width:100%;padding:9px 12px;border:0.5px solid #C8DDD6;border-radius:8px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:#1A1A1A;transition:border-color .15s}
+input[type=text]:focus{border-color:var(--accent)}
+.field{margin-bottom:1rem}
+.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.identity-grid .field:last-child{grid-column:1/-1}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;transition:all .15s}
+.btn-primary{background:var(--accent);color:#D4F0E8}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-secondary{background:var(--accent-light);color:var(--accent);border:0.5px solid var(--accent-mid)}
+.btn-secondary:hover{background:#C8EDE0}
+.progress-bar{height:4px;background:var(--accent-light);border-radius:2px;margin-bottom:1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent-mid);border-radius:2px;transition:width .3s}
+#timer-bar{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--accent);padding:8px 20px;display:flex;align-items:center;justify-content:space-between}
+#timer-bar.hidden{display:none}
+#timer-label{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.04em}
+#timer-display{font-size:20px;font-weight:500;color:#D4F0E8;font-variant-numeric:tabular-nums}
+#timer-bar.warning #timer-display{color:#FAC775}
+#timer-bar.danger #timer-display{color:#F0997B;animation:blink 1s infinite}
+#timer-track{position:fixed;top:44px;left:0;right:0;height:3px;background:rgba(0,0,0,.2);z-index:999}
+#timer-fill{height:100%;background:rgba(255,255,255,.5);transition:width 1s linear;width:100%}
+#timer-track.hidden{display:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.quiz-offset{padding-top:56px}
+.q-block{padding:14px 0;border-bottom:0.5px solid #EEF5F2}
+.q-block:last-child{border-bottom:none}
+.q-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-num{font-size:12px;font-weight:500;color:var(--accent-mid);min-width:36px;padding-top:2px}
+.q-text{font-size:14px;color:#1A1A1A;line-height:1.6}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-left:46px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border:0.5px solid #C8DDD6;border-radius:7px;cursor:pointer;transition:all .15s;font-size:13.5px;color:#2C2C2A;background:#fff}
+.opt:hover{border-color:var(--accent);background:#F0FBF6}
+.opt.selected{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+.opt.correct{border-color:#1D9E75;background:#E1F5EE;color:#085041;font-weight:500}
+.opt.wrong{border-color:#F0997B;background:#FAECE7;color:#712B13}
+.opt.missed{border-color:#1D9E75;background:#E1F5EE;color:#085041;opacity:.7}
+.opt-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;background:#F0FBF6;border:0.5px solid #C8DDD6;font-size:11px;font-weight:500;color:#5A8A80;flex-shrink:0}
+.opt.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#fff}
+.opt.correct .opt-letter,.opt.missed .opt-letter{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.opt.wrong .opt-letter{background:#D85A30;border-color:#D85A30;color:#fff}
+.score-box{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.metric{background:#F4F6F5;border-radius:8px;padding:1rem;text-align:center}
+.metric-val{font-size:26px;font-weight:500;color:var(--accent)}
+.metric-lbl{font-size:12px;color:#5A8A80;margin-top:2px}
+.hidden{display:none}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+.alert{background:#FFF8E7;border:0.5px solid #FAC775;border-radius:8px;padding:10px 14px;font-size:13px;color:#633806;margin-bottom:1rem}
+.result-icon{font-size:15px;font-weight:500;min-width:36px;padding-top:2px}
+.result-icon.ok{color:#1D9E75}
+.result-icon.ko{color:#D85A30}
+.timeout-msg{background:#FAECE7;border:0.5px solid #F0997B;border-radius:8px;padding:10px 14px;font-size:13px;color:#712B13;margin-bottom:1rem}
+.polytech-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);border:0.5px solid var(--accent-mid);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--accent);font-weight:500;margin-bottom:1rem}
+@media(max-width:500px){.q-options{grid-template-columns:1fr;padding-left:36px}.identity-grid{grid-template-columns:1fr}.identity-grid .field:last-child{grid-column:1}.score-box{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div id="timer-bar" class="hidden">
+  <span id="timer-label">⏱ Test 9 — Temps restant</span>
+  <span id="timer-display">15:00</span>
+</div>
+<div id="timer-track" class="hidden"><div id="timer-fill"></div></div>
+
+<div class="page">
+
+<div id="step-identity">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille · Anglais</div>
+  <h1>TOEIC — Grammar Part 5</h1>
+  <p class="subtitle">Test 9 · 30 questions · 15 minutes</p>
+  <div class="card">
+    <div class="identity-grid">
+      <div class="field"><label>Nom de famille</label><input type="text" id="nom" placeholder="DUPONT" autocomplete="off"></div>
+      <div class="field"><label>Prénom</label><input type="text" id="prenom" placeholder="Marie" autocomplete="off"></div>
+      <div class="field"><label>Département / Filière</label><input type="text" id="dept" placeholder="GIS, GIM, GEII..." autocomplete="off"></div>
+    </div>
+    <div id="id-err" class="alert hidden">Veuillez remplir tous les champs.</div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="startQuiz()">Commencer — le timer démarre</button></div>
+  </div>
+</div>
+
+<div id="step-quiz" class="hidden quiz-offset">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille</div>
+  <h1>TOEIC — Grammar Part 5 · Test 9</h1>
+  <p class="subtitle" id="quiz-name"></p>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  <div class="card" id="qcontainer"></div>
+  <div id="q-err" class="alert hidden">Veuillez répondre à toutes les questions.</div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goBack()">Retour</button>
+    <button class="btn btn-primary" onclick="corriger()">Corriger</button>
+  </div>
+</div>
+
+<div id="step-results" class="hidden">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille</div>
+  <h1>Résultats · Test 9</h1>
+  <p class="subtitle" id="res-name"></p>
+  <div id="timeout-notice" class="timeout-msg hidden">⏱ Temps écoulé — corrigé automatiquement.</div>
+  <div class="card">
+    <div class="score-box">
+      <div class="metric"><div class="metric-val" id="r-score">0</div><div class="metric-lbl">Score / 30</div></div>
+      <div class="metric"><div class="metric-val" id="r-pct">0%</div><div class="metric-lbl">Pourcentage</div></div>
+      <div class="metric"><div class="metric-val" id="r-err">0</div><div class="metric-lbl">Erreurs</div></div>
+    </div>
+    <div id="res-list"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="restart()">Recommencer</button>
+    <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+  </div>
+</div>
+
+</div>
+<script>
+var QS=[{"n":101,"s":"Sales clerks at Sylla Bazaar receive additional pay when _______ work in the evening.","A":"their","B":"they","C":"theirs","D":"them","ok":"B"},{"n":102,"s":"The use of high-quality yet _______ machine parts led to a decrease in costs for Mr. Kim's factory.","A":"inexpensive","B":"unhappy","C":"incomplete","D":"undecided","ok":"A"},{"n":103,"s":"Because humidity can _______ wood, the climate in furniture storage units must be controlled.","A":"damage","B":"damaging","C":"damaged","D":"damages","ok":"A"},{"n":104,"s":"The updated safety manual includes guidelines _______ the entire factory.","A":"so","B":"and","C":"both","D":"for","ok":"D"},{"n":105,"s":"A limited _______ of time for questions will be granted following Mr. Tanaka's speech.","A":"value","B":"record","C":"amount","D":"setting","ok":"C"},{"n":106,"s":"At Correia Electronics, we are _______ researching appliance technology.","A":"continual","B":"continues","C":"continue","D":"continually","ok":"D"},{"n":107,"s":"At Imprint Eyewear, most prescription eyeglasses can be made _______ two business days.","A":"since","B":"to","C":"against","D":"within","ok":"D"},{"n":108,"s":"The first prize presented was the Kozar Award for _______ in educational toy design.","A":"excel","B":"excelled","C":"excellent","D":"excellence","ok":"D"},{"n":109,"s":"Ms. Ling is not here today, but she _______ attends every library board meeting.","A":"previously","B":"typically","C":"almost","D":"well","ok":"B"},{"n":110,"s":"Investing in _______ properties as possible can be risky but is often lucrative.","A":"as much","B":"as many","C":"so much","D":"so many","ok":"B"},{"n":111,"s":"After interviewing Ms. Garcia personally, the company president _______ the committee's decision to hire her as chief financial officer.","A":"finalized","B":"designed","C":"hosted","D":"created","ok":"A"},{"n":112,"s":"Construction of the Yukimura Building _______ because of modifications in the architectural plans.","A":"postpones","B":"has been postponed","C":"will have postponed","D":"is postponing","ok":"B"},{"n":113,"s":"Please inform Ms. Montgomery of any _______ to your office supplies order before 2:00 p.m.","A":"announcements","B":"conversions","C":"adjustments","D":"commitments","ok":"C"},{"n":114,"s":"All Buchler Energy customers are encouraged to sign up for electronic statements _______ paper ones.","A":"except","B":"through","C":"instead of","D":"according to","ok":"C"},{"n":115,"s":"In her letter of reference, Ms. Eisner indicates that Mr. Patel's ability to work well with others is his most _______ quality.","A":"admiration","B":"admiring","C":"admire","D":"admirable","ok":"D"},{"n":116,"s":"This Friday, all employees may depart two hours before closing _______ their manager requires them to stay.","A":"either","B":"nor","C":"because","D":"unless","ok":"D"},{"n":117,"s":"The Science Career Fair is an exciting opportunity for job seekers to meet with _______ from major companies in the field.","A":"recruit","B":"recruiting","C":"recruitments","D":"recruiters","ok":"D"},{"n":118,"s":"The songs on Sophia Vestra's new album are _______ the most innovative musical arrangements of her career.","A":"beside","B":"over","C":"among","D":"upon","ok":"C"},{"n":119,"s":"After the _______ upgrades have been implemented, the production process should run more efficiently.","A":"suggest","B":"suggested","C":"suggesting","D":"suggests","ok":"B"},{"n":120,"s":"Panjan Air, an airline _______ in Singapore, is offering budget flights to Bangkok and Jakarta.","A":"stored","B":"stayed","C":"based","D":"moved","ok":"C"},{"n":121,"s":"Mesmio, provider of premium television content, welcomes _______ ideas for improving our service.","A":"specifics","B":"specifies","C":"specific","D":"specify","ok":"C"},{"n":122,"s":"The conclusions from our analysis turned out to be _______ applicable to the budget problem.","A":"directing","B":"directly","C":"directs","D":"direct","ok":"B"},{"n":123,"s":"The proposal _______ the vacant land on Spring Street into a community garden will be voted on this Monday.","A":"to transform","B":"transformation","C":"is transforming","D":"transformed","ok":"A"},{"n":124,"s":"After quality control inspectors _______ that all specifications are met, the product can be shipped.","A":"affect","B":"replace","C":"certify","D":"associate","ok":"C"},{"n":125,"s":"The _______ meadowlands surrounding the museum are designated as wildlife habitat.","A":"ethical","B":"vast","C":"absolute","D":"economic","ok":"B"},{"n":126,"s":"_______ of Mitesh Sandu's international performances was filmed for the documentary.","A":"All","B":"Others","C":"Their own","D":"Each one","ok":"A"},{"n":127,"s":"New tax incentives reward local businesses _______ decrease their water consumption.","A":"will","B":"when","C":"that","D":"if","ok":"C"},{"n":128,"s":"Based on new data, Min-Soo Trucking's proposal to expand its business to Southeast Asia would be only _______ successful.","A":"conspicuously","B":"marginally","C":"regrettably","D":"intriguingly","ok":"B"},{"n":129,"s":"The research indicates that _______ in Chestnut Valley has remained stable over the past two years.","A":"tourists","B":"tours","C":"tourism","D":"toured","ok":"C"},{"n":130,"s":"Online orders are handled by Mr. Clark's team; regular mail orders are overseen by Ms. Adauto's group, _______ orders are handled by both.","A":"while","B":"until","C":"despite","D":"whether","ok":"A"}];
+var answers={},student={},timerInterval=null,secondsLeft=900,totalSeconds=900,timedOut=false;
+function show(id){['step-identity','step-quiz','step-results'].forEach(function(s){document.getElementById(s).classList.add('hidden');});document.getElementById(id).classList.remove('hidden');}
+function startQuiz(){var n=document.getElementById('nom').value.trim(),p=document.getElementById('prenom').value.trim(),d=document.getElementById('dept').value.trim();if(!n||!p||!d){document.getElementById('id-err').classList.remove('hidden');return;}document.getElementById('id-err').classList.add('hidden');student={nom:n,prenom:p,dept:d};answers={};timedOut=false;buildQuiz();document.getElementById('quiz-name').textContent=p+' '+n+' · '+d;show('step-quiz');window.scrollTo(0,0);startTimer();}
+function startTimer(){secondsLeft=totalSeconds;document.getElementById('timer-bar').classList.remove('hidden','warning','danger');document.getElementById('timer-track').classList.remove('hidden');document.getElementById('timer-fill').style.width='100%';updateTimerDisplay();timerInterval=setInterval(function(){secondsLeft--;updateTimerDisplay();var pct=(secondsLeft/totalSeconds)*100;document.getElementById('timer-fill').style.width=pct+'%';var bar=document.getElementById('timer-bar');if(secondsLeft<=120&&secondsLeft>60){bar.classList.add('warning');bar.classList.remove('danger');}else if(secondsLeft<=60){bar.classList.add('danger');bar.classList.remove('warning');}if(secondsLeft<=0){clearInterval(timerInterval);timedOut=true;corriger();}},1000);}
+function stopTimer(){clearInterval(timerInterval);document.getElementById('timer-bar').classList.add('hidden');document.getElementById('timer-track').classList.add('hidden');}
+function updateTimerDisplay(){var m=Math.floor(secondsLeft/60),s=secondsLeft%60;document.getElementById('timer-display').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function buildQuiz(){var c=document.getElementById('qcontainer');c.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i],block=document.createElement('div');block.className='q-block';var hdr=document.createElement('div');hdr.className='q-header';var num=document.createElement('div');num.className='q-num';num.textContent=q.n;var txt=document.createElement('div');txt.className='q-text';txt.textContent=q.s;hdr.appendChild(num);hdr.appendChild(txt);block.appendChild(hdr);var opts=document.createElement('div');opts.className='q-options';['A','B','C','D'].forEach(function(L){var o=document.createElement('div');o.className='opt';o.id='opt-'+q.n+'-'+L;o.setAttribute('data-q',q.n);o.setAttribute('data-l',L);o.innerHTML='<span class="opt-letter">'+L+'</span> '+q[L];o.onclick=function(){selectOpt(this);};opts.appendChild(o);});block.appendChild(opts);c.appendChild(block);}}
+function selectOpt(el){var qn=el.getAttribute('data-q'),l=el.getAttribute('data-l');['A','B','C','D'].forEach(function(L){document.getElementById('opt-'+qn+'-'+L).classList.remove('selected');});el.classList.add('selected');answers[qn]=l;updateProgress();}
+function updateProgress(){var n=Object.keys(answers).length;document.getElementById('progress').style.width=Math.round(n/QS.length*100)+'%';}
+function corriger(){stopTimer();if(Object.keys(answers).length<QS.length&&!timedOut){document.getElementById('q-err').classList.remove('hidden');startTimer();return;}document.getElementById('q-err').classList.add('hidden');var ok=0;for(var i=0;i<QS.length;i++){var q=QS[i],chosen=answers[q.n]||'';if(chosen===q.ok)ok++;['A','B','C','D'].forEach(function(L){var o=document.getElementById('opt-'+q.n+'-'+L);if(!o)return;o.onclick=null;if(L===q.ok&&chosen===q.ok){o.className='opt correct';}else if(L===chosen&&chosen!==q.ok){o.className='opt wrong';}else if(L===q.ok&&chosen!==q.ok){o.className='opt missed';}else{o.className='opt';}});}buildResults(ok);show('step-results');if(timedOut)document.getElementById('timeout-notice').classList.remove('hidden');window.scrollTo(0,0);}
+function buildResults(ok){var pct=Math.round(ok/QS.length*100);document.getElementById('res-name').textContent=student.prenom+' '+student.nom+' · '+student.dept;document.getElementById('r-score').textContent=ok+'/30';document.getElementById('r-pct').textContent=pct+'%';document.getElementById('r-err').textContent=(QS.length-ok);var list=document.getElementById('res-list');list.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i],chosen=answers[q.n]||'',good=chosen===q.ok,block=document.createElement('div');block.className='q-block';var hdr=document.createElement('div');hdr.className='q-header';var icon=document.createElement('div');icon.className='result-icon '+(good?'ok':'ko');icon.textContent=good?'✓':'✗';var txt=document.createElement('div');txt.className='q-text';txt.style.fontSize='13.5px';txt.textContent=q.s;if(!good){var hint=document.createElement('div');hint.style.cssText='font-size:12px;margin-top:4px;color:#712B13';hint.textContent='Votre réponse : '+(chosen?'('+chosen+') '+q[chosen]:'—')+' — Correct : ('+q.ok+') '+q[q.ok];txt.appendChild(hint);}hdr.appendChild(icon);hdr.appendChild(txt);block.appendChild(hdr);list.appendChild(block);}}
+function goBack(){stopTimer();show('step-identity');window.scrollTo(0,0);}
+function restart(){timedOut=false;document.getElementById('timeout-notice').classList.add('hidden');document.getElementById('nom').value='';document.getElementById('prenom').value='';document.getElementById('dept').value='';show('step-identity');window.scrollTo(0,0);}
+</script>
+</body>
+</html>

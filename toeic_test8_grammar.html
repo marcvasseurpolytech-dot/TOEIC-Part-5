@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC — Test 8 — Grammar Part 5</title>
+<style>
+:root{--accent:#6B2D8B;--accent-dark:#4A1A60;--accent-mid:#9B5BBD;--accent-light:#F0E6FF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F6F5;color:#1A1A1A;font-size:15px;line-height:1.6}
+.page{max-width:740px;margin:0 auto;padding:2rem 1rem}
+h1{font-size:22px;font-weight:500;color:var(--accent);margin-bottom:4px}
+.subtitle{font-size:13px;color:#5A8A80;margin-bottom:2rem}
+.card{background:#fff;border:0.5px solid #D0E8E0;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+label{display:block;font-size:13px;color:#5A8A80;margin-bottom:5px;font-weight:500}
+input[type=text]{width:100%;padding:9px 12px;border:0.5px solid #C8DDD6;border-radius:8px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:#1A1A1A;transition:border-color .15s}
+input[type=text]:focus{border-color:var(--accent)}
+.field{margin-bottom:1rem}
+.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.identity-grid .field:last-child{grid-column:1/-1}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;transition:all .15s}
+.btn-primary{background:var(--accent);color:#D4F0E8}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-secondary{background:var(--accent-light);color:var(--accent);border:0.5px solid var(--accent-mid)}
+.btn-secondary:hover{background:#C8EDE0}
+.progress-bar{height:4px;background:var(--accent-light);border-radius:2px;margin-bottom:1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent-mid);border-radius:2px;transition:width .3s}
+#timer-bar{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--accent);padding:8px 20px;display:flex;align-items:center;justify-content:space-between}
+#timer-bar.hidden{display:none}
+#timer-label{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.04em}
+#timer-display{font-size:20px;font-weight:500;color:#D4F0E8;font-variant-numeric:tabular-nums}
+#timer-bar.warning #timer-display{color:#FAC775}
+#timer-bar.danger #timer-display{color:#F0997B;animation:blink 1s infinite}
+#timer-track{position:fixed;top:44px;left:0;right:0;height:3px;background:rgba(0,0,0,.2);z-index:999}
+#timer-fill{height:100%;background:rgba(255,255,255,.5);transition:width 1s linear;width:100%}
+#timer-track.hidden{display:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.quiz-offset{padding-top:56px}
+.q-block{padding:14px 0;border-bottom:0.5px solid #EEF5F2}
+.q-block:last-child{border-bottom:none}
+.q-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-num{font-size:12px;font-weight:500;color:var(--accent-mid);min-width:36px;padding-top:2px}
+.q-text{font-size:14px;color:#1A1A1A;line-height:1.6}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-left:46px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border:0.5px solid #C8DDD6;border-radius:7px;cursor:pointer;transition:all .15s;font-size:13.5px;color:#2C2C2A;background:#fff}
+.opt:hover{border-color:var(--accent);background:#F0FBF6}
+.opt.selected{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+.opt.correct{border-color:#1D9E75;background:#E1F5EE;color:#085041;font-weight:500}
+.opt.wrong{border-color:#F0997B;background:#FAECE7;color:#712B13}
+.opt.missed{border-color:#1D9E75;background:#E1F5EE;color:#085041;opacity:.7}
+.opt-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;background:#F0FBF6;border:0.5px solid #C8DDD6;font-size:11px;font-weight:500;color:#5A8A80;flex-shrink:0}
+.opt.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#fff}
+.opt.correct .opt-letter,.opt.missed .opt-letter{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.opt.wrong .opt-letter{background:#D85A30;border-color:#D85A30;color:#fff}
+.score-box{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.metric{background:#F4F6F5;border-radius:8px;padding:1rem;text-align:center}
+.metric-val{font-size:26px;font-weight:500;color:var(--accent)}
+.metric-lbl{font-size:12px;color:#5A8A80;margin-top:2px}
+.hidden{display:none}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+.alert{background:#FFF8E7;border:0.5px solid #FAC775;border-radius:8px;padding:10px 14px;font-size:13px;color:#633806;margin-bottom:1rem}
+.result-icon{font-size:15px;font-weight:500;min-width:36px;padding-top:2px}
+.result-icon.ok{color:#1D9E75}
+.result-icon.ko{color:#D85A30}
+.timeout-msg{background:#FAECE7;border:0.5px solid #F0997B;border-radius:8px;padding:10px 14px;font-size:13px;color:#712B13;margin-bottom:1rem}
+.polytech-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);border:0.5px solid var(--accent-mid);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--accent);font-weight:500;margin-bottom:1rem}
+@media(max-width:500px){.q-options{grid-template-columns:1fr;padding-left:36px}.identity-grid{grid-template-columns:1fr}.identity-grid .field:last-child{grid-column:1}.score-box{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div id="timer-bar" class="hidden">
+  <span id="timer-label">⏱ Test 8 — Temps restant</span>
+  <span id="timer-display">15:00</span>
+</div>
+<div id="timer-track" class="hidden"><div id="timer-fill"></div></div>
+
+<div class="page">
+
+<div id="step-identity">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille · Anglais</div>
+  <h1>TOEIC — Grammar Part 5</h1>
+  <p class="subtitle">Test 8 · 30 questions · 15 minutes</p>
+  <div class="card">
+    <div class="identity-grid">
+      <div class="field"><label>Nom de famille</label><input type="text" id="nom" placeholder="DUPONT" autocomplete="off"></div>
+      <div class="field"><label>Prénom</label><input type="text" id="prenom" placeholder="Marie" autocomplete="off"></div>
+      <div class="field"><label>Département / Filière</label><input type="text" id="dept" placeholder="GIS, GIM, GEII..." autocomplete="off"></div>
+    </div>
+    <div id="id-err" class="alert hidden">Veuillez remplir tous les champs.</div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="startQuiz()">Commencer — le timer démarre</button></div>
+  </div>
+</div>
+
+<div id="step-quiz" class="hidden quiz-offset">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille</div>
+  <h1>TOEIC — Grammar Part 5 · Test 8</h1>
+  <p class="subtitle" id="quiz-name"></p>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  <div class="card" id="qcontainer"></div>
+  <div id="q-err" class="alert hidden">Veuillez répondre à toutes les questions.</div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goBack()">Retour</button>
+    <button class="btn btn-primary" onclick="corriger()">Corriger</button>
+  </div>
+</div>
+
+<div id="step-results" class="hidden">
+  <div class="polytech-badge">Marc VASSEUR · Polytech Lille</div>
+  <h1>Résultats · Test 8</h1>
+  <p class="subtitle" id="res-name"></p>
+  <div id="timeout-notice" class="timeout-msg hidden">⏱ Temps écoulé — corrigé automatiquement.</div>
+  <div class="card">
+    <div class="score-box">
+      <div class="metric"><div class="metric-val" id="r-score">0</div><div class="metric-lbl">Score / 30</div></div>
+      <div class="metric"><div class="metric-val" id="r-pct">0%</div><div class="metric-lbl">Pourcentage</div></div>
+      <div class="metric"><div class="metric-val" id="r-err">0</div><div class="metric-lbl">Erreurs</div></div>
+    </div>
+    <div id="res-list"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="restart()">Recommencer</button>
+    <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+  </div>
+</div>
+
+</div>
+<script>
+var QS=[{"n":101,"s":"Not far _______ the train station lies Starlight Park, which is a popular destination for tourists and locals alike.","A":"from","B":"with","C":"next","D":"until","ok":"A"},{"n":102,"s":"The sales director will give a brief talk _______ the keynote speaker is introduced.","A":"before","B":"opposite","C":"about","D":"between","ok":"A"},{"n":103,"s":"The charity's new reading program is _______ to increase literacy rates in developing countries over the next ten years.","A":"project","B":"projecting","C":"projected","D":"projects","ok":"C"},{"n":104,"s":"Engaging in social _______, Ms. Mason quickly expanded her network after moving to a new city.","A":"active","B":"activities","C":"activates","D":"activated","ok":"B"},{"n":105,"s":"Artists wanting to participate in the contest should submit their work by the _______ of June 30.","A":"admission","B":"possibility","C":"deadline","D":"output","ok":"C"},{"n":106,"s":"Drake Pharmaceuticals is _______ to have world-renowned chemist Jonas Lund as its senior lab technician.","A":"absent","B":"fortunate","C":"approximate","D":"respective","ok":"B"},{"n":107,"s":"The Zans Corporation _______ manufacturing all of its luxury wallets and footwear domestically next year.","A":"was starting","B":"started","C":"will start","D":"has started","ok":"C"},{"n":108,"s":"Some voters have a clear _______ for candidates who have practiced law.","A":"selection","B":"reflection","C":"component","D":"preference","ok":"D"},{"n":109,"s":"The clerk said that _______ fifteen customers had been waiting outside the store for it to open.","A":"rougher","B":"roughly","C":"rough","D":"roughness","ok":"B"},{"n":110,"s":"The leaky faucet has been repaired, so visitors may _______ use the first-floor restroom.","A":"however","B":"once","C":"now","D":"quite","ok":"C"},{"n":111,"s":"The _______ of the disease can be significantly slowed by taking the medicine developed by Dr. Toft's team.","A":"progressed","B":"progression","C":"progressive","D":"progressively","ok":"B"},{"n":112,"s":"Unfortunately, when the hurricane hit the area, residents as well as public officials were _______ unprepared.","A":"subsequently","B":"totally","C":"beneficially","D":"currently","ok":"B"},{"n":113,"s":"The company plans on _______ the salespeople for the expenses they incurred while attending the conference.","A":"reimbursement","B":"reimbursed","C":"reimburse","D":"reimbursing","ok":"D"},{"n":114,"s":"Ms. Carlton felt comfortable crossing the road because there were no vehicles coming in her _______.","A":"directly","B":"direction","C":"direct","D":"directs","ok":"B"},{"n":115,"s":"_______ the television coverage of the general election, a number of high-profile candidates were interviewed live on air.","A":"During","B":"About","C":"While","D":"Since","ok":"A"},{"n":116,"s":"Mr. Hicks _______ seating near the stage in the concert hall for important clients.","A":"cooperated","B":"entertained","C":"loosened","D":"reserved","ok":"D"},{"n":117,"s":"Fritz Center, the venue _______ hosts the film industry's awards banquet, is undergoing an ambitious expansion project.","A":"that","B":"where","C":"what","D":"even","ok":"A"},{"n":118,"s":"The monthly staff dinners give employees from different departments the chance to interact with _______ on a personal level.","A":"other","B":"neither","C":"every","D":"each other","ok":"D"},{"n":119,"s":"Landlords are required to _______ with the regulations set by the Regional Department of Safe Housing.","A":"reinforce","B":"comply","C":"fulfill","D":"interfere","ok":"B"},{"n":120,"s":"A sturdy support beam was added to the first story of the building for _______ reasons.","A":"structures","B":"structurally","C":"structure","D":"structural","ok":"D"},{"n":121,"s":"Eco Unite is a non-profit organization _______ to educating the public about environmental issues.","A":"proposed","B":"deferred","C":"dedicated","D":"observed","ok":"C"},{"n":122,"s":"It is essential that the logo for Prime Vitamins be integrated _______ all of its catalogs and mailings.","A":"into","B":"of","C":"as","D":"than","ok":"A"},{"n":123,"s":"Despite receiving rejections from several major publishers, Ian Wright _______ to become a world-famous novelist.","A":"gave up","B":"figured out","C":"brought down","D":"went on","ok":"D"},{"n":124,"s":"Mr. Burrows was praised for creating _______ user manuals which can be easily understood.","A":"inform","B":"informant","C":"informs","D":"informative","ok":"D"},{"n":125,"s":"Even though Ms. Garcia had a small account at the financial institution, the employee treated her _______ she were a major investor.","A":"rather than","B":"in spite of","C":"as if","D":"provided that","ok":"C"},{"n":126,"s":"When you return an item by mail, be sure the receipt is _______ to the request form to expedite processing.","A":"attachment","B":"attached","C":"attaching","D":"attach","ok":"B"},{"n":127,"s":"The witness saw only a _______ figure standing near the lamp post shortly before the crime was committed.","A":"solitary","B":"spare","C":"previous","D":"random","ok":"A"},{"n":128,"s":"Ben Sanders _______ designed the suitcase to fold up easily for compact storage.","A":"innovatively","B":"innovate","C":"innovative","D":"innovation","ok":"A"},{"n":129,"s":"Because the weather was warmer than usual this summer, the crops _______ a few weeks early.","A":"have been harvesting","B":"will have harvested","C":"are harvesting","D":"will be harvested","ok":"D"},{"n":130,"s":"_______ auditing the financial records of Rockford Consulting, the accountant will submit an official report.","A":"In addition","B":"Given","C":"For example","D":"Upon","ok":"D"}];
+var answers={},student={},timerInterval=null,secondsLeft=900,totalSeconds=900,timedOut=false;
+function show(id){['step-identity','step-quiz','step-results'].forEach(function(s){document.getElementById(s).classList.add('hidden');});document.getElementById(id).classList.remove('hidden');}
+function startQuiz(){var n=document.getElementById('nom').value.trim(),p=document.getElementById('prenom').value.trim(),d=document.getElementById('dept').value.trim();if(!n||!p||!d){document.getElementById('id-err').classList.remove('hidden');return;}document.getElementById('id-err').classList.add('hidden');student={nom:n,prenom:p,dept:d};answers={};timedOut=false;buildQuiz();document.getElementById('quiz-name').textContent=p+' '+n+' · '+d;show('step-quiz');window.scrollTo(0,0);startTimer();}
+function startTimer(){secondsLeft=totalSeconds;document.getElementById('timer-bar').classList.remove('hidden','warning','danger');document.getElementById('timer-track').classList.remove('hidden');document.getElementById('timer-fill').style.width='100%';updateTimerDisplay();timerInterval=setInterval(function(){secondsLeft--;updateTimerDisplay();var pct=(secondsLeft/totalSeconds)*100;document.getElementById('timer-fill').style.width=pct+'%';var bar=document.getElementById('timer-bar');if(secondsLeft<=120&&secondsLeft>60){bar.classList.add('warning');bar.classList.remove('danger');}else if(secondsLeft<=60){bar.classList.add('danger');bar.classList.remove('warning');}if(secondsLeft<=0){clearInterval(timerInterval);timedOut=true;corriger();}},1000);}
+function stopTimer(){clearInterval(timerInterval);document.getElementById('timer-bar').classList.add('hidden');document.getElementById('timer-track').classList.add('hidden');}
+function updateTimerDisplay(){var m=Math.floor(secondsLeft/60),s=secondsLeft%60;document.getElementById('timer-display').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function buildQuiz(){var c=document.getElementById('qcontainer');c.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i],block=document.createElement('div');block.className='q-block';var hdr=document.createElement('div');hdr.className='q-header';var num=document.createElement('div');num.className='q-num';num.textContent=q.n;var txt=document.createElement('div');txt.className='q-text';txt.textContent=q.s;hdr.appendChild(num);hdr.appendChild(txt);block.appendChild(hdr);var opts=document.createElement('div');opts.className='q-options';['A','B','C','D'].forEach(function(L){var o=document.createElement('div');o.className='opt';o.id='opt-'+q.n+'-'+L;o.setAttribute('data-q',q.n);o.setAttribute('data-l',L);o.innerHTML='<span class="opt-letter">'+L+'</span> '+q[L];o.onclick=function(){selectOpt(this);};opts.appendChild(o);});block.appendChild(opts);c.appendChild(block);}}
+function selectOpt(el){var qn=el.getAttribute('data-q'),l=el.getAttribute('data-l');['A','B','C','D'].forEach(function(L){document.getElementById('opt-'+qn+'-'+L).classList.remove('selected');});el.classList.add('selected');answers[qn]=l;updateProgress();}
+function updateProgress(){var n=Object.keys(answers).length;document.getElementById('progress').style.width=Math.round(n/QS.length*100)+'%';}
+function corriger(){stopTimer();if(Object.keys(answers).length<QS.length&&!timedOut){document.getElementById('q-err').classList.remove('hidden');startTimer();return;}document.getElementById('q-err').classList.add('hidden');var ok=0;for(var i=0;i<QS.length;i++){var q=QS[i],chosen=answers[q.n]||'';if(chosen===q.ok)ok++;['A','B','C','D'].forEach(function(L){var o=document.getElementById('opt-'+q.n+'-'+L);if(!o)return;o.onclick=null;if(L===q.ok&&chosen===q.ok){o.className='opt correct';}else if(L===chosen&&chosen!==q.ok){o.className='opt wrong';}else if(L===q.ok&&chosen!==q.ok){o.className='opt missed';}else{o.className='opt';}});}buildResults(ok);show('step-results');if(timedOut)document.getElementById('timeout-notice').classList.remove('hidden');window.scrollTo(0,0);}
+function buildResults(ok){var pct=Math.round(ok/QS.length*100);document.getElementById('res-name').textContent=student.prenom+' '+student.nom+' · '+student.dept;document.getElementById('r-score').textContent=ok+'/30';document.getElementById('r-pct').textContent=pct+'%';document.getElementById('r-err').textContent=(QS.length-ok);var list=document.getElementById('res-list');list.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i],chosen=answers[q.n]||'',good=chosen===q.ok,block=document.createElement('div');block.className='q-block';var hdr=document.createElement('div');hdr.className='q-header';var icon=document.createElement('div');icon.className='result-icon '+(good?'ok':'ko');icon.textContent=good?'✓':'✗';var txt=document.createElement('div');txt.className='q-text';txt.style.fontSize='13.5px';txt.textContent=q.s;if(!good){var hint=document.createElement('div');hint.style.cssText='font-size:12px;margin-top:4px;color:#712B13';hint.textContent='Votre réponse : '+(chosen?'('+chosen+') '+q[chosen]:'—')+' — Correct : ('+q.ok+') '+q[q.ok];txt.appendChild(hint);}hdr.appendChild(icon);hdr.appendChild(txt);block.appendChild(hdr);list.appendChild(block);}}
+function goBack(){stopTimer();show('step-identity');window.scrollTo(0,0);}
+function restart(){timedOut=false;document.getElementById('timeout-notice').classList.add('hidden');document.getElementById('nom').value='';document.getElementById('prenom').value='';document.getElementById('dept').value='';show('step-identity');window.scrollTo(0,0);}
+</script>
+</body>
+</html>
