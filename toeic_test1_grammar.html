@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC — Test 1 — Grammar Part 5</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F6F5;color:#1A1A1A;font-size:15px;line-height:1.6}
+.page{max-width:740px;margin:0 auto;padding:2rem 1rem}
+h1{font-size:22px;font-weight:500;color:#085041;margin-bottom:4px}
+.subtitle{font-size:13px;color:#5A8A80;margin-bottom:2rem}
+.card{background:#fff;border:0.5px solid #D0E8E0;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+label{display:block;font-size:13px;color:#5A8A80;margin-bottom:5px;font-weight:500}
+input[type=text]{width:100%;padding:9px 12px;border:0.5px solid #C8DDD6;border-radius:8px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:#1A1A1A;transition:border-color .15s}
+input[type=text]:focus{border-color:#1D9E75}
+.field{margin-bottom:1rem}
+.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.identity-grid .field:last-child{grid-column:1/-1}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;transition:all .15s}
+.btn-primary{background:#085041;color:#D4F0E8}
+.btn-primary:hover{background:#0F6E56}
+.btn-secondary{background:#E1F5EE;color:#085041;border:0.5px solid #9FE1CB}
+.btn-secondary:hover{background:#C8EDE0}
+.progress-bar{height:4px;background:#E1F5EE;border-radius:2px;margin-bottom:1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:#1D9E75;border-radius:2px;transition:width .3s}
+.q-block{padding:14px 0;border-bottom:0.5px solid #EEF5F2}
+.q-block:last-child{border-bottom:none}
+.q-header{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-num{font-size:12px;font-weight:500;color:#9FE1CB;min-width:36px;padding-top:2px}
+.q-text{font-size:14px;color:#1A1A1A;line-height:1.6}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-left:46px}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border:0.5px solid #C8DDD6;border-radius:7px;cursor:pointer;transition:all .15s;font-size:13.5px;color:#2C2C2A;background:#fff}
+.opt:hover{border-color:#1D9E75;background:#F0FBF6}
+.opt.selected{border-color:#1D9E75;background:#E1F5EE;color:#085041}
+.opt.correct{border-color:#1D9E75;background:#E1F5EE;color:#085041;font-weight:500}
+.opt.wrong{border-color:#F0997B;background:#FAECE7;color:#712B13}
+.opt.missed{border-color:#1D9E75;background:#E1F5EE;color:#085041;opacity:.7}
+.opt-letter{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;background:#F0FBF6;border:0.5px solid #C8DDD6;font-size:11px;font-weight:500;color:#5A8A80;flex-shrink:0}
+.opt.selected .opt-letter{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.opt.correct .opt-letter{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.opt.wrong .opt-letter{background:#D85A30;border-color:#D85A30;color:#fff}
+.score-box{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.5rem}
+.metric{background:#F4F6F5;border-radius:8px;padding:1rem;text-align:center}
+.metric-val{font-size:26px;font-weight:500;color:#085041}
+.metric-lbl{font-size:12px;color:#5A8A80;margin-top:2px}
+.hidden{display:none}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+.alert{background:#FFF8E7;border:0.5px solid #FAC775;border-radius:8px;padding:10px 14px;font-size:13px;color:#633806;margin-bottom:1rem}
+.result-icon{font-size:15px;font-weight:500;min-width:36px;padding-top:2px}
+.result-icon.ok{color:#1D9E75}
+.result-icon.ko{color:#D85A30}
+@media(max-width:500px){.q-options{grid-template-columns:1fr;padding-left:36px}.identity-grid{grid-template-columns:1fr}.identity-grid .field:last-child{grid-column:1}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div id="step-identity">
+  <h1>TOEIC — Grammar Part 5</h1>
+  <p class="subtitle">Polytech Lille · Anglais · Test 1 · 30 questions</p>
+  <div class="card">
+    <div class="identity-grid">
+      <div class="field"><label>Nom de famille</label><input type="text" id="nom" placeholder="DUPONT" autocomplete="off"></div>
+      <div class="field"><label>Prénom</label><input type="text" id="prenom" placeholder="Marie" autocomplete="off"></div>
+      <div class="field"><label>Département / Filière</label><input type="text" id="dept" placeholder="GIS, GIM, GEII..." autocomplete="off"></div>
+    </div>
+    <div id="id-err" class="alert hidden">Veuillez remplir tous les champs.</div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="startQuiz()">Commencer</button></div>
+  </div>
+</div>
+
+<div id="step-quiz" class="hidden">
+  <h1>TOEIC — Grammar Part 5 · Test 1</h1>
+  <p class="subtitle" id="quiz-name"></p>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+  <div class="card" id="qcontainer"></div>
+  <div id="q-err" class="alert hidden">Veuillez répondre à toutes les questions.</div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goBack()">Retour</button>
+    <button class="btn btn-primary" onclick="corriger()">Corriger</button>
+  </div>
+</div>
+
+<div id="step-results" class="hidden">
+  <h1>Résultats · Test 1</h1>
+  <p class="subtitle" id="res-name"></p>
+  <div class="card">
+    <div class="score-box">
+      <div class="metric"><div class="metric-val" id="r-score">0</div><div class="metric-lbl">Score / 30</div></div>
+      <div class="metric"><div class="metric-val" id="r-pct">0</div><div class="metric-lbl">Pourcentage</div></div>
+      <div class="metric"><div class="metric-val" id="r-err">0</div><div class="metric-lbl">Erreurs</div></div>
+    </div>
+    <div id="res-list"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="restart()">Recommencer</button>
+    <button class="btn btn-primary" onclick="window.print()">Imprimer</button>
+  </div>
+</div>
+
+</div>
+<script>
+var QS = [
+  {n:101, s:"Ms. Mwangi debated whether ------- ought to accept the CEO position at Weston Industries.", A:"hers", B:"her", C:"she", D:"herself", ok:"C"},
+  {n:102, s:"House sales in Bilden City rose ------- between April and August.", A:"sharp", B:"sharply", C:"sharpen", D:"sharpness", ok:"B"},
+  {n:103, s:"The Internet has helped ------- companies expand their markets.", A:"that", B:"very", C:"many", D:"so much", ok:"C"},
+  {n:104, s:"Thank you for your ------- in helping Starset Supermarkets to improve the customer's shopping experience.", A:"interestingly", B:"interesting", C:"interested", D:"interest", ok:"D"},
+  {n:105, s:"Mr. Baroni ------- needs to be contacted about the delay of the engine part delivery.", A:"early", B:"fast", C:"ever", D:"still", ok:"D"},
+  {n:106, s:"ACME Transport is currently hiring drivers ------- by MTSA for a number of bus routes.", A:"licensed", B:"licenses", C:"license", D:"licensing", ok:"A"},
+  {n:107, s:"Sisitek Clinic offers vaccinations ------- health-education services to individuals who are preparing to travel overseas.", A:"and", B:"until", C:"when", D:"if", ok:"A"},
+  {n:108, s:"Meetings of the Starland Business Association begin ------- at 8:00 PM.", A:"prompt", B:"promptly", C:"promptness", D:"prompted", ok:"B"},
+  {n:109, s:"Starting on January 31, rates for express mail service will increase ------- 3 percent.", A:"out", B:"for", C:"by", D:"onto", ok:"C"},
+  {n:110, s:"The last evening of the Pineville Air show, featuring stunt and formation fliers, will ------- with a fireworks display.", A:"conclude", B:"concluding", C:"concludes", D:"concluded", ok:"A"},
+  {n:111, s:"Tree limbs should be trimmed back so that they are at least 3 meters ------- the building's roof.", A:"near", B:"from", C:"after", D:"about", ok:"B"},
+  {n:112, s:"Because office supplies need to be ordered so -------, Mr. Kumar has decided to centralize the process.", A:"frequency", B:"frequently", C:"frequent", D:"frequented", ok:"B"},
+  {n:113, s:"Throughout the month of May, Dateline Delivery is offering ------- rates on all domestic shipping services.", A:"condensed", B:"lower", C:"weaker", D:"remote", ok:"B"},
+  {n:114, s:"Instead of purchasing -------, Mr. Muller decided to lease the copy machines for his real estate offices.", A:"them", B:"their", C:"they", D:"themselves", ok:"A"},
+  {n:115, s:"The advertising team was rewarded financially for developing ------- a clever slogan and logo.", A:"either", B:"every", C:"so", D:"such", ok:"D"},
+  {n:116, s:"To ------- this conference room for meetings, please contact Tae Hyuk Kim at extension 26.", A:"assemble", B:"reserve", C:"attend", D:"deliver", ok:"B"},
+  {n:117, s:"------- the forecast is calling for heavy rain this Saturday, the festival at Bercy Fairgrounds will be rescheduled.", A:"Before", B:"Since", C:"Once", D:"Instead", ok:"B"},
+  {n:118, s:"Some bookshelves were returned to the factory because they presumably ------- in transit.", A:"damaged", B:"were damaging", C:"will have been damaged", D:"had been damaged", ok:"D"},
+  {n:119, s:"Managers will meet ------- on Wednesday to discuss Mr. Robertson's proposed changes to the project schedule.", A:"completely", B:"recently", C:"fairly", D:"briefly", ok:"D"},
+  {n:120, s:"Rubber ------- are trying to keep up with the growing demand for their goods worldwide.", A:"producers", B:"producing", C:"produced", D:"productive", ok:"A"},
+  {n:121, s:"During Girish Sharma's first year as CEO of Fulner, Inc., profits ------- to a record high.", A:"participated", B:"increased", C:"resulted", D:"assigned", ok:"B"},
+  {n:122, s:"Ms. Novak has been in ------- with two potential keynote speakers for the June conference.", A:"contact", B:"contacted", C:"contacting", D:"contacts", ok:"A"},
+  {n:123, s:"Len Fairhill is a landscape architect with extensive ------- in creating hotel courtyards and gardens.", A:"collection", B:"construction", C:"discussion", D:"experience", ok:"D"},
+  {n:124, s:"Staff members should contact Diana Lim if they have any difficulty ------- the new task-management software on their computers.", A:"will install", B:"installing", C:"was installed", D:"install", ok:"B"},
+  {n:125, s:"Hye Park expedited her building permit application ------- she could have it approved by the end of the month.", A:"due to", B:"in order to", C:"even if", D:"so that", ok:"D"},
+  {n:126, s:"Brown Banking Solutions offers a tailored approach to money management, giving each investor ------- attention.", A:"personalization", B:"personalizes", C:"personalized", D:"personalize", ok:"C"},
+  {n:127, s:"The ------- diagrams in the brochure show how the desk should be assembled.", A:"open", B:"united", C:"unrelated", D:"instructional", ok:"D"},
+  {n:128, s:"Worldwide Fun Company's advertising campaign has generated a lot of ------- for its new video games.", A:"enthusiasm", B:"appearance", C:"exception", D:"declaration", ok:"A"},
+  {n:129, s:"Basic spreadsheet management is an ------- practical skill for accountants to learn.", A:"exceed", B:"exceeded", C:"exceeding", D:"exceedingly", ok:"D"},
+  {n:130, s:"After successfully ------- the Grains Grill for five years, the owners have announced plans to open a second restaurant.", A:"engaging", B:"operating", C:"proceeding", D:"achieving", ok:"B"}
+];
+
+var answers = {};
+var student = {};
+
+function show(id){['step-identity','step-quiz','step-results'].forEach(function(s){document.getElementById(s).classList.add('hidden');});document.getElementById(id).classList.remove('hidden');}
+
+function startQuiz(){
+  var n=document.getElementById('nom').value.trim();
+  var p=document.getElementById('prenom').value.trim();
+  var d=document.getElementById('dept').value.trim();
+  if(!n||!p||!d){document.getElementById('id-err').classList.remove('hidden');return;}
+  document.getElementById('id-err').classList.add('hidden');
+  student={nom:n,prenom:p,dept:d};
+  answers={};
+  buildQuiz();
+  document.getElementById('quiz-name').textContent=p+' '+n+' · '+d;
+  show('step-quiz');
+  window.scrollTo(0,0);
+}
+
+function buildQuiz(){
+  var c=document.getElementById('qcontainer');
+  c.innerHTML='';
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var block=document.createElement('div');
+    block.className='q-block';
+    var hdr=document.createElement('div');
+    hdr.className='q-header';
+    var num=document.createElement('div');
+    num.className='q-num';
+    num.textContent=q.n;
+    var txt=document.createElement('div');
+    txt.className='q-text';
+    txt.textContent=q.s;
+    hdr.appendChild(num);
+    hdr.appendChild(txt);
+    block.appendChild(hdr);
+    var opts=document.createElement('div');
+    opts.className='q-options';
+    ['A','B','C','D'].forEach(function(L){
+      var o=document.createElement('div');
+      o.className='opt';
+      o.id='opt-'+q.n+'-'+L;
+      o.setAttribute('data-q',q.n);
+      o.setAttribute('data-l',L);
+      o.innerHTML='<span class="opt-letter">'+L+'</span> '+q[L];
+      o.onclick=function(){selectOpt(this);};
+      opts.appendChild(o);
+    });
+    block.appendChild(opts);
+    c.appendChild(block);
+  }
+}
+
+function selectOpt(el){
+  var qn=el.getAttribute('data-q');
+  var l=el.getAttribute('data-l');
+  ['A','B','C','D'].forEach(function(L){
+    var o=document.getElementById('opt-'+qn+'-'+L);
+    o.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  answers[qn]=l;
+  updateProgress();
+}
+
+function updateProgress(){
+  var n=Object.keys(answers).length;
+  document.getElementById('progress').style.width=Math.round(n/QS.length*100)+'%';
+}
+
+function corriger(){
+  if(Object.keys(answers).length<QS.length){
+    document.getElementById('q-err').classList.remove('hidden');
+    return;
+  }
+  document.getElementById('q-err').classList.add('hidden');
+  var ok=0;
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var chosen=answers[q.n];
+    var correct=q.ok;
+    if(chosen===correct)ok++;
+    ['A','B','C','D'].forEach(function(L){
+      var o=document.getElementById('opt-'+q.n+'-'+L);
+      o.onclick=null;
+      if(L===correct&&chosen===correct){o.className='opt correct';}
+      else if(L===chosen&&chosen!==correct){o.className='opt wrong';}
+      else if(L===correct&&chosen!==correct){o.className='opt missed';}
+      else{o.className='opt';}
+    });
+  }
+  buildResults(ok);
+  show('step-results');
+  window.scrollTo(0,0);
+}
+
+function buildResults(ok){
+  var pct=Math.round(ok/QS.length*100);
+  document.getElementById('res-name').textContent=student.prenom+' '+student.nom+' · '+student.dept;
+  document.getElementById('r-score').textContent=ok+'/30';
+  document.getElementById('r-pct').textContent=pct+'%';
+  document.getElementById('r-err').textContent=(QS.length-ok);
+  var list=document.getElementById('res-list');
+  list.innerHTML='';
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];
+    var chosen=answers[q.n];
+    var good=chosen===q.ok;
+    var block=document.createElement('div');
+    block.className='q-block';
+    var hdr=document.createElement('div');
+    hdr.className='q-header';
+    var icon=document.createElement('div');
+    icon.className='result-icon '+(good?'ok':'ko');
+    icon.textContent=good?'✓':'✗';
+    var txt=document.createElement('div');
+    txt.className='q-text';
+    txt.style.fontSize='13.5px';
+    txt.textContent=q.s;
+    if(!good){
+      var hint=document.createElement('div');
+      hint.style.fontSize='12px';
+      hint.style.marginTop='4px';
+      hint.style.color='#712B13';
+      hint.textContent='Votre réponse : ('+chosen+') '+q[chosen]+' — Correct : ('+q.ok+') '+q[q.ok];
+      txt.appendChild(hint);
+    }
+    hdr.appendChild(icon);
+    hdr.appendChild(txt);
+    block.appendChild(hdr);
+    list.appendChild(block);
+  }
+}
+
+function goBack(){show('step-identity');window.scrollTo(0,0);}
+function restart(){document.getElementById('nom').value='';document.getElementById('prenom').value='';document.getElementById('dept').value='';show('step-identity');window.scrollTo(0,0);}
+</script>
+</body>
+</html>
