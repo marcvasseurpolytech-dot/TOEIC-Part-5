@@ -3,103 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOEIC Preparation - Grammar Training</title>
+    <title>Dashboard des Tests TOEIC</title>
     <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --primary-color: #3498db;
+            --border-color: #e2e8f0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
             margin: 0;
             padding: 40px 20px;
-            display: flex;
-            justify-content: center;
         }
+
         .container {
-            max-width: 600px;
-            width: 100%;
-            background: white;
-            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        h1 {
-            font-size: 24px;
-            color: #0f172a;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-        p.subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-top: 0;
+            padding: 30px;
             margin-bottom: 30px;
-            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
         }
-        li {
-            margin-bottom: 12px;
-        }
-        a {
+
+        .btn-link {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
-            background-color: #f8fafc;
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 500;
+            padding: 14px 20px;
+            background-color: #fafbfc;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
             transition: all 0.2s ease;
         }
-        a:hover {
-            background-color: #f1f5f9;
-            border-color: #cbd5e1;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+        .btn-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background-color: #ffffff;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
         }
-        .badge {
-            margin-left: auto;
-            background-color: #dbeafe;
-            color: #1e40af;
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
+
+        .icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        /* Styles de la Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>TOEIC Grammar Practice - Marc VASSEUR - Polytech</h1>
-    <p class="subtitle">Part 5: Incomplete Sentences</p>
-    
-    <ul>
-        <li><a href="toeic_test1_grammar.html">Grammar Test 1 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test2_grammar.html">Grammar Test 2 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test3_grammar.html">Grammar Test 3 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test4_grammar.html">Grammar Test 4 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test8_grammar.html">Grammar Test 8 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test9_grammar.html">Grammar Test 9 <span class="badge">Part 5</span></a></li>
-        
-        <li><a href="toeic_test10_grammar.html">Grammar Test 10 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test11_grammar.html">Grammar Test 11 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test12_grammar.html">Grammar Test 12 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test13_grammar.html">Grammar Test 13 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test14_grammar.html">Grammar Test 14 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test15_grammar.html">Grammar Test 15 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test16_grammar.html">Grammar Test 16 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test17_grammar.html">Grammar Test 17 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test18_grammar.html">Grammar Test 18 <span class="badge">Part 5</span></a></li>
-        <li><a href="toeic_test19_grammar.html">Grammar Test 19 <span class="badge">Part 5</span></a></li>
-    </ul>
-</div>
+    <div class="container">
+        <header>
+            <h1>Liste des Tests TOEIC</h1>
+            <p>Sélectionnez un exercice pour commencer votre entraînement</p>
+        </header>
 
+        <div class="section">
+            <!-- Zone d'affichage des tests dynamiques -->
+            <div id="tests-grid" class="grid"></div>
+
+            <!-- Boutons de navigation -->
+            <div class="pagination" id="pagination-controls"></div>
+        </div>
+    </div>
+
+    <script>
+        // Liste complète de tous vos fichiers de tests
+        const allTests = [
+            { file: "toeic_test1_grammar.html", title: "Toeic Test 1 Grammar" },
+            { file: "toeic_test2_grammar.html", title: "Toeic Test 2 Grammar" },
+            { file: "toeic_test3_grammar.html", title: "Toeic Test 3 Grammar" },
+            { file: "toeic_test4_grammar.html", title: "Toeic Test 4 Grammar" },
+            { file: "toeic_test8_grammar.html", title: "Toeic Test 8 Grammar" },
+            { file: "toeic_test9_grammar.html", title: "Toeic Test 9 Grammar" },
+            { file: "toeic_test10_grammar.html", title: "Toeic Test 10 Grammar" },
+            { file: "toeic_test11_grammar.html", title: "Toeic Test 11 Grammar" },
+            { file: "toeic_test12_grammar.html", title: "Toeic Test 12 Grammar" },
+            { file: "toeic_test13_grammar.html", title: "Toeic Test 13 Grammar" },
+            { file: "TOEIC_Test_14.html", title: "Toeic Test 14" },
+            { file: "TOEIC_Test_15.html", title: "Toeic Test 15" },
+            { file: "TOEIC_Test_16.html", title: "Toeic Test 16" },
+            { file: "TOEIC_Test_17.html", title: "Toeic Test 17" },
+            { file: "TOEIC_Test_18.html", title: "Toeic Test 18" },
+            { file: "TOEIC_Test_19.html", title: "Toeic Test 19" },
+            { file: "TOEIC_Test_20.html", title: "Toeic Test 20" },
+            { file: "TOEIC_Test_21.html", title: "Toeic Test 21" },
+            { file: "toeic_test_22.html", title: "Toeic Test 22" },
+            { file: "toeic_test_23.html", title: "Toeic Test 23" },
+            { file: "toeic_test_24.html", title: "Toeic Test 24" },
+            { file: "toeic_test_25.html", title: "Toeic Test 25" },
+            { file: "toeic_test_26.html", title: "Toeic Test 26" },
+            { file: "toeic_test_28.html", title: "Toeic Test 28" },
+            { file: "toeic_test_32.html", title: "Toeic Test 32" },
+            { file: "toeic_test_33.html", title: "Toeic Test 33" },
+            { file: "toeic_exam_24_11_2022.html", title: "Toeic Exam 24 11 2022" },
+            { file: "toeic_exam_16_02_2023.html", title: "Toeic Exam 16 02 2023" }
+        ];
+
+        const itemsPerPage = 10;
+        let currentPage = 1;
+
+        function displayTests(page) {
+            const grid = document.getElementById('tests-grid');
+            grid.innerHTML = '';
+
+            // Calculer les index de début et de fin
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = allTests.slice(startIndex, endIndex);
+
+            // Générer le HTML pour les 10 éléments de la page en cours
+            paginatedItems.forEach(test => {
+                const link = document.createElement('a');
+                link.href = test.file;
+                link.className = 'btn-link';
+                link.innerHTML = `<span class="icon">🚀</span>${test.title}`;
+                grid.appendChild(link);
+            });
+
+            updatePaginationControls();
+        }
+
+        function updatePaginationControls() {
+            const controls = document.getElementById('pagination-controls');
+            controls.innerHTML = '';
+
+            const totalPages = Math.ceil(allTests.length / itemsPerPage);
+
+            // Bouton Précédent
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerText = '«';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayTests(currentPage);
+                }
+            };
+            controls.appendChild(prevBtn);
+
+            // Boutons de numéros de pages
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.innerText = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    displayTests(currentPage);
+                };
+                controls.appendChild(pageBtn);
+            }
+
+            // Bouton Suivant
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerText = '»';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayTests(currentPage);
+                }
+            };
+            controls.appendChild(nextBtn);
+        }
+
+        // Initialisation au premier chargement
+        displayTests(currentPage);
+    </script>
 </body>
 </html>
