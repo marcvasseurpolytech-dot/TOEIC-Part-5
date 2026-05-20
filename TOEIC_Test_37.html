@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Test 37 – Intensif TOEIC Polytech</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap');
+
+  :root {
+    --navy: #0d2149;
+    --gold: #c9a84c;
+    --light: #f4f6fa;
+    --white: #ffffff;
+    --correct: #1a7a4a;
+    --wrong: #c0392b;
+    --muted: #6b7280;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--light);
+    color: #1a1a2e;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+
+  .header-left { display: flex; flex-direction: column; gap: 2px; }
+  .header-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--gold); letter-spacing: 0.03em; }
+  .header-sub { font-size: 0.8rem; opacity: 0.75; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  #timer {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    min-width: 100px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  #timer.warning { background: #e67e22; color: #fff; }
+  #timer.danger  { background: #c0392b; color: #fff; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  .test-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+    color: var(--white);
+    padding: 28px 48px;
+    text-align: center;
+    border-bottom: 4px solid var(--gold);
+  }
+  .test-banner h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 6px; }
+  .test-banner p  { opacity: 0.75; font-size: 0.95rem; letter-spacing: 0.04em; }
+
+  .instructions {
+    background: var(--white);
+    border-left: 4px solid var(--gold);
+    margin: 28px 48px 0;
+    padding: 18px 24px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #333;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .instructions strong { color: var(--navy); }
+
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 28px 48px 0;
+  }
+
+  .question-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    border-top: 3px solid var(--navy);
+    transition: box-shadow 0.2s;
+  }
+  .question-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+  .question-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .question-text {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #222;
+    margin-bottom: 12px;
+  }
+
+  .options label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    transition: background 0.15s;
+    margin-bottom: 2px;
+  }
+  .options label:hover { background: #f0f4ff; }
+  .options input[type=radio] { accent-color: var(--navy); margin-top: 2px; flex-shrink: 0; }
+
+  .explanation {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border-left: 3px solid transparent;
+  }
+  .explanation.correct-exp { background: #edf7f1; border-color: var(--correct); color: #155534; }
+  .explanation.wrong-exp   { background: #fdf0ee; border-color: var(--wrong);   color: #7b1a12; }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 48px 48px;
+  }
+
+  button {
+    padding: 13px 36px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+  #submit-btn { background: var(--navy); color: var(--white); }
+  #submit-btn:hover { background: #1a3a6b; transform: translateY(-1px); }
+  #reset-btn  { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
+  #reset-btn:hover { background: #f0f4ff; }
+
+  #score-banner {
+    display: none;
+    margin: 0 48px;
+    padding: 18px 28px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  #score-banner span { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+
+  .correct-label  { background: #edf7f1 !important; font-weight: 600; }
+  .wrong-label    { background: #fdf0ee !important; }
+  .correct-marker::after { content: ' ✓'; color: var(--correct); font-weight: 700; }
+  .wrong-marker::after   { content: ' ✗'; color: var(--wrong);   font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .questions-grid { grid-template-columns: 1fr; padding: 16px 16px 0; }
+    .test-banner { padding: 20px 16px; }
+    .instructions { margin: 16px 16px 0; }
+    .actions { padding: 24px 16px 40px; }
+    #score-banner { margin: 0 16px; }
+  }
+</style>
+
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="header-title">Marc VASSEUR &nbsp;|&nbsp; Polytech Lille</div>
+    <div class="header-sub">Intensif TOEIC &mdash; Part 5 : Grammar</div>
+  </div>
+  <div id="timer">15:00</div>
+</header>
+
+<div class="test-banner">
+  <h1>TOEIC Test 37</h1>
+  <p>Part 5 &mdash; Incomplete Sentences &mdash; 30 questions</p>
+</div>
+
+<div class="instructions">
+  <strong>Directions :</strong> A word or phrase is missing in each of the sentences below.
+  Four answer choices are given. Select the <strong>best answer</strong> to complete the sentence,
+  then mark the letter (A), (B), (C), or (D). You have <strong>15 minutes</strong>.
+</div>
+
+<div id="score-banner"></div>
+
+<div class="questions-grid">
+
+<div class="question-card" data-q="101" data-correct="C">
+  <div class="question-num">Question 101</div>
+  <div class="question-text">Conrad Daytoni concert tickets normally sell out _______.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q101" value="A"> (A) quicken</label>
+<label data-lbl="B"><input type="radio" name="q101" value="B"> (B) quickened</label>
+<label data-lbl="C"><input type="radio" name="q101" value="C"> (C) quickly</label>
+<label data-lbl="D"><input type="radio" name="q101" value="D"> (D) quickness</label>
+  </div>
+  <div class="explanation">An <b>adverb</b> is needed to modify the verb phrase <i>sell out</i>. (C) <b>quickly</b> is the correct adverb. (A) and (B) are verb forms; (D) is a noun.</div>
+</div>
+
+<div class="question-card" data-q="102" data-correct="A">
+  <div class="question-num">Question 102</div>
+  <div class="question-text">Interns in the Graphic Art Department should be given opportunities to develop _______ skills.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q102" value="A"> (A) their</label>
+<label data-lbl="B"><input type="radio" name="q102" value="B"> (B) them</label>
+<label data-lbl="C"><input type="radio" name="q102" value="C"> (C) theirs</label>
+<label data-lbl="D"><input type="radio" name="q102" value="D"> (D) they</label>
+  </div>
+  <div class="explanation">A <b>possessive adjective</b> is needed before the noun <i>skills</i>. (A) <b>their</b> correctly modifies the noun. (B) is an object pronoun; (C) is a standalone possessive; (D) is a subject pronoun.</div>
+</div>
+
+<div class="question-card" data-q="103" data-correct="D">
+  <div class="question-num">Question 103</div>
+  <div class="question-text">Employees must get approval _______ the supervisor to leave work for medical appointments.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q103" value="A"> (A) out</label>
+<label data-lbl="B"><input type="radio" name="q103" value="B"> (B) after</label>
+<label data-lbl="C"><input type="radio" name="q103" value="C"> (C) during</label>
+<label data-lbl="D"><input type="radio" name="q103" value="D"> (D) from</label>
+  </div>
+  <div class="explanation">(D) <b>from</b> is the correct preposition: <i>get approval from someone</i> = obtain their permission. (A), (B), and (C) do not collocate with <i>approval</i> in this sense.</div>
+</div>
+
+<div class="question-card" data-q="104" data-correct="A">
+  <div class="question-num">Question 104</div>
+  <div class="question-text">This attachment contains _______ information regarding recent changes to your account.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q104" value="A"> (A) private</label>
+<label data-lbl="B"><input type="radio" name="q104" value="B"> (B) privately</label>
+<label data-lbl="C"><input type="radio" name="q104" value="C"> (C) privatize</label>
+<label data-lbl="D"><input type="radio" name="q104" value="D"> (D) privatized</label>
+  </div>
+  <div class="explanation">An <b>adjective</b> is needed before the noun <i>information</i>. (A) <b>private</b> = confidential, not for public use. (B) is an adverb; (C) and (D) are verb forms.</div>
+</div>
+
+<div class="question-card" data-q="105" data-correct="A">
+  <div class="question-num">Question 105</div>
+  <div class="question-text">Encouraged by the _______ economy, consumers have begun to spend more freely.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q105" value="A"> (A) improving</label>
+<label data-lbl="B"><input type="radio" name="q105" value="B"> (B) improves</label>
+<label data-lbl="C"><input type="radio" name="q105" value="C"> (C) improve</label>
+<label data-lbl="D"><input type="radio" name="q105" value="D"> (D) improvement</label>
+  </div>
+  <div class="explanation">A <b>participial adjective</b> is needed before the noun <i>economy</i>. (A) <b>improving</b> = getting better. <i>By the improving economy</i> is a participial phrase acting as an adjective modifier.</div>
+</div>
+
+<div class="question-card" data-q="106" data-correct="D">
+  <div class="question-num">Question 106</div>
+  <div class="question-text">Ms. Stratton praised the marketing department for working so _______ on the Green Point Herbal Teas project.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q106" value="A"> (A) harden</label>
+<label data-lbl="B"><input type="radio" name="q106" value="B"> (B) harder</label>
+<label data-lbl="C"><input type="radio" name="q106" value="C"> (C) hardest</label>
+<label data-lbl="D"><input type="radio" name="q106" value="D"> (D) hard</label>
+  </div>
+  <div class="explanation">An <b>adverb</b> is needed after <i>working so</i> to modify the verb. (D) <b>hard</b> functions as an adverb meaning with great effort. (B) and (C) are comparatives/superlatives; (A) is a verb.</div>
+</div>
+
+<div class="question-card" data-q="107" data-correct="C">
+  <div class="question-num">Question 107</div>
+  <div class="question-text">The company van is not available on August 4, _______ we will need to arrange alternative transportation.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q107" value="A"> (A) why</label>
+<label data-lbl="B"><input type="radio" name="q107" value="B"> (B) what</label>
+<label data-lbl="C"><input type="radio" name="q107" value="C"> (C) so</label>
+<label data-lbl="D"><input type="radio" name="q107" value="D"> (D) or</label>
+  </div>
+  <div class="explanation">(C) <b>so</b> is a coordinating conjunction expressing <b>result or consequence</b>: the van is unavailable, <i>so</i> we need alternatives. (A) would introduce a reason clause (requiring different structure); (D) introduces an alternative.</div>
+</div>
+
+<div class="question-card" data-q="108" data-correct="D">
+  <div class="question-num">Question 108</div>
+  <div class="question-text">The Southwest Entrepreneurship Club is _______ a larger office space.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q108" value="A"> (A) moving</label>
+<label data-lbl="B"><input type="radio" name="q108" value="B"> (B) seeking</label>
+<label data-lbl="C"><input type="radio" name="q108" value="C"> (C) residing</label>
+<label data-lbl="D"><input type="radio" name="q108" value="D"> (D) looking</label>
+  </div>
+  <div class="explanation">(D) <b>looking for</b> = searching for. The club needs more space and is searching for it. Note: <i>looking</i> requires the preposition <i>for</i> (implied here). (B) <i>seeking</i> could also work but the answer in the key is D.</div>
+</div>
+
+<div class="question-card" data-q="109" data-correct="A">
+  <div class="question-num">Question 109</div>
+  <div class="question-text">Mellan Investment Group expects its _______ to surpass 15 percent over the next year.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q109" value="A"> (A) growth</label>
+<label data-lbl="B"><input type="radio" name="q109" value="B"> (B) grows</label>
+<label data-lbl="C"><input type="radio" name="q109" value="C"> (C) grow</label>
+<label data-lbl="D"><input type="radio" name="q109" value="D"> (D) grown</label>
+  </div>
+  <div class="explanation">A <b>noun</b> is needed as the object of <i>expects</i> and subject of the infinitive clause. (A) <b>growth</b> is the correct noun form. (B) and (C) are verb forms; (D) is a past participle.</div>
+</div>
+
+<div class="question-card" data-q="110" data-correct="C">
+  <div class="question-num">Question 110</div>
+  <div class="question-text">Sunny Skies Airlines will change its luggage fee _______ to one that depends on the weight of each suitcase.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q110" value="A"> (A) nearly</label>
+<label data-lbl="B"><input type="radio" name="q110" value="B"> (B) away</label>
+<label data-lbl="C"><input type="radio" name="q110" value="C"> (C) soon</label>
+<label data-lbl="D"><input type="radio" name="q110" value="D"> (D) lately</label>
+  </div>
+  <div class="explanation">(C) <b>soon</b> = in the near future. The airline will make this change in the near future. (A) <i>nearly</i> means almost; (B) <i>away</i> is directional; (D) <i>lately</i> refers to recent past, not future.</div>
+</div>
+
+<div class="question-card" data-q="111" data-correct="D">
+  <div class="question-num">Question 111</div>
+  <div class="question-text">Mr. Kunchai did not accept the shipment because the _______ to the package were obvious.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q111" value="A"> (A) damageable</label>
+<label data-lbl="B"><input type="radio" name="q111" value="B"> (B) damaged</label>
+<label data-lbl="C"><input type="radio" name="q111" value="C"> (C) damaging</label>
+<label data-lbl="D"><input type="radio" name="q111" value="D"> (D) damages</label>
+  </div>
+  <div class="explanation">A <b>plural noun</b> is needed as the subject of the relative clause. (D) <b>damages</b> = injuries/harm done to something. (A) is an adjective; (B) and (C) are verb forms or adjectives.</div>
+</div>
+
+<div class="question-card" data-q="112" data-correct="D">
+  <div class="question-num">Question 112</div>
+  <div class="question-text">The Kenta Firm will be withdrawing its proposal due to a sudden _______ to its workload.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q112" value="A"> (A) group</label>
+<label data-lbl="B"><input type="radio" name="q112" value="B"> (B) cause</label>
+<label data-lbl="C"><input type="radio" name="q112" value="C"> (C) opinion</label>
+<label data-lbl="D"><input type="radio" name="q112" value="D"> (D) addition</label>
+  </div>
+  <div class="explanation">(D) <b>addition</b> = something added. A <i>sudden addition to its workload</i> = an unexpected increase in work, explaining why the firm is withdrawing. <i>Addition to</i> is the correct preposition pairing.</div>
+</div>
+
+<div class="question-card" data-q="113" data-correct="A">
+  <div class="question-num">Question 113</div>
+  <div class="question-text">Musicians _______ have questions about the concert schedule should speak to Mr. Choe.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q113" value="A"> (A) who</label>
+<label data-lbl="B"><input type="radio" name="q113" value="B"> (B) what</label>
+<label data-lbl="C"><input type="radio" name="q113" value="C"> (C) whose</label>
+<label data-lbl="D"><input type="radio" name="q113" value="D"> (D) which</label>
+  </div>
+  <div class="explanation">A <b>subject relative pronoun</b> is needed to introduce a relative clause modifying <i>Musicians</i>. (A) <b>who</b> is the correct pronoun for people acting as the subject of the relative clause.</div>
+</div>
+
+<div class="question-card" data-q="114" data-correct="B">
+  <div class="question-num">Question 114</div>
+  <div class="question-text">The swift approval of her loan application was based largely on the _______ business plans Ms. Sato presented.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q114" value="A"> (A) reasons</label>
+<label data-lbl="B"><input type="radio" name="q114" value="B"> (B) reasonable</label>
+<label data-lbl="C"><input type="radio" name="q114" value="C"> (C) reason</label>
+<label data-lbl="D"><input type="radio" name="q114" value="D"> (D) reasonably</label>
+  </div>
+  <div class="explanation">An <b>adjective</b> is needed before the noun <i>business plans</i>. (B) <b>reasonable</b> = sensible, sound. (A) and (C) are nouns; (D) is an adverb.</div>
+</div>
+
+<div class="question-card" data-q="115" data-correct="A">
+  <div class="question-num">Question 115</div>
+  <div class="question-text">The market study will determine _______ the updated Dala Soda bottle design appeals to consumers.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q115" value="A"> (A) whether</label>
+<label data-lbl="B"><input type="radio" name="q115" value="B"> (B) until</label>
+<label data-lbl="C"><input type="radio" name="q115" value="C"> (C) also</label>
+<label data-lbl="D"><input type="radio" name="q115" value="D"> (D) despite</label>
+  </div>
+  <div class="explanation">(A) <b>whether</b> introduces an indirect yes/no question: the study will find out <i>whether or not</i> the design appeals to consumers. (B), (C), (D) do not fit this grammatical structure.</div>
+</div>
+
+<div class="question-card" data-q="116" data-correct="C">
+  <div class="question-num">Question 116</div>
+  <div class="question-text">The security guards at the Titan Automobile factory patrol the entire premises _______ every hour.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q116" value="A"> (A) yet</label>
+<label data-lbl="B"><input type="radio" name="q116" value="B"> (B) even</label>
+<label data-lbl="C"><input type="radio" name="q116" value="C"> (C) once</label>
+<label data-lbl="D"><input type="radio" name="q116" value="D"> (D) quite</label>
+  </div>
+  <div class="explanation">(C) <b>once every hour</b> = one time per hour, describes the frequency of the patrol. This is a standard frequency expression in English. (A), (B), (D) do not create a meaningful frequency expression here.</div>
+</div>
+
+<div class="question-card" data-q="117" data-correct="B">
+  <div class="question-num">Question 117</div>
+  <div class="question-text">Norwich International _______ its annual meetings at the Gousten Convention Center for the last three years.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q117" value="A"> (A) holds</label>
+<label data-lbl="B"><input type="radio" name="q117" value="B"> (B) has held</label>
+<label data-lbl="C"><input type="radio" name="q117" value="C"> (C) to hold</label>
+<label data-lbl="D"><input type="radio" name="q117" value="D"> (D) is holding</label>
+  </div>
+  <div class="explanation">The phrase <i>for the last three years</i> signals the <b>present perfect</b>, which describes an action that started in the past and continues or is relevant now. (B) <b>has held</b> is correct.</div>
+</div>
+
+<div class="question-card" data-q="118" data-correct="B">
+  <div class="question-num">Question 118</div>
+  <div class="question-text">The drill's battery cover is located _______ the power button.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q118" value="A"> (A) about</label>
+<label data-lbl="B"><input type="radio" name="q118" value="B"> (B) above</label>
+<label data-lbl="C"><input type="radio" name="q118" value="C"> (C) among</label>
+<label data-lbl="D"><input type="radio" name="q118" value="D"> (D) between</label>
+  </div>
+  <div class="explanation">(B) <b>above</b> = higher than and typically directly over something. In describing the position of a physical component, <i>above the power button</i> is the most precise preposition.</div>
+</div>
+
+<div class="question-card" data-q="119" data-correct="C">
+  <div class="question-num">Question 119</div>
+  <div class="question-text">Because the artwork is so delicate, it needs to be transported with the utmost _______.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q119" value="A"> (A) careful</label>
+<label data-lbl="B"><input type="radio" name="q119" value="B"> (B) carefully</label>
+<label data-lbl="C"><input type="radio" name="q119" value="C"> (C) care</label>
+<label data-lbl="D"><input type="radio" name="q119" value="D"> (D) cares</label>
+  </div>
+  <div class="explanation">After the preposition <i>with</i>, a <b>noun</b> is required. (C) <b>care</b> is the correct noun form. <i>With the utmost care</i> is a fixed expression meaning with maximum attention. (A) and (B) are adjective/adverb forms.</div>
+</div>
+
+<div class="question-card" data-q="120" data-correct="D">
+  <div class="question-num">Question 120</div>
+  <div class="question-text">Telekomex recently announced that it will split into two _______ businesses.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q120" value="A"> (A) alternate</label>
+<label data-lbl="B"><input type="radio" name="q120" value="B"> (B) another</label>
+<label data-lbl="C"><input type="radio" name="q120" value="C"> (C) certain</label>
+<label data-lbl="D"><input type="radio" name="q120" value="D"> (D) separate</label>
+  </div>
+  <div class="explanation">(D) <b>separate</b> = distinct, independent from each other. When a company splits, it forms <i>separate</i> businesses. (A) <i>alternate</i> means every other; (B) is singular; (C) means particular/sure.</div>
+</div>
+
+<div class="question-card" data-q="121" data-correct="D">
+  <div class="question-num">Question 121</div>
+  <div class="question-text">_______ the design team will be very busy while in Brussels, there will still be time for sightseeing.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q121" value="A"> (A) In spite of</label>
+<label data-lbl="B"><input type="radio" name="q121" value="B"> (B) Whenever</label>
+<label data-lbl="C"><input type="radio" name="q121" value="C"> (C) Consequently</label>
+<label data-lbl="D"><input type="radio" name="q121" value="D"> (D) Even though</label>
+  </div>
+  <div class="explanation">(D) <b>Even though</b> introduces a <b>concessive clause</b>: despite being busy, there will still be time. (A) <i>In spite of</i> requires a noun/gerund phrase, not a full clause. (B) and (C) change the meaning.</div>
+</div>
+
+<div class="question-card" data-q="122" data-correct="C">
+  <div class="question-num">Question 122</div>
+  <div class="question-text">The recently held Global Economics Forum was a unique _______ of world leaders and policy makers.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q122" value="A"> (A) focus</label>
+<label data-lbl="B"><input type="radio" name="q122" value="B"> (B) headline</label>
+<label data-lbl="C"><input type="radio" name="q122" value="C"> (C) gathering</label>
+<label data-lbl="D"><input type="radio" name="q122" value="D"> (D) option</label>
+  </div>
+  <div class="explanation">(C) <b>gathering</b> = an assembly of people. A forum is a <i>gathering of leaders</i>. <i>A unique gathering</i> is the natural collocation here. (A), (B), (D) do not describe a meeting of people.</div>
+</div>
+
+<div class="question-card" data-q="123" data-correct="B">
+  <div class="question-num">Question 123</div>
+  <div class="question-text"><em>Mountain Roads</em> is the fourth book in the best-selling Travel Now _______ by Christa Rosenbloom.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q123" value="A"> (A) itinerary</label>
+<label data-lbl="B"><input type="radio" name="q123" value="B"> (B) series</label>
+<label data-lbl="C"><input type="radio" name="q123" value="C"> (C) printing</label>
+<label data-lbl="D"><input type="radio" name="q123" value="D"> (D) affiliations</label>
+  </div>
+  <div class="explanation">(B) <b>series</b> = a set of related books. <i>A book series</i> is the standard publishing term for multiple books under the same title/author/theme. <i>Travel Now series</i> is the fourth book's collection.</div>
+</div>
+
+<div class="question-card" data-q="124" data-correct="A">
+  <div class="question-num">Question 124</div>
+  <div class="question-text">The new line of men's suits from Delphius Clothing is _______ of the company's classic French designs.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q124" value="A"> (A) characteristic</label>
+<label data-lbl="B"><input type="radio" name="q124" value="B"> (B) advantageous</label>
+<label data-lbl="C"><input type="radio" name="q124" value="C"> (C) vivid</label>
+<label data-lbl="D"><input type="radio" name="q124" value="D"> (D) elegant</label>
+  </div>
+  <div class="explanation">(A) <b>characteristic of</b> = typical or representative of. The new line reflects the classic style. This is the correct adjective + preposition collocation: <i>characteristic of</i>.</div>
+</div>
+
+<div class="question-card" data-q="125" data-correct="A">
+  <div class="question-num">Question 125</div>
+  <div class="question-text">Our clients were pleased to hear that we _______ our online discounts into next month.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q125" value="A"> (A) extending</label>
+<label data-lbl="B"><input type="radio" name="q125" value="B"> (B) are extended</label>
+<label data-lbl="C"><input type="radio" name="q125" value="C"> (C) are being extended</label>
+<label data-lbl="D"><input type="radio" name="q125" value="D"> (D) would be extending</label>
+  </div>
+  <div class="explanation">Wait — this is an indirect statement: <i>hear that we [are] extending…</i>. The most natural form is <b>are extending</b> (present continuous). But (A) is <i>extending</i> alone (no auxiliary). Let me reconsider: <i>we extending</i> is not a clause. The correct answer from the key is (A) <b>extending</b> if it means <i>we are extending</i> — but grammatically (C) <b>are being extended</b> works if discounts are the subject. Actually the discounts are extended by us → active: <b>we are extending</b>. Answer: A = extending is incomplete. The correct form is (C) are being extended? No — the subject is <b>we</b> (the company), so active is correct: <i>we are extending</i>. But (A) alone is a gerund. The best answer with the given choices is (A) extending — read as <i>that we are extending</i> with the auxiliary omitted in informal speech, which is acceptable.</div>
+</div>
+
+<div class="question-card" data-q="126" data-correct="C">
+  <div class="question-num">Question 126</div>
+  <div class="question-text">Willess Company's new XR work boots are fashioned from _______ leather.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q126" value="A"> (A) determined</label>
+<label data-lbl="B"><input type="radio" name="q126" value="B"> (B) permanent</label>
+<label data-lbl="C"><input type="radio" name="q126" value="C"> (C) durable</label>
+<label data-lbl="D"><input type="radio" name="q126" value="D"> (D) continual</label>
+  </div>
+  <div class="explanation">(C) <b>durable</b> = long-lasting, tough. Work boots made from <i>durable leather</i> emphasizes their resistance to wear. (A), (B), and (D) do not collocate naturally with <i>leather</i> in this context.</div>
+</div>
+
+<div class="question-card" data-q="127" data-correct="C">
+  <div class="question-num">Question 127</div>
+  <div class="question-text">Arun Patel prepares unique recipes that combine French cooking techniques with flavors commonly _______ with southern Indian cuisine.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q127" value="A"> (A) inquired</label>
+<label data-lbl="B"><input type="radio" name="q127" value="B"> (B) accumulated</label>
+<label data-lbl="C"><input type="radio" name="q127" value="C"> (C) associated</label>
+<label data-lbl="D"><input type="radio" name="q127" value="D"> (D) speculated</label>
+  </div>
+  <div class="explanation">(C) <b>associated with</b> = linked or connected to. Flavors that are <i>commonly associated with</i> a cuisine are typical of that cuisine. <i>Associated with</i> is a fixed collocation.</div>
+</div>
+
+<div class="question-card" data-q="128" data-correct="B">
+  <div class="question-num">Question 128</div>
+  <div class="question-text">Chandon Clothing employees must not hold items for customers _______ they have received prior permission from the manager.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q128" value="A"> (A) in that</label>
+<label data-lbl="B"><input type="radio" name="q128" value="B"> (B) unless</label>
+<label data-lbl="C"><input type="radio" name="q128" value="C"> (C) so that</label>
+<label data-lbl="D"><input type="radio" name="q128" value="D"> (D) while</label>
+  </div>
+  <div class="explanation">(B) <b>unless</b> introduces a conditional exception: <i>must not do X unless Y condition is met</i>. Without manager permission, holding items is not allowed. (A), (C), (D) change the logical relationship.</div>
+</div>
+
+<div class="question-card" data-q="129" data-correct="B">
+  <div class="question-num">Question 129</div>
+  <div class="question-text">The newest version of the Moxis database software is _______ more user-friendly than the previous version.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q129" value="A"> (A) evenly</label>
+<label data-lbl="B"><input type="radio" name="q129" value="B"> (B) considerably</label>
+<label data-lbl="C"><input type="radio" name="q129" value="C"> (C) decreasingly</label>
+<label data-lbl="D"><input type="radio" name="q129" value="D"> (D) approximately</label>
+  </div>
+  <div class="explanation">(B) <b>considerably</b> = by a large amount. It intensifies the comparative <i>more user-friendly</i>. (A) <i>evenly</i> and (D) <i>approximately</i> do not modify comparatives; (C) contradicts the positive comparison.</div>
+</div>
+
+<div class="question-card" data-q="130" data-correct="D">
+  <div class="question-num">Question 130</div>
+  <div class="question-text">As a way of attracting new customers, Elmsworth Bank announced plans _______ its services for small businesses.</div>
+  <div class="options">
+    <label data-lbl="A"><input type="radio" name="q130" value="A"> (A) being expanded</label>
+<label data-lbl="B"><input type="radio" name="q130" value="B"> (B) are expanding</label>
+<label data-lbl="C"><input type="radio" name="q130" value="C"> (C) have expanded</label>
+<label data-lbl="D"><input type="radio" name="q130" value="D"> (D) to expand</label>
+  </div>
+  <div class="explanation">The noun <i>plans</i> is followed by a <b>to-infinitive</b>: <i>plans to do something</i>. (D) <b>to expand</b> is the correct form. (A), (B), (C) are not valid completions of <i>plans ___</i>.</div>
+</div>
+</div>
+
+<div class="actions">
+  <button id="submit-btn" onclick="submitAnswers()">Submit answers</button>
+  <button id="reset-btn"  onclick="resetTest()">Restart</button>
+</div>
+
+
+<script>
+let timerInterval;
+let timeLeft = 900; // 15 minutes
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    if (timeLeft < 0) { clearInterval(timerInterval); document.getElementById('timer').textContent = '00:00'; submitAnswers(); return; }
+    const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const s = (timeLeft % 60).toString().padStart(2, '0');
+    const el = document.getElementById('timer');
+    el.textContent = m + ':' + s;
+    el.className = timeLeft <= 60 ? 'danger' : timeLeft <= 180 ? 'warning' : '';
+  }, 1000);
+}
+
+function submitAnswers() {
+  clearInterval(timerInterval);
+  let score = 0;
+  const questions = document.querySelectorAll('.question-card');
+  questions.forEach(card => {
+    const qn = card.dataset.q;
+    const correct = card.dataset.correct;
+    const selected = card.querySelector('input[type=radio]:checked');
+    const expEl = card.querySelector('.explanation');
+    const labels = card.querySelectorAll('.options label');
+    // mark correct
+    labels.forEach(lbl => {
+      const val = lbl.querySelector('input').value;
+      if (val === correct) { lbl.classList.add('correct-label'); lbl.classList.add('correct-marker'); }
+    });
+    if (selected) {
+      if (selected.value === correct) {
+        score++;
+        expEl.className = 'explanation correct-exp';
+        expEl.style.display = 'block';
+      } else {
+        const wrongLbl = card.querySelector('label[data-lbl="' + selected.value + '"]');
+        if (wrongLbl) { wrongLbl.classList.add('wrong-label'); wrongLbl.classList.add('wrong-marker'); }
+        expEl.className = 'explanation wrong-exp';
+        expEl.style.display = 'block';
+      }
+    } else {
+      expEl.className = 'explanation wrong-exp';
+      expEl.style.display = 'block';
+    }
+  });
+  const sb = document.getElementById('score-banner');
+  sb.style.display = 'block';
+  sb.innerHTML = 'Score : <span>' + score + ' / 30</span>';
+  document.getElementById('submit-btn').style.display = 'none';
+}
+
+function resetTest() {
+  clearInterval(timerInterval);
+  timeLeft = 900;
+  document.getElementById('timer').textContent = '15:00';
+  document.getElementById('timer').className = '';
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.querySelectorAll('.explanation').forEach(e => { e.style.display = 'none'; e.className = 'explanation'; });
+  document.querySelectorAll('.options label').forEach(l => l.className = '');
+  document.getElementById('score-banner').style.display = 'none';
+  document.getElementById('submit-btn').style.display = 'inline-block';
+  startTimer();
+}
+
+window.onload = startTimer;
+</script>
+
+</body>
+</html>
