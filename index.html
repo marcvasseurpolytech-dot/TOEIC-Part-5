@@ -137,16 +137,16 @@
         </header>
 
         <div class="section">
-            <!-- Zone d'affichage des tests dynamiques -->
+            <!-- Zone d'affichage dynamique des 10 tests -->
             <div id="tests-grid" class="grid"></div>
 
-            <!-- Boutons de navigation -->
+            <!-- Contrôles de la pagination -->
             <div class="pagination" id="pagination-controls"></div>
         </div>
     </div>
 
     <script>
-        // Liste complète de tous vos fichiers de tests
+        // Liste propre de tous les fichiers de tests fournis
         const allTests = [
             { file: "toeic_test1_grammar.html", title: "Toeic Test 1 Grammar" },
             { file: "toeic_test2_grammar.html", title: "Toeic Test 2 Grammar" },
@@ -174,8 +174,8 @@
             { file: "toeic_test_28.html", title: "Toeic Test 28" },
             { file: "toeic_test_32.html", title: "Toeic Test 32" },
             { file: "toeic_test_33.html", title: "Toeic Test 33" },
-            { file: "toeic_exam_24_11_2022.html", title: "Toeic Exam 24 11 2022" },
-            { file: "toeic_exam_16_02_2023.html", title: "Toeic Exam 16 02 2023" }
+            { file: "toeic_exam_24_11_2022.html", title: "Toeic Exam 24/11/2022" },
+            { file: "toeic_exam_16_02_2023.html", title: "Toeic Exam 16/02/2023" }
         ];
 
         const itemsPerPage = 10;
@@ -185,17 +185,17 @@
             const grid = document.getElementById('tests-grid');
             grid.innerHTML = '';
 
-            // Calculer les index de début et de fin
+            // Calcul des index d'affichage
             const startIndex = (page - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedItems = allTests.slice(startIndex, endIndex);
 
-            // Générer le HTML pour les 10 éléments de la page en cours
+            // Injection des liens dans la grille
             paginatedItems.forEach(test => {
                 const link = document.createElement('a');
                 link.href = test.file;
                 link.className = 'btn-link';
-                link.innerHTML = `<span class="icon">🚀</span>${test.title}`;
+                link.innerHTML = `<span class="icon">📝</span>${test.title}`;
                 grid.appendChild(link);
             });
 
@@ -221,7 +221,7 @@
             };
             controls.appendChild(prevBtn);
 
-            // Boutons de numéros de pages
+            // Boutons de Pages Numérotées
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('button');
                 pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
@@ -247,7 +247,7 @@
             controls.appendChild(nextBtn);
         }
 
-        // Initialisation au premier chargement
+        // Chargement de la première page au démarrage
         displayTests(currentPage);
     </script>
 </body>
