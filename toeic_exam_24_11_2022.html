@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC 24/11/2022 · TOEIC Part 5 · Polytech Lille</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,600;0,700;1,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap');
+:root{--bg:#f5f2ec;--paper:#fefcf8;--ink:#1a1714;--muted:#6b6560;--accent:#c0392b;--accent-light:#f8e8e6;--green:#1a6b3c;--green-light:#e6f4ec;--gold:#9a7d2e;--border:#d6d0c4;--shadow:rgba(26,23,20,.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+header{background:var(--ink);color:#f5f2ec;padding:16px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.brand-main{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.08rem}
+.brand-sub{font-size:.68rem;color:#b0aa9e;letter-spacing:.12em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-top:2px}
+#timer-box{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+#timer-label{font-size:.65rem;color:#b0aa9e;letter-spacing:.14em;text-transform:uppercase;font-family:'DM Mono',monospace}
+#timer{font-family:'DM Mono',monospace;font-size:1.9rem;font-weight:500;letter-spacing:.05em;transition:color .3s}
+#timer.warning{color:#f0804a}
+#timer.danger{color:#e84040;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+main{max-width:880px;margin:0 auto;padding:32px 20px 80px}
+.test-title-h{font-family:'Source Serif 4',serif;font-size:1.5rem;font-weight:700;margin-bottom:4px}
+.test-subtitle{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.info-panel{background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin-bottom:24px}
+.info-title{font-size:.7rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.fields-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:600px){.fields-row{grid-template-columns:1fr}}
+.fg label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:'DM Mono',monospace}
+.fg input{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg);font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s}
+.fg input:focus{border-color:var(--gold)}
+.instructions{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:4px;padding:12px 16px;margin-bottom:20px;font-size:.84rem;color:var(--muted);line-height:1.6}
+.question-card{background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:18px 24px;margin-bottom:10px;box-shadow:0 1px 4px var(--shadow)}
+.q-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.q-num{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:3px 7px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.q-text{font-family:'Source Serif 4',serif;font-size:.96rem;font-weight:300;line-height:1.65}
+.blank{display:inline-block;border-bottom:2px solid var(--ink);min-width:70px;text-align:center;font-style:italic;color:var(--muted)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:500px){.options{grid-template-columns:1fr}}
+.opt-lbl{display:flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:background .15s,border-color .15s;font-size:.88rem;user-select:none}
+.opt-lbl:hover{background:var(--bg);border-color:#a09890}
+.opt-lbl input[type=radio]{width:14px;height:14px;accent-color:var(--gold);flex-shrink:0}
+.opt-key{font-family:'DM Mono',monospace;font-size:.73rem;color:var(--muted)}
+.question-card.correct{border-color:#4caf76;background:var(--green-light)}
+.question-card.incorrect{border-color:#e06060;background:var(--accent-light)}
+.opt-lbl.is-correct{background:#d4edda;border-color:#4caf76;font-weight:500}
+.opt-lbl.is-wrong{background:#fce8e8;border-color:#e06060}
+.opt-lbl.show-correct{background:#d4edda;border-color:#4caf76}
+.res-info{margin-top:8px;font-size:.8rem}
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:.68rem;padding:3px 8px;border-radius:20px}
+.badge.ok{background:#d4edda;color:var(--green)}
+.badge.nok{background:#fce8e8;color:var(--accent)}
+.badge.skip{background:#fff3cd;color:#856404}
+.tip{margin-top:4px;color:var(--muted);line-height:1.5}
+#score-panel{display:none;background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:24px 28px;margin-bottom:20px;box-shadow:0 2px 8px var(--shadow)}
+#score-panel.visible{display:block}
+.score-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.score-n{font-family:'Source Serif 4',serif;font-size:2.8rem;font-weight:700}
+.score-d{font-family:'DM Mono',monospace;font-size:1rem;color:var(--muted)}
+.score-pct{font-family:'DM Mono',monospace;font-size:.78rem;padding:3px 9px;background:var(--bg);border:1px solid var(--border);border-radius:20px}
+.bar-track{height:7px;background:var(--border);border-radius:99px;overflow:hidden;margin:10px 0}
+.bar-fill{height:100%;border-radius:99px;background:var(--green);transition:width 1s cubic-bezier(.4,0,.2,1);width:0}
+.score-info-line{font-size:.8rem;color:var(--muted);font-family:'DM Mono',monospace}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0;justify-content:center}
+.btn{font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.03em;padding:10px 24px;border:none;border-radius:4px;cursor:pointer;transition:opacity .2s,transform .1s}
+.btn:hover{opacity:.86;transform:translateY(-1px)}
+.btn-p{background:var(--ink);color:#f5f2ec}
+.btn-s{background:var(--border);color:var(--ink)}
+#times-up{display:none;position:fixed;inset:0;background:rgba(26,23,20,.75);z-index:999;align-items:center;justify-content:center}
+#times-up.show{display:flex}
+.tub{background:var(--paper);border-radius:8px;padding:32px 40px;text-align:center;max-width:340px;box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.tub h2{font-family:'Source Serif 4',serif;font-size:1.7rem;margin-bottom:8px;color:var(--accent)}
+.tub p{color:var(--muted);margin-bottom:18px;font-size:.86rem}
+footer{text-align:center;padding:16px;font-family:'DM Mono',monospace;font-size:.64rem;color:#a0988e;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--border);margin-top:32px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand-main">TOEIC Part 5 · Polytech Lille</div>
+    <div class="brand-sub">Marc Vasseur · Préparation TOEIC</div>
+  </div>
+  <div id="timer-box">
+    <span id="timer-label">Time remaining</span>
+    <span id="timer">15:00</span>
+  </div>
+</header>
+
+<div id="times-up">
+  <div class="tub">
+    <h2>Time's up!</h2>
+    <p>15 minutes écoulées. Correction automatique.</p>
+    <button class="btn btn-p" onclick="submitTest(true)">Voir les résultats</button>
+  </div>
+</div>
+
+<main>
+  <div class="test-title-h">TOEIC 24/11/2022</div>
+  <div class="test-subtitle">Examen officiel · 30 phrases · 30 questions · 15 min</div>
+
+  <div class="info-panel">
+    <div class="info-title">Informations étudiant(e)</div>
+    <div class="fields-row">
+      <div class="fg"><label for="f-nom">Nom</label><input type="text" id="f-nom" placeholder="DUPONT"></div>
+      <div class="fg"><label for="f-prenom">Prénom</label><input type="text" id="f-prenom" placeholder="Jean"></div>
+      <div class="fg"><label for="f-dept">Département</label><input type="text" id="f-dept" placeholder="GI / INFO / GE…"></div>
+    </div>
+  </div>
+
+  <div id="score-panel">
+    <div class="score-row">
+      <span class="score-n" id="score-num">0</span>
+      <span class="score-d">/ 30</span>
+      <span class="score-pct" id="score-pct">0%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="bar-fill"></div></div>
+    <div class="score-info-line" id="score-line"></div>
+  </div>
+
+  <div class="instructions"><strong>Directions:</strong> A word or phrase is missing in each sentence. Select the best answer (A), (B), (C) or (D). <strong>15 minutes.</strong></div>
+
+  <div class="controls">
+    <button class="btn btn-p" id="btn-sub" onclick="submitTest(false)">Corriger</button>
+    <button class="btn btn-s" id="btn-rst" style="display:none" onclick="resetTest()">Reset</button>
+  </div>
+
+
+<div class="question-card" id="card-0">
+  <div class="q-header"><span class="q-num">101</span><div class="q-text">The tour bus stops at the Mount Dell Visitors Center <span class="blank">·  ·  ·  ·  ·</span> at least twenty minutes.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-0-0"><input type="radio" name="q0" value="0"><span class="opt-key">(A)</span><span>into</span></label>
+<label class="opt-lbl" id="lbl-0-1"><input type="radio" name="q0" value="1"><span class="opt-key">(B)</span><span>with</span></label>
+<label class="opt-lbl" id="lbl-0-2"><input type="radio" name="q0" value="2"><span class="opt-key">(C)</span><span>by</span></label>
+<label class="opt-lbl" id="lbl-0-3"><input type="radio" name="q0" value="3"><span class="opt-key">(D)</span><span>for</span></label>
+</div>
+  <div class="res-info" id="res-0"></div>
+</div>
+<div class="question-card" id="card-1">
+  <div class="q-header"><span class="q-num">102</span><div class="q-text">Arnold Temkin <span class="blank">·  ·  ·  ·  ·</span> a position on the Metro Planning Commission.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-1-0"><input type="radio" name="q1" value="0"><span class="opt-key">(A)</span><span>offer</span></label>
+<label class="opt-lbl" id="lbl-1-1"><input type="radio" name="q1" value="1"><span class="opt-key">(B)</span><span>offering</span></label>
+<label class="opt-lbl" id="lbl-1-2"><input type="radio" name="q1" value="2"><span class="opt-key">(C)</span><span>who offers</span></label>
+<label class="opt-lbl" id="lbl-1-3"><input type="radio" name="q1" value="3"><span class="opt-key">(D)</span><span>has been offered</span></label>
+</div>
+  <div class="res-info" id="res-1"></div>
+</div>
+<div class="question-card" id="card-2">
+  <div class="q-header"><span class="q-num">103</span><div class="q-text">Even though the painting is priced higher than expected, it is still a good <span class="blank">·  ·  ·  ·  ·</span> for art collectors.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-2-0"><input type="radio" name="q2" value="0"><span class="opt-key">(A)</span><span>investor</span></label>
+<label class="opt-lbl" id="lbl-2-1"><input type="radio" name="q2" value="1"><span class="opt-key">(B)</span><span>investing</span></label>
+<label class="opt-lbl" id="lbl-2-2"><input type="radio" name="q2" value="2"><span class="opt-key">(C)</span><span>to invest</span></label>
+<label class="opt-lbl" id="lbl-2-3"><input type="radio" name="q2" value="3"><span class="opt-key">(D)</span><span>investment</span></label>
+</div>
+  <div class="res-info" id="res-2"></div>
+</div>
+<div class="question-card" id="card-3">
+  <div class="q-header"><span class="q-num">104</span><div class="q-text">Coach Heather Malloy announced that <span class="blank">·  ·  ·  ·  ·</span> will post a schedule for basketball practice sessions.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-3-0"><input type="radio" name="q3" value="0"><span class="opt-key">(A)</span><span>her</span></label>
+<label class="opt-lbl" id="lbl-3-1"><input type="radio" name="q3" value="1"><span class="opt-key">(B)</span><span>she</span></label>
+<label class="opt-lbl" id="lbl-3-2"><input type="radio" name="q3" value="2"><span class="opt-key">(C)</span><span>hers</span></label>
+<label class="opt-lbl" id="lbl-3-3"><input type="radio" name="q3" value="3"><span class="opt-key">(D)</span><span>herself</span></label>
+</div>
+  <div class="res-info" id="res-3"></div>
+</div>
+<div class="question-card" id="card-4">
+  <div class="q-header"><span class="q-num">105</span><div class="q-text">Passengers have the option to buy flight insurance <span class="blank">·  ·  ·  ·  ·</span> the week before their flight's departure.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-4-0"><input type="radio" name="q4" value="0"><span class="opt-key">(A)</span><span>against</span></label>
+<label class="opt-lbl" id="lbl-4-1"><input type="radio" name="q4" value="1"><span class="opt-key">(B)</span><span>above</span></label>
+<label class="opt-lbl" id="lbl-4-2"><input type="radio" name="q4" value="2"><span class="opt-key">(C)</span><span>until</span></label>
+<label class="opt-lbl" id="lbl-4-3"><input type="radio" name="q4" value="3"><span class="opt-key">(D)</span><span>plus</span></label>
+</div>
+  <div class="res-info" id="res-4"></div>
+</div>
+<div class="question-card" id="card-5">
+  <div class="q-header"><span class="q-num">106</span><div class="q-text">The Standworth Bank building was <span class="blank">·  ·  ·  ·  ·</span> built as a private home.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-5-0"><input type="radio" name="q5" value="0"><span class="opt-key">(A)</span><span>originally</span></label>
+<label class="opt-lbl" id="lbl-5-1"><input type="radio" name="q5" value="1"><span class="opt-key">(B)</span><span>originate</span></label>
+<label class="opt-lbl" id="lbl-5-2"><input type="radio" name="q5" value="2"><span class="opt-key">(C)</span><span>original</span></label>
+<label class="opt-lbl" id="lbl-5-3"><input type="radio" name="q5" value="3"><span class="opt-key">(D)</span><span>origins</span></label>
+</div>
+  <div class="res-info" id="res-5"></div>
+</div>
+<div class="question-card" id="card-6">
+  <div class="q-header"><span class="q-num">107</span><div class="q-text">Ms. Hwang will be busy all afternoon <span class="blank">·  ·  ·  ·  ·</span> the agenda for tomorrow's board meeting.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-6-0"><input type="radio" name="q6" value="0"><span class="opt-key">(A)</span><span>inviting</span></label>
+<label class="opt-lbl" id="lbl-6-1"><input type="radio" name="q6" value="1"><span class="opt-key">(B)</span><span>preparing</span></label>
+<label class="opt-lbl" id="lbl-6-2"><input type="radio" name="q6" value="2"><span class="opt-key">(C)</span><span>reminding</span></label>
+<label class="opt-lbl" id="lbl-6-3"><input type="radio" name="q6" value="3"><span class="opt-key">(D)</span><span>conducting</span></label>
+</div>
+  <div class="res-info" id="res-6"></div>
+</div>
+<div class="question-card" id="card-7">
+  <div class="q-header"><span class="q-num">108</span><div class="q-text">Purchasing uniforms in large quantities <span class="blank">·  ·  ·  ·  ·</span> the cost of imprinting and shipping.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-7-0"><input type="radio" name="q7" value="0"><span class="opt-key">(A)</span><span>reduces</span></label>
+<label class="opt-lbl" id="lbl-7-1"><input type="radio" name="q7" value="1"><span class="opt-key">(B)</span><span>concerns</span></label>
+<label class="opt-lbl" id="lbl-7-2"><input type="radio" name="q7" value="2"><span class="opt-key">(C)</span><span>reports</span></label>
+<label class="opt-lbl" id="lbl-7-3"><input type="radio" name="q7" value="3"><span class="opt-key">(D)</span><span>calculates</span></label>
+</div>
+  <div class="res-info" id="res-7"></div>
+</div>
+<div class="question-card" id="card-8">
+  <div class="q-header"><span class="q-num">109</span><div class="q-text">Ms. Juntasa <span class="blank">·  ·  ·  ·  ·</span> recommends the True Shine desk lamp because it mirrors natural sunlight.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-8-0"><input type="radio" name="q8" value="0"><span class="opt-key">(A)</span><span>high</span></label>
+<label class="opt-lbl" id="lbl-8-1"><input type="radio" name="q8" value="1"><span class="opt-key">(B)</span><span>highly</span></label>
+<label class="opt-lbl" id="lbl-8-2"><input type="radio" name="q8" value="2"><span class="opt-key">(C)</span><span>highest</span></label>
+<label class="opt-lbl" id="lbl-8-3"><input type="radio" name="q8" value="3"><span class="opt-key">(D)</span><span>higher</span></label>
+</div>
+  <div class="res-info" id="res-8"></div>
+</div>
+<div class="question-card" id="card-9">
+  <div class="q-header"><span class="q-num">110</span><div class="q-text">Fitzhugh Clothing's major advantage over its competition is its <span class="blank">·  ·  ·  ·  ·</span> range of styles and sizes.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-9-0"><input type="radio" name="q9" value="0"><span class="opt-key">(A)</span><span>wide</span></label>
+<label class="opt-lbl" id="lbl-9-1"><input type="radio" name="q9" value="1"><span class="opt-key">(B)</span><span>widely</span></label>
+<label class="opt-lbl" id="lbl-9-2"><input type="radio" name="q9" value="2"><span class="opt-key">(C)</span><span>widen</span></label>
+<label class="opt-lbl" id="lbl-9-3"><input type="radio" name="q9" value="3"><span class="opt-key">(D)</span><span>widest</span></label>
+</div>
+  <div class="res-info" id="res-9"></div>
+</div>
+<div class="question-card" id="card-10">
+  <div class="q-header"><span class="q-num">111</span><div class="q-text">In response to the <span class="blank">·  ·  ·  ·  ·</span> sales of Minnette Harker's recent novel, Kilter House decided to sell a boxed set of her earlier books.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-10-0"><input type="radio" name="q10" value="0"><span class="opt-key">(A)</span><span>distributed</span></label>
+<label class="opt-lbl" id="lbl-10-1"><input type="radio" name="q10" value="1"><span class="opt-key">(B)</span><span>periodic</span></label>
+<label class="opt-lbl" id="lbl-10-2"><input type="radio" name="q10" value="2"><span class="opt-key">(C)</span><span>strong</span></label>
+<label class="opt-lbl" id="lbl-10-3"><input type="radio" name="q10" value="3"><span class="opt-key">(D)</span><span>open</span></label>
+</div>
+  <div class="res-info" id="res-10"></div>
+</div>
+<div class="question-card" id="card-11">
+  <div class="q-header"><span class="q-num">112</span><div class="q-text">To maintain security, <span class="blank">·  ·  ·  ·  ·</span> is essential to log out of your company e-mail account when using public computers.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-11-0"><input type="radio" name="q11" value="0"><span class="opt-key">(A)</span><span>there</span></label>
+<label class="opt-lbl" id="lbl-11-1"><input type="radio" name="q11" value="1"><span class="opt-key">(B)</span><span>very</span></label>
+<label class="opt-lbl" id="lbl-11-2"><input type="radio" name="q11" value="2"><span class="opt-key">(C)</span><span>how</span></label>
+<label class="opt-lbl" id="lbl-11-3"><input type="radio" name="q11" value="3"><span class="opt-key">(D)</span><span>it</span></label>
+</div>
+  <div class="res-info" id="res-11"></div>
+</div>
+<div class="question-card" id="card-12">
+  <div class="q-header"><span class="q-num">113</span><div class="q-text">Ms. Wilton has requested that employees wait to receive <span class="blank">·  ·  ·  ·  ·</span> managers' approval before making travel arrangements.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-12-0"><input type="radio" name="q12" value="0"><span class="opt-key">(A)</span><span>they</span></label>
+<label class="opt-lbl" id="lbl-12-1"><input type="radio" name="q12" value="1"><span class="opt-key">(B)</span><span>their</span></label>
+<label class="opt-lbl" id="lbl-12-2"><input type="radio" name="q12" value="2"><span class="opt-key">(C)</span><span>theirs</span></label>
+<label class="opt-lbl" id="lbl-12-3"><input type="radio" name="q12" value="3"><span class="opt-key">(D)</span><span>them</span></label>
+</div>
+  <div class="res-info" id="res-12"></div>
+</div>
+<div class="question-card" id="card-13">
+  <div class="q-header"><span class="q-num">114</span><div class="q-text">The Rose Ballroom is available for Mr. Wang's retirement celebration <span class="blank">·  ·  ·  ·  ·</span> on January 21 or January 26.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-13-0"><input type="radio" name="q13" value="0"><span class="opt-key">(A)</span><span>when</span></label>
+<label class="opt-lbl" id="lbl-13-1"><input type="radio" name="q13" value="1"><span class="opt-key">(B)</span><span>since</span></label>
+<label class="opt-lbl" id="lbl-13-2"><input type="radio" name="q13" value="2"><span class="opt-key">(C)</span><span>either</span></label>
+<label class="opt-lbl" id="lbl-13-3"><input type="radio" name="q13" value="3"><span class="opt-key">(D)</span><span>yet</span></label>
+</div>
+  <div class="res-info" id="res-13"></div>
+</div>
+<div class="question-card" id="card-14">
+  <div class="q-header"><span class="q-num">115</span><div class="q-text">Director Ki-Young Park seeks feedback <span class="blank">·  ·  ·  ·  ·</span> new accounting processes before they are implemented.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-14-0"><input type="radio" name="q14" value="0"><span class="opt-key">(A)</span><span>on</span></label>
+<label class="opt-lbl" id="lbl-14-1"><input type="radio" name="q14" value="1"><span class="opt-key">(B)</span><span>at</span></label>
+<label class="opt-lbl" id="lbl-14-2"><input type="radio" name="q14" value="2"><span class="opt-key">(C)</span><span>past</span></label>
+<label class="opt-lbl" id="lbl-14-3"><input type="radio" name="q14" value="3"><span class="opt-key">(D)</span><span>around</span></label>
+</div>
+  <div class="res-info" id="res-14"></div>
+</div>
+<div class="question-card" id="card-15">
+  <div class="q-header"><span class="q-num">116</span><div class="q-text">The Board of Directors' proposals were <span class="blank">·  ·  ·  ·  ·</span> as an appendix to the minutes of the shareholder meeting.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-15-0"><input type="radio" name="q15" value="0"><span class="opt-key">(A)</span><span>attachment</span></label>
+<label class="opt-lbl" id="lbl-15-1"><input type="radio" name="q15" value="1"><span class="opt-key">(B)</span><span>attached</span></label>
+<label class="opt-lbl" id="lbl-15-2"><input type="radio" name="q15" value="2"><span class="opt-key">(C)</span><span>attaches</span></label>
+<label class="opt-lbl" id="lbl-15-3"><input type="radio" name="q15" value="3"><span class="opt-key">(D)</span><span>attaching</span></label>
+</div>
+  <div class="res-info" id="res-15"></div>
+</div>
+<div class="question-card" id="card-16">
+  <div class="q-header"><span class="q-num">117</span><div class="q-text">Mr. Yamada's main <span class="blank">·  ·  ·  ·  ·</span> is to lessen energy consumption in the office building by 20 percent this year.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-16-0"><input type="radio" name="q16" value="0"><span class="opt-key">(A)</span><span>quality</span></label>
+<label class="opt-lbl" id="lbl-16-1"><input type="radio" name="q16" value="1"><span class="opt-key">(B)</span><span>objective</span></label>
+<label class="opt-lbl" id="lbl-16-2"><input type="radio" name="q16" value="2"><span class="opt-key">(C)</span><span>sequence</span></label>
+<label class="opt-lbl" id="lbl-16-3"><input type="radio" name="q16" value="3"><span class="opt-key">(D)</span><span>settlement</span></label>
+</div>
+  <div class="res-info" id="res-16"></div>
+</div>
+<div class="question-card" id="card-17">
+  <div class="q-header"><span class="q-num">118</span><div class="q-text">Wellton Home Magazine is soliciting recipes for festive desserts <span class="blank">·  ·  ·  ·  ·</span> for holiday gatherings.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-17-0"><input type="radio" name="q17" value="0"><span class="opt-key">(A)</span><span>suitable</span></label>
+<label class="opt-lbl" id="lbl-17-1"><input type="radio" name="q17" value="1"><span class="opt-key">(B)</span><span>suiting</span></label>
+<label class="opt-lbl" id="lbl-17-2"><input type="radio" name="q17" value="2"><span class="opt-key">(C)</span><span>suitably</span></label>
+<label class="opt-lbl" id="lbl-17-3"><input type="radio" name="q17" value="3"><span class="opt-key">(D)</span><span>suitability</span></label>
+</div>
+  <div class="res-info" id="res-17"></div>
+</div>
+<div class="question-card" id="card-18">
+  <div class="q-header"><span class="q-num">119</span><div class="q-text">The statistical software program can <span class="blank">·  ·  ·  ·  ·</span> be installed following the procedure outlined in the manual.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-18-0"><input type="radio" name="q18" value="0"><span class="opt-key">(A)</span><span>firmly</span></label>
+<label class="opt-lbl" id="lbl-18-1"><input type="radio" name="q18" value="1"><span class="opt-key">(B)</span><span>evenly</span></label>
+<label class="opt-lbl" id="lbl-18-2"><input type="radio" name="q18" value="2"><span class="opt-key">(C)</span><span>favorably</span></label>
+<label class="opt-lbl" id="lbl-18-3"><input type="radio" name="q18" value="3"><span class="opt-key">(D)</span><span>easily</span></label>
+</div>
+  <div class="res-info" id="res-18"></div>
+</div>
+<div class="question-card" id="card-19">
+  <div class="q-header"><span class="q-num">120</span><div class="q-text">Mr. Ortiz deserves <span class="blank">·  ·  ·  ·  ·</span> for the phenomenal amount of work he put into the Fields account.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-19-0"><input type="radio" name="q19" value="0"><span class="opt-key">(A)</span><span>recognize</span></label>
+<label class="opt-lbl" id="lbl-19-1"><input type="radio" name="q19" value="1"><span class="opt-key">(B)</span><span>recognized</span></label>
+<label class="opt-lbl" id="lbl-19-2"><input type="radio" name="q19" value="2"><span class="opt-key">(C)</span><span>recognition</span></label>
+<label class="opt-lbl" id="lbl-19-3"><input type="radio" name="q19" value="3"><span class="opt-key">(D)</span><span>recognizes</span></label>
+</div>
+  <div class="res-info" id="res-19"></div>
+</div>
+<div class="question-card" id="card-20">
+  <div class="q-header"><span class="q-num">121</span><div class="q-text">Ms. Wu's ability to accurately <span class="blank">·  ·  ·  ·  ·</span> trends in consumer taste makes her a sought-after advertising executive.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-20-0"><input type="radio" name="q20" value="0"><span class="opt-key">(A)</span><span>order</span></label>
+<label class="opt-lbl" id="lbl-20-1"><input type="radio" name="q20" value="1"><span class="opt-key">(B)</span><span>urge</span></label>
+<label class="opt-lbl" id="lbl-20-2"><input type="radio" name="q20" value="2"><span class="opt-key">(C)</span><span>predict</span></label>
+<label class="opt-lbl" id="lbl-20-3"><input type="radio" name="q20" value="3"><span class="opt-key">(D)</span><span>mention</span></label>
+</div>
+  <div class="res-info" id="res-20"></div>
+</div>
+<div class="question-card" id="card-21">
+  <div class="q-header"><span class="q-num">122</span><div class="q-text">A <span class="blank">·  ·  ·  ·  ·</span> of Alarm Mix, our new smartphone application, is that users can create their own ringtones.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-21-0"><input type="radio" name="q21" value="0"><span class="opt-key">(A)</span><span>feature</span></label>
+<label class="opt-lbl" id="lbl-21-1"><input type="radio" name="q21" value="1"><span class="opt-key">(B)</span><span>position</span></label>
+<label class="opt-lbl" id="lbl-21-2"><input type="radio" name="q21" value="2"><span class="opt-key">(C)</span><span>reason</span></label>
+<label class="opt-lbl" id="lbl-21-3"><input type="radio" name="q21" value="3"><span class="opt-key">(D)</span><span>fascination</span></label>
+</div>
+  <div class="res-info" id="res-21"></div>
+</div>
+<div class="question-card" id="card-22">
+  <div class="q-header"><span class="q-num">123</span><div class="q-text"><span class="blank">·  ·  ·  ·  ·</span> a few more details to the employee handbook will provide better guidance to newly hired staff.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-22-0"><input type="radio" name="q22" value="0"><span class="opt-key">(A)</span><span>Adds</span></label>
+<label class="opt-lbl" id="lbl-22-1"><input type="radio" name="q22" value="1"><span class="opt-key">(B)</span><span>Adding</span></label>
+<label class="opt-lbl" id="lbl-22-2"><input type="radio" name="q22" value="2"><span class="opt-key">(C)</span><span>Added</span></label>
+<label class="opt-lbl" id="lbl-22-3"><input type="radio" name="q22" value="3"><span class="opt-key">(D)</span><span>Add</span></label>
+</div>
+  <div class="res-info" id="res-22"></div>
+</div>
+<div class="question-card" id="card-23">
+  <div class="q-header"><span class="q-num">124</span><div class="q-text">Major construction <span class="blank">·  ·  ·  ·  ·</span> is taking place on both highways into Auckland is causing significant delivery delays.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-23-0"><input type="radio" name="q23" value="0"><span class="opt-key">(A)</span><span>likewise</span></label>
+<label class="opt-lbl" id="lbl-23-1"><input type="radio" name="q23" value="1"><span class="opt-key">(B)</span><span>in which</span></label>
+<label class="opt-lbl" id="lbl-23-2"><input type="radio" name="q23" value="2"><span class="opt-key">(C)</span><span>that</span></label>
+<label class="opt-lbl" id="lbl-23-3"><input type="radio" name="q23" value="3"><span class="opt-key">(D)</span><span>although</span></label>
+</div>
+  <div class="res-info" id="res-23"></div>
+</div>
+<div class="question-card" id="card-24">
+  <div class="q-header"><span class="q-num">125</span><div class="q-text">This special offer cannot be combined with any other discount and is not <span class="blank">·  ·  ·  ·  ·</span> to previously purchased tickets.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-24-0"><input type="radio" name="q24" value="0"><span class="opt-key">(A)</span><span>observant</span></label>
+<label class="opt-lbl" id="lbl-24-1"><input type="radio" name="q24" value="1"><span class="opt-key">(B)</span><span>persistent</span></label>
+<label class="opt-lbl" id="lbl-24-2"><input type="radio" name="q24" value="2"><span class="opt-key">(C)</span><span>applicable</span></label>
+<label class="opt-lbl" id="lbl-24-3"><input type="radio" name="q24" value="3"><span class="opt-key">(D)</span><span>disposable</span></label>
+</div>
+  <div class="res-info" id="res-24"></div>
+</div>
+<div class="question-card" id="card-25">
+  <div class="q-header"><span class="q-num">126</span><div class="q-text">The manual contains <span class="blank">·  ·  ·  ·  ·</span> that govern international investments.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-25-0"><input type="radio" name="q25" value="0"><span class="opt-key">(A)</span><span>regulates</span></label>
+<label class="opt-lbl" id="lbl-25-1"><input type="radio" name="q25" value="1"><span class="opt-key">(B)</span><span>regulations</span></label>
+<label class="opt-lbl" id="lbl-25-2"><input type="radio" name="q25" value="2"><span class="opt-key">(C)</span><span>regulatory</span></label>
+<label class="opt-lbl" id="lbl-25-3"><input type="radio" name="q25" value="3"><span class="opt-key">(D)</span><span>regulating</span></label>
+</div>
+  <div class="res-info" id="res-25"></div>
+</div>
+<div class="question-card" id="card-26">
+  <div class="q-header"><span class="q-num">127</span><div class="q-text">The dramatic increase in new car sales may seem unusual, but it is not the first time the market has seen <span class="blank">·  ·  ·  ·  ·</span> fluctuation.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-26-0"><input type="radio" name="q26" value="0"><span class="opt-key">(A)</span><span>such</span></label>
+<label class="opt-lbl" id="lbl-26-1"><input type="radio" name="q26" value="1"><span class="opt-key">(B)</span><span>so</span></label>
+<label class="opt-lbl" id="lbl-26-2"><input type="radio" name="q26" value="2"><span class="opt-key">(C)</span><span>alike</span></label>
+<label class="opt-lbl" id="lbl-26-3"><input type="radio" name="q26" value="3"><span class="opt-key">(D)</span><span>similar</span></label>
+</div>
+  <div class="res-info" id="res-26"></div>
+</div>
+<div class="question-card" id="card-27">
+  <div class="q-header"><span class="q-num">128</span><div class="q-text">Please fill out the form <span class="blank">·  ·  ·  ·  ·</span> so that your order can be processed in a timely manner.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-27-0"><input type="radio" name="q27" value="0"><span class="opt-key">(A)</span><span>suddenly</span></label>
+<label class="opt-lbl" id="lbl-27-1"><input type="radio" name="q27" value="1"><span class="opt-key">(B)</span><span>completely</span></label>
+<label class="opt-lbl" id="lbl-27-2"><input type="radio" name="q27" value="2"><span class="opt-key">(C)</span><span>briskly</span></label>
+<label class="opt-lbl" id="lbl-27-3"><input type="radio" name="q27" value="3"><span class="opt-key">(D)</span><span>closely</span></label>
+</div>
+  <div class="res-info" id="res-27"></div>
+</div>
+<div class="question-card" id="card-28">
+  <div class="q-header"><span class="q-num">129</span><div class="q-text">One measure of the company's success is that most customers surveyed were <span class="blank">·  ·  ·  ·  ·</span> with its logo.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-28-0"><input type="radio" name="q28" value="0"><span class="opt-key">(A)</span><span>available</span></label>
+<label class="opt-lbl" id="lbl-28-1"><input type="radio" name="q28" value="1"><span class="opt-key">(B)</span><span>common</span></label>
+<label class="opt-lbl" id="lbl-28-2"><input type="radio" name="q28" value="2"><span class="opt-key">(C)</span><span>customary</span></label>
+<label class="opt-lbl" id="lbl-28-3"><input type="radio" name="q28" value="3"><span class="opt-key">(D)</span><span>familiar</span></label>
+</div>
+  <div class="res-info" id="res-28"></div>
+</div>
+<div class="question-card" id="card-29">
+  <div class="q-header"><span class="q-num">130</span><div class="q-text">The lawyers are still negotiating the <span class="blank">·  ·  ·  ·  ·</span> details of the proposed merger.</div></div>
+  <div class="options"><label class="opt-lbl" id="lbl-29-0"><input type="radio" name="q29" value="0"><span class="opt-key">(A)</span><span>specify</span></label>
+<label class="opt-lbl" id="lbl-29-1"><input type="radio" name="q29" value="1"><span class="opt-key">(B)</span><span>specific</span></label>
+<label class="opt-lbl" id="lbl-29-2"><input type="radio" name="q29" value="2"><span class="opt-key">(C)</span><span>specifies</span></label>
+<label class="opt-lbl" id="lbl-29-3"><input type="radio" name="q29" value="3"><span class="opt-key">(D)</span><span>specifically</span></label>
+</div>
+  <div class="res-info" id="res-29"></div>
+</div>
+
+  <div class="controls" style="margin-top:16px">
+    <button class="btn btn-p" id="btn-sub2" onclick="submitTest(false)">Corriger</button>
+    <button class="btn btn-s" id="btn-rst2" style="display:none" onclick="resetTest()">Reset</button>
+  </div>
+</main>
+
+<footer>Marc Vasseur · Polytech Lille · TOEIC Preparation · TOEIC 24/11/2022</footer>
+
+<script>
+const QUESTIONS=[{"n": 101, "t": "The tour bus stops at the Mount Dell Visitors Center ________ at least twenty minutes.", "o": ["into", "with", "by", "for"], "a": 3, "tip": "<em>For</em> at least twenty minutes = dur\u00e9e."}, {"n": 102, "t": "Arnold Temkin ________ a position on the Metro Planning Commission.", "o": ["offer", "offering", "who offers", "has been offered"], "a": 3, "tip": "Passif pr\u00e9sent parfait : <em>has been offered</em>."}, {"n": 103, "t": "Even though the painting is priced higher than expected, it is still a good ________ for art collectors.", "o": ["investor", "investing", "to invest", "investment"], "a": 3, "tip": "A good <em>investment</em> = un bon investissement (nom)."}, {"n": 104, "t": "Coach Heather Malloy announced that ________ will post a schedule for basketball practice sessions.", "o": ["her", "she", "hers", "herself"], "a": 1, "tip": "Pronom sujet dans la subordonn\u00e9e : <em>she</em>."}, {"n": 105, "t": "Passengers have the option to buy flight insurance ________ the week before their flight's departure.", "o": ["against", "above", "until", "plus"], "a": 2, "tip": "<em>Until</em> the week before = jusqu'\u00e0."}, {"n": 106, "t": "The Standworth Bank building was ________ built as a private home.", "o": ["originally", "originate", "original", "origins"], "a": 0, "tip": "Adverbe modifiant <em>built</em> : <em>originally</em>."}, {"n": 107, "t": "Ms. Hwang will be busy all afternoon ________ the agenda for tomorrow's board meeting.", "o": ["inviting", "preparing", "reminding", "conducting"], "a": 1, "tip": "Be busy <em>[verbe]-ing</em> = \u00eatre occup\u00e9 \u00e0 faire."}, {"n": 108, "t": "Purchasing uniforms in large quantities ________ the cost of imprinting and shipping.", "o": ["reduces", "concerns", "reports", "calculates"], "a": 0, "tip": "Sujet = g\u00e9rondif \u2192 <em>reduces</em> (verbe singulier)."}, {"n": 109, "t": "Ms. Juntasa ________ recommends the True Shine desk lamp because it mirrors natural sunlight.", "o": ["high", "highly", "highest", "higher"], "a": 1, "tip": "Adverbe modifiant <em>recommends</em> : <em>highly</em>."}, {"n": 110, "t": "Fitzhugh Clothing's major advantage over its competition is its ________ range of styles and sizes.", "o": ["wide", "widely", "widen", "widest"], "a": 0, "tip": "Adjectif avant nom : <em>wide</em> range."}, {"n": 111, "t": "In response to the ________ sales of Minnette Harker's recent novel, Kilter House decided to sell a boxed set of her earlier books.", "o": ["distributed", "periodic", "strong", "open"], "a": 2, "tip": "<em>Strong sales</em> = ventes importantes (explique la d\u00e9cision)."}, {"n": 112, "t": "To maintain security, ________ is essential to log out of your company e-mail account when using public computers.", "o": ["there", "very", "how", "it"], "a": 3, "tip": "<em>It</em> is essential to\u2026 = construction impersonnelle."}, {"n": 113, "t": "Ms. Wilton has requested that employees wait to receive ________ managers' approval before making travel arrangements.", "o": ["they", "their", "theirs", "them"], "a": 1, "tip": "Adjectif possessif : <em>their</em> managers' approval."}, {"n": 114, "t": "The Rose Ballroom is available for Mr. Wang's retirement celebration ________ on January 21 or January 26.", "o": ["when", "since", "either", "yet"], "a": 2, "tip": "<em>Either</em>\u2026or = soit\u2026soit."}, {"n": 115, "t": "Director Ki-Young Park seeks feedback ________ new accounting processes before they are implemented.", "o": ["on", "at", "past", "around"], "a": 0, "tip": "Feedback <em>on</em> stg = retour sur."}, {"n": 116, "t": "The Board of Directors' proposals were ________ as an appendix to the minutes of the shareholder meeting.", "o": ["attachment", "attached", "attaches", "attaching"], "a": 1, "tip": "Passif : <em>were attached</em> = jointes en annexe."}, {"n": 117, "t": "Mr. Yamada's main ________ is to lessen energy consumption in the office building by 20 percent this year.", "o": ["quality", "objective", "sequence", "settlement"], "a": 1, "tip": "<em>Objective</em> = objectif."}, {"n": 118, "t": "Wellton Home Magazine is soliciting recipes for festive desserts ________ for holiday gatherings.", "o": ["suitable", "suiting", "suitably", "suitability"], "a": 0, "tip": "Adjectif qualifiant <em>desserts</em> : <em>suitable</em>."}, {"n": 119, "t": "The statistical software program can ________ be installed following the procedure outlined in the manual.", "o": ["firmly", "evenly", "favorably", "easily"], "a": 3, "tip": "<em>Easily</em> installed = facilement install\u00e9."}, {"n": 120, "t": "Mr. Ortiz deserves ________ for the phenomenal amount of work he put into the Fields account.", "o": ["recognize", "recognized", "recognition", "recognizes"], "a": 2, "tip": "<em>Recognition</em> = reconnaissance (nom)."}, {"n": 121, "t": "Ms. Wu's ability to accurately ________ trends in consumer taste makes her a sought-after advertising executive.", "o": ["order", "urge", "predict", "mention"], "a": 2, "tip": "<em>Predict</em> trends = pr\u00e9voir les tendances."}, {"n": 122, "t": "A ________ of Alarm Mix, our new smartphone application, is that users can create their own ringtones.", "o": ["feature", "position", "reason", "fascination"], "a": 0, "tip": "A <em>feature</em> of = une fonctionnalit\u00e9 de."}, {"n": 123, "t": "________ a few more details to the employee handbook will provide better guidance to newly hired staff.", "o": ["Adds", "Adding", "Added", "Add"], "a": 1, "tip": "G\u00e9rondif comme sujet : <em>Adding</em>."}, {"n": 124, "t": "Major construction ________ is taking place on both highways into Auckland is causing significant delivery delays.", "o": ["likewise", "in which", "that", "although"], "a": 2, "tip": "Pronom relatif sujet : <em>that</em> is taking place."}, {"n": 125, "t": "This special offer cannot be combined with any other discount and is not ________ to previously purchased tickets.", "o": ["observant", "persistent", "applicable", "disposable"], "a": 2, "tip": "<em>Applicable to</em> = applicable \u00e0."}, {"n": 126, "t": "The manual contains ________ that govern international investments.", "o": ["regulates", "regulations", "regulatory", "regulating"], "a": 1, "tip": "Nom objet apr\u00e8s <em>contains</em> : <em>regulations</em>."}, {"n": 127, "t": "The dramatic increase in new car sales may seem unusual, but it is not the first time the market has seen ________ fluctuation.", "o": ["such", "so", "alike", "similar"], "a": 0, "tip": "<em>Such</em> fluctuation = ce type de fluctuation."}, {"n": 128, "t": "Please fill out the form ________ so that your order can be processed in a timely manner.", "o": ["suddenly", "completely", "briskly", "closely"], "a": 2, "tip": "<em>Briskly</em> = rapidement, promptement."}, {"n": 129, "t": "One measure of the company's success is that most customers surveyed were ________ with its logo.", "o": ["available", "common", "customary", "familiar"], "a": 3, "tip": "Familiar <em>with</em> = familier avec."}, {"n": 130, "t": "The lawyers are still negotiating the ________ details of the proposed merger.", "o": ["specify", "specific", "specifies", "specifically"], "a": 1, "tip": "Adjectif avant nom : <em>specific</em> details."}];
+
+let timerInterval=null,timeLeft=900,corrected=false;
+function startTimer(){
+  clearInterval(timerInterval);
+  const el=document.getElementById('timer');
+  el.className='';
+  updateDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft--;updateDisplay();
+    if(timeLeft<=120)el.classList.add('warning');
+    if(timeLeft<=30){el.classList.remove('warning');el.classList.add('danger');}
+    if(timeLeft<=0){clearInterval(timerInterval);el.textContent='00:00';if(!corrected)document.getElementById('times-up').classList.add('show');}
+  },1000);
+}
+function updateDisplay(){
+  const m=String(Math.floor(timeLeft/60)).padStart(2,'0'),s=String(timeLeft%60).padStart(2,'0');
+  document.getElementById('timer').textContent=m+':'+s;
+}
+function submitTest(fromTimeout){
+  if(corrected)return;corrected=true;
+  clearInterval(timerInterval);
+  document.getElementById('times-up').classList.remove('show');
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.disabled=true);
+  let score=0;
+  QUESTIONS.forEach((q,qi)=>{
+    const card=document.getElementById('card-'+qi);
+    const sel=document.querySelector('input[name="q'+qi+'"]:checked');
+    const res=document.getElementById('res-'+qi);
+    const chosen=sel?parseInt(sel.value):-1;
+    const keys=['A','B','C','D'];
+    if(chosen===q.a){
+      score++;card.classList.add('correct');
+      document.getElementById('lbl-'+qi+'-'+chosen).classList.add('is-correct');
+      res.innerHTML='<span class="badge ok">✓ Correct</span>';
+    }else if(chosen===-1){
+      card.classList.add('incorrect');
+      document.getElementById('lbl-'+qi+'-'+q.a).classList.add('show-correct');
+      res.innerHTML='<span class="badge skip">— Sans réponse · Correct : ('+keys[q.a]+') '+q.o[q.a]+'</span><div class="tip">'+q.tip+'</div>';
+    }else{
+      card.classList.add('incorrect');
+      document.getElementById('lbl-'+qi+'-'+chosen).classList.add('is-wrong');
+      document.getElementById('lbl-'+qi+'-'+q.a).classList.add('show-correct');
+      res.innerHTML='<span class="badge nok">✗ Incorrect · Correct : ('+keys[q.a]+') '+q.o[q.a]+'</span><div class="tip">'+q.tip+'</div>';
+    }
+  });
+  const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('score-panel').classList.add('visible');
+  document.getElementById('score-num').textContent=score;
+  document.getElementById('score-pct').textContent=pct+'%';
+  const nom=document.getElementById('f-nom').value.trim()||'—';
+  const prenom=document.getElementById('f-prenom').value.trim()||'—';
+  const dept=document.getElementById('f-dept').value.trim()||'—';
+  document.getElementById('score-line').textContent=prenom+' '+nom+' · '+dept+' · '+score+'/'+QUESTIONS.length+' correct · '+(QUESTIONS.length-score)+' erreur(s)';
+  setTimeout(()=>{
+    const f=document.getElementById('bar-fill');
+    f.style.width=pct+'%';
+    f.style.background=pct>=80?'#1a6b3c':pct>=60?'#9a7d2e':'#c0392b';
+  },100);
+  document.getElementById('score-panel').scrollIntoView({behavior:'smooth',block:'start'});
+  ['btn-sub','btn-sub2'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['btn-rst','btn-rst2'].forEach(id=>{document.getElementById(id).style.display='';});
+}
+function resetTest(){
+  corrected=false;timeLeft=900;
+  document.getElementById('timer').className='';
+  document.querySelectorAll('.question-card').forEach(c=>c.className='question-card');
+  document.querySelectorAll('.opt-lbl').forEach(l=>l.className='opt-lbl');
+  document.querySelectorAll('input[type=radio]').forEach(r=>{r.disabled=false;r.checked=false;});
+  document.querySelectorAll('.res-info').forEach(d=>d.innerHTML='');
+  document.getElementById('score-panel').classList.remove('visible');
+  document.getElementById('bar-fill').style.width='0';
+  ['btn-sub','btn-sub2'].forEach(id=>{document.getElementById(id).style.display='';});
+  ['btn-rst','btn-rst2'].forEach(id=>{document.getElementById(id).style.display='none';});
+  window.scrollTo({top:0,behavior:'smooth'});
+  startTimer();
+}
+window.onload=startTimer;
+
+</script>
+</body>
+</html>
