@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Test 21 &ndash; 30 Grammar Phrases &middot; Polytech Lille</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1b2a;--blue:#1a4480;--accent:#e8a020;--light:#f4f7fb;--border:#d0dae8;--ok:#1a7a4a;--ko:#b91c1c;--text:#1a2535;--muted:#6b7a90;--radius:10px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--text);min-height:100vh}
+header{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 1.8rem;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 2px 14px rgba(0,0,0,.3)}
+.h-left{display:flex;flex-direction:column;gap:2px}
+.h-title{font-family:'DM Serif Display',serif;font-size:1.1rem;letter-spacing:.02em}
+.h-sub{font-size:.7rem;color:#a8b8cc;letter-spacing:.07em;text-transform:uppercase}
+#timer-box{background:var(--accent);color:var(--navy);font-size:1.45rem;font-weight:700;letter-spacing:.04em;padding:.22rem 1.1rem;border-radius:8px;min-width:96px;text-align:center;font-variant-numeric:tabular-nums;transition:background .3s;display:none}
+#timer-box.urgent{background:#e53e3e;color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.65}}
+.screen{display:none}.screen.active{display:block}
+#sc-login{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:2rem}
+#sc-login.active{display:flex}
+.login-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:2.4rem 2.8rem;max-width:500px;width:100%;box-shadow:0 10px 40px rgba(13,27,42,.1)}
+.logo-row{display:flex;align-items:center;gap:.8rem;margin-bottom:1.8rem}
+.logo-sq{background:var(--blue);color:#fff;font-family:'DM Serif Display',serif;font-size:1.3rem;width:50px;height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-txt h1{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--navy)}
+.logo-txt p{font-size:.76rem;color:var(--muted);margin-top:2px}
+.login-card h2{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.login-card>p{font-size:.83rem;color:var(--muted);margin-bottom:1.4rem}
+.field{margin-bottom:.95rem}
+.field label{display:block;font-size:.76rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.38rem}
+.field input,.field select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.62rem .88rem;font-size:.93rem;font-family:inherit;color:var(--text);background:var(--light);outline:none;transition:border-color .2s}
+.field input:focus,.field select:focus{border-color:var(--blue);background:#fff}
+.btn-start{width:100%;margin-top:.4rem;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.82rem;font-size:.97rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s,transform .1s;letter-spacing:.02em}
+.btn-start:hover{background:#0f2f5c}.btn-start:active{transform:scale(.98)}
+.info-pill{display:flex;align-items:center;gap:.5rem;margin-top:1.1rem;padding:.65rem .9rem;background:#fff8ec;border:1px solid #f5d08a;border-radius:8px;font-size:.8rem;color:#7a5000}
+#sc-quiz{max-width:880px;margin:0 auto;padding:1.8rem 1.4rem 4rem}
+.student-bar{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:.55rem 1.1rem;margin-bottom:1.4rem;display:flex;align-items:center;justify-content:space-between;font-size:.83rem;flex-wrap:wrap;gap:.3rem}
+.s-name{font-weight:600;color:var(--navy)}.s-meta{color:var(--muted)}
+.prog-row{display:flex;align-items:center;gap:.9rem;margin-bottom:1.6rem}
+.prog-bg{flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--blue);border-radius:99px;width:0%;transition:width .35s ease}
+.prog-lbl{font-size:.76rem;color:var(--muted);white-space:nowrap}
+.sec-head{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--blue);border-left:4px solid var(--accent);padding-left:.75rem;margin-bottom:1.3rem}
+.passage-box{background:#eef3ff;border:1px solid #c0d0ee;border-radius:var(--radius);padding:1.1rem 1.4rem;margin-bottom:1rem;font-size:.88rem;line-height:1.65;color:var(--navy)}
+.passage-box strong{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+.passage-box p{margin-bottom:.4rem}
+.q-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem;margin-bottom:.9rem;position:relative;transition:border-color .2s,box-shadow .2s}
+.q-card:hover{border-color:#b0c4de;box-shadow:0 2px 10px rgba(13,27,42,.06)}
+.q-num{position:absolute;top:-.8rem;left:1.1rem;background:var(--blue);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:.14rem .5rem;border-radius:99px}
+.q-text{font-size:.94rem;line-height:1.6;color:var(--navy);margin-bottom:.9rem;margin-top:.25rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.opts.long{grid-template-columns:1fr}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s,background .15s;font-size:.88rem}
+.opt:hover{border-color:var(--blue);background:#f0f5ff}
+.opt.sel{border-color:var(--blue);background:#e8f0fe}
+.opt input[type=radio]{display:none}
+.opt-k{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;transition:background .15s,color .15s}
+.opt.sel .opt-k{background:var(--blue);color:#fff}
+.q-card.q-ok{border-color:var(--ok);background:#f0faf4}
+.q-card.q-ko{border-color:var(--ko);background:#fff5f5}
+.opt.ans-ok{border-color:var(--ok)!important;background:#d4f0e0!important}
+.opt.ans-ok .opt-k{background:var(--ok)!important;color:#fff!important}
+.opt.ans-ko{border-color:var(--ko)!important;background:#fde8e8!important}
+.opt.ans-ko .opt-k{background:var(--ko)!important;color:#fff!important}
+.q-fb{margin-top:.65rem;font-size:.8rem;padding:.45rem .75rem;border-radius:6px;display:none}
+.q-fb.show{display:block}
+.q-fb.ok{background:#d4f0e0;color:var(--ok)}
+.q-fb.ko{background:#fde8e8;color:var(--ko)}
+.submit-wrap{text-align:center;margin-top:2.2rem;padding-top:1.8rem;border-top:1px solid var(--border)}
+.btn-sub{background:var(--accent);color:var(--navy);border:none;border-radius:10px;padding:.9rem 2.8rem;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background .2s,transform .1s;letter-spacing:.02em}
+.btn-sub:hover{background:#d4900f}.btn-sub:active{transform:scale(.98)}
+.warn{color:var(--ko);font-size:.83rem;margin-top:.7rem;display:none}
+#sc-results{max-width:880px;margin:0 auto;padding:1.8rem 1.4rem 4rem}
+.hero{background:var(--navy);color:#fff;border-radius:16px;padding:2rem 2.2rem;margin-bottom:1.8rem;display:flex;align-items:center;gap:1.8rem;flex-wrap:wrap}
+.score-c{width:108px;height:108px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--accent) calc(var(--pct)*1%),#2a3f58 0);display:flex;align-items:center;justify-content:center}
+.score-inner{width:80px;height:80px;background:var(--navy);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-big{font-family:'DM Serif Display',serif;font-size:1.65rem;line-height:1}
+.score-den{font-size:.68rem;color:#a8b8cc}
+.hero-meta h2{font-family:'DM Serif Display',serif;font-size:1.35rem;margin-bottom:.3rem}
+.hero-meta .s-name2{color:var(--accent);font-size:1rem;font-weight:600;margin-bottom:.3rem}
+.hero-meta .s-meta2{font-size:.82rem;color:#a8b8cc}
+.pills{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap}
+.pill{padding:.28rem .85rem;border-radius:99px;font-size:.77rem;font-weight:600}
+.pill.ok{background:#1a7a4a22;color:#1a7a4a;border:1px solid #1a7a4a55}
+.pill.ko{background:#b91c1c22;color:#b91c1c;border:1px solid #b91c1c55}
+.pill.pc{background:#e8a02022;color:var(--accent);border:1px solid #e8a02055}
+.equiv{margin-left:auto;background:#1a4480;border-radius:12px;padding:.9rem 1.4rem;text-align:center;min-width:110px}
+.eq-lbl{font-size:.68rem;color:#a8b8cc;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
+.eq-val{font-family:'DM Serif Display',serif;font-size:1.55rem;color:var(--accent)}
+.eq-note{font-size:.64rem;color:#7a9abc;margin-top:.15rem}
+.res-head{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--blue);border-left:4px solid var(--accent);padding-left:.75rem;margin:1.6rem 0 .9rem}
+.btn-print{margin-top:2.2rem;display:inline-flex;align-items:center;gap:.4rem;border:1.5px solid var(--blue);border-radius:8px;padding:.65rem 1.6rem;color:var(--blue);background:#fff;cursor:pointer;font-family:inherit;font-size:.87rem;font-weight:600;transition:background .2s}
+.btn-print:hover{background:#eef3ff}
+@media print{header,.btn-print,.submit-wrap,.warn{display:none}.q-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+  <div class="h-left">
+    <div class="h-title">TOEIC Reading &mdash; Test 21</div>
+    <div class="h-sub">30 Grammar Phrases &middot; Marc VASSEUR &middot; Polytech Lille</div>
+  </div>
+  <div id="timer-box">00:00</div>
+</header>
+
+<div id="sc-login" class="screen active">
+  <div class="login-card">
+    <div class="logo-row">
+      <div class="logo-sq">P</div>
+      <div class="logo-txt"><h1>Polytech Lille</h1><p>TOEIC Preparation &middot; Marc VASSEUR</p></div>
+    </div>
+    <h2>Test 21 &mdash; 30 Grammar Phrases</h2>
+    <p>Remplissez les champs ci-dessous avant de commencer.</p>
+    <div class="field"><label>Nom</label><input id="i-nom" type="text" placeholder="DUPONT" autocomplete="off"></div>
+    <div class="field"><label>Pr&eacute;nom</label><input id="i-prenom" type="text" placeholder="Sophie" autocomplete="off"></div>
+    <div class="field"><label>D&eacute;partement</label><select id="i-dept"><option value="">-- Choisir --</option>
+<option>1A Tronc commun</option><option>2A Tronc commun</option>
+<option>3A GI</option><option>3A GM</option><option>3A GC</option>
+<option>3A INFO</option><option>3A MAT</option>
+<option>4A GI</option><option>4A GM</option><option>4A GC</option><option>4A INFO</option>
+<option>5A GI</option><option>5A GM</option><option>5A GC</option><option>5A INFO</option>
+<option>Apprentissage</option><option>Formation Continue</option>
+<option>Erasmus</option><option>Autre</option></select></div>
+    <button class="btn-start" onclick="startQuiz()">Commencer &rarr;</button>
+    <div class="info-pill">&#9200; Chronometre de <strong>15 minutes</strong> &mdash; d&eacute;marre au clic.</div>
+  </div>
+</div>
+
+<div id="sc-quiz" class="screen">
+  <div class="student-bar">
+    <span class="s-name" id="d-name">&mdash;</span>
+    <span class="s-meta" id="d-meta">&mdash;</span>
+  </div>
+  <div class="prog-row">
+    <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="prog-lbl"><span id="prog-n">0</span>&thinsp;/&thinsp;<span id="prog-total">?</span> r&eacute;ponses</div>
+  </div>
+  <div class="sec-head">PART 5 &mdash; Incomplete Sentences</div>
+  <div id="qc"></div>
+  <div class="submit-wrap">
+    <button class="btn-sub" onclick="submitQuiz()">Corriger &#10003;</button>
+    <div class="warn" id="warn">&#9888; Certaines questions sont sans r&eacute;ponse.</div>
+  </div>
+</div>
+
+<div id="sc-results" class="screen">
+  <div class="hero">
+    <div class="score-c" id="sc-circle">
+      <div class="score-inner">
+        <div class="score-big" id="r-score">&mdash;</div>
+        <div class="score-den" id="r-denom">/ ?</div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="s-name2" id="r-name">&mdash;</div>
+      <h2>Test 21 &mdash; R&eacute;sultats</h2>
+      <div class="s-meta2" id="r-meta">&mdash;</div>
+      <div class="pills">
+        <span class="pill ok" id="r-ok">&mdash;</span>
+        <span class="pill ko" id="r-ko">&mdash;</span>
+        <span class="pill pc" id="r-pc">&mdash;</span>
+      </div>
+    </div>
+    <div class="equiv"><div class="eq-lbl">Part 5 &eacute;quiv.</div><div class="eq-val" id="r-eq">&mdash;</div><div class="eq-note">pts estim&eacute;s</div></div>
+  </div>
+  <div class="res-head">Correction d&eacute;taill&eacute;e</div>
+  <div id="rd"></div>
+  <div style="text-align:center"><button class="btn-print" onclick="window.print()">&#128424; Imprimer / PDF</button></div>
+</div>
+
+<script>
+const TEST_TIME = 900;
+const ITEMS = [
+{t:'q',n:101,tx:"The travel ___ will be processed as soon as they are received.",o:["document","documents","documented","documenting"],a:1},
+{t:'q',n:102,tx:"___ change your seating assignment, visit the reservations page on our Web site.",o:["For","Across","With","To"],a:3},
+{t:'q',n:103,tx:"The president of Somchai Bank rides ___ bicycle to work every day, except when it rains.",o:["he","him","his","himself"],a:2},
+{t:'q',n:104,tx:"Agents who have not yet registered for next week's Insurance Excellence Forum must do so ___.",o:["closely","formerly","nearly","immediately"],a:3},
+{t:'q',n:105,tx:"Matos Realty has developed two ___ methods of identifying undervalued properties.",o:["different","differently","difference","differences"],a:0},
+{t:'q',n:106,tx:"Wearing lab coats and safety goggles is a ___ for all laboratory workers.",o:["training","fulfillment","specialization","requirement"],a:3},
+{t:'q',n:107,tx:"The manufacturer ___ that the filter be cleaned at least once a month for optimal performance.",o:["remembers","recognizes","recommends","registers"],a:2},
+{t:'q',n:108,tx:"Before selecting a Dagle steel door, measure the door opening ___.",o:["careful","caring","carefully","cares"],a:2},
+{t:'q',n:109,tx:"Okpara employees should contact their supervisors by 10:00 A.M. ___ they expect to miss a day of work.",o:["if","soon","only","then"],a:0},
+{t:'q',n:110,tx:"The director has requested a ___ of the costs of short- and long-term rental agreements.",o:["comparable","comparison","compared","comparative"],a:1},
+{t:'q',n:111,tx:"Ms. Yi of Lakesview Catering says that five trays of appetizer are more than ___ for fifty guests.",o:["able","numerous","sure","enough"],a:3},
+{t:'q',n:112,tx:"Canada's Pan Rail Corporation will no longer ___ freight into the United States.",o:["transport","transporting","transports","transported"],a:0},
+{t:'q',n:113,tx:"According to experts, Flash Maxe dishwashing detergent consistently delivers ___ results.",o:["exceptionally","exceptional","exception","exceptions"],a:1},
+{t:'q',n:114,tx:"When picking up identification badges, employees need to show ___ of employment at Ekmekci Associates.",o:["process","analysis","proof","basis"],a:2},
+{t:'q',n:115,tx:"Roxy Koenig is ___ seeking a new venue for her summer concert since the Hazelton Music Hall is being renovated.",o:["actively","activity","active","activate"],a:0},
+{t:'q',n:116,tx:"Prospective tenants must provide at least two references ___ their application.",o:["too","in addition","moreover","along with"],a:3},
+{t:'q',n:117,tx:"While Ms. Molinsky has little experience in technical support, her knowledge of computer systems is ___.",o:["extensive","clever","considered","eager"],a:0},
+{t:'q',n:118,tx:"Please refer to the attached flowchart, which describes the ___ of responsibilities among the various leadership positions.",o:["support","attention","division","statement"],a:2},
+{t:'q',n:119,tx:"A good project manager strives ___ communication between departments whenever possible.",o:["to enhance","enhances","is enhancing","enhanced"],a:0},
+{t:'q',n:120,tx:"Same-day appointments can usually be scheduled, although not ___ with your usual doctor.",o:["expectedly","necessarily","preventively","permanently"],a:1},
+{t:'q',n:121,tx:"Mr. Vieira is ___ with introducing several changes that have helped Stacatti Stationery increase business.",o:["credited","scored","agreed","relied"],a:0},
+{t:'q',n:122,tx:"In the photograph, President Tang can be seen standing ___ Dr. Dervislii.",o:["from","reverse","opposite","distant"],a:2},
+{t:'q',n:123,tx:"The new location of the Bender Company is easily ___ by car or bus.",o:["access","accessibly","accessible","accessibility"],a:2},
+{t:'q',n:124,tx:"A rise in energy prices will mostly affect businesses ___ energy consumption is high.",o:["its","which","whose","more"],a:2},
+{t:'q',n:125,tx:"City officials have ___ Harmon Avenue businesses that street repairs will be completed within 48 hours.",o:["assured","arranged","disclosed","committed"],a:0},
+{t:'q',n:126,tx:"Nominations for the ___ seat on the Gittennan Holdings Board of Trustees must be submitted by Friday.",o:["approaching","adjustable","vacant","united"],a:2},
+{t:'q',n:127,tx:"Our department ___ the policy meeting last Monday, but we had a scheduling conflict.",o:["can attend","must have attended","should attend","would have attended"],a:3},
+{t:'q',n:128,tx:"___ the effectiveness of Maisey Stanton's leadership on the town council, she will likely win next week's mayoral election.",o:["Since","Given","Among","Upon"],a:1},
+{t:'q',n:129,tx:"Barner Corporation's record profits resulted from the recent ___ to identify operating efficiencies.",o:["initiative","initiating","initiation","initiator"],a:0},
+{t:'q',n:130,tx:"Customers still tend to place short notices in the classified section ___ there is no longer a mandated word limit.",o:["as if","so that","in case","even though"],a:3}
+];
+
+const K=['A','B','C','D'];
+let timer=null,secsLeft=TEST_TIME,submitted=false,sName='',sDept='';
+function qs(id){return document.getElementById(id)}
+function countQ(){return ITEMS.filter(x=>x.t==='q').length}
+function getQIdx(){return ITEMS.map((x,i)=>x.t==='q'?i:-1).filter(i=>i>=0)}
+function blank(tx){return tx.replace('___','<span style="display:inline-block;width:70px;border-bottom:2px solid var(--blue);vertical-align:bottom">&nbsp;</span>')}
+function buildQuiz(){
+  const c=qs('qc');c.innerHTML='';
+  qs('prog-total').textContent=countQ();
+  ITEMS.forEach((item,idx)=>{
+    if(item.t==='pass'){
+      const b=document.createElement('div');b.className='passage-box';
+      b.innerHTML='<strong>\u{1F4C4} '+item.label+'</strong>'+item.html;c.appendChild(b);
+    } else {
+      const card=document.createElement('div');card.className='q-card';card.id='qc-'+idx;
+      const isLong=item.long||false;
+      const optsHtml=item.o.map((opt,oi)=>`<label class="opt" id="opt-${idx}-${oi}" onclick="pick(${idx},${oi})"><input type="radio" name="q${idx}" value="${oi}"><div class="opt-k">${K[oi]}</div><span>${opt}</span></label>`).join('');
+      card.innerHTML=`<div class="q-num">Q ${item.n}</div><div class="q-text">${blank(item.tx)}</div><div class="opts${isLong?' long':''}">${optsHtml}</div><div class="q-fb" id="fb-${idx}"></div>`;
+      c.appendChild(card);
+    }
+  });
+}
+function pick(qi,oi){
+  if(submitted)return;
+  for(let i=0;i<4;i++)qs(`opt-${qi}-${i}`)?.classList.remove('sel');
+  qs(`opt-${qi}-${oi}`)?.classList.add('sel');updateProg();
+}
+function getSel(qi){for(let i=0;i<4;i++)if(qs(`opt-${qi}-${i}`)?.classList.contains('sel'))return i;return -1;}
+function updateProg(){
+  const done=getQIdx().filter(i=>getSel(i)>=0).length;
+  qs('prog-n').textContent=done;
+  qs('prog-fill').style.width=(done/countQ()*100)+'%';
+}
+function updateTimerDisplay(){
+  const m=Math.floor(secsLeft/60).toString().padStart(2,'0');
+  const s=(secsLeft%60).toString().padStart(2,'0');
+  qs('timer-box').textContent=m+':'+s;
+}
+function startTimer(){
+  updateTimerDisplay();qs('timer-box').style.display='block';
+  timer=setInterval(()=>{secsLeft--;updateTimerDisplay();
+    if(secsLeft<=120)qs('timer-box').classList.add('urgent');
+    if(secsLeft<=0){clearInterval(timer);submitQuiz(true);}},1000);
+}
+function startQuiz(){
+  const nom=qs('i-nom').value.trim().toUpperCase();
+  const prenom=qs('i-prenom').value.trim();
+  const dept=qs('i-dept').value;
+  if(!nom||!prenom||!dept){alert('Merci de remplir tous les champs.');return;}
+  sName=prenom+' '+nom;sDept=dept;
+  qs('d-name').textContent=sName;
+  qs('d-meta').textContent=sDept+' \u00B7 Polytech Lille';
+  qs('sc-login').classList.remove('active');
+  qs('sc-quiz').classList.add('active');
+  buildQuiz();startTimer();
+}
+function submitQuiz(forced=false){
+  if(submitted)return;
+  const unan=getQIdx().filter(i=>getSel(i)<0).length;
+  if(!forced&&unan>0){qs('warn').style.display='block';
+    if(!confirm(unan+' question(s) sans réponse. Soumettre quand même ?'))return;}
+  submitted=true;clearInterval(timer);
+  let correct=0;
+  getQIdx().forEach(idx=>{
+    const item=ITEMS[idx];const sel=getSel(idx);
+    const card=qs('qc-'+idx);const fb=qs('fb-'+idx);
+    for(let oi=0;oi<4;oi++){const l=qs(`opt-${idx}-${oi}`);
+      if(oi===item.a)l?.classList.add('ans-ok');
+      if(sel===oi&&oi!==item.a)l?.classList.add('ans-ko');}
+    if(sel===item.a){correct++;card.classList.add('q-ok');fb.classList.add('show','ok');fb.textContent='\u2713 Correct';}
+    else{card.classList.add('q-ko');fb.classList.add('show','ko');
+      const sw=sel>=0?`Votre réponse : (${K[sel]}) ${item.o[sel]} \u2014 `:'Sans réponse \u2014 ';
+      fb.textContent='\u2717 '+sw+'Bonne réponse : ('+K[item.a]+') '+item.o[item.a];}
+  });showResults(correct);
+}
+function showResults(correct){
+  const total=countQ(),pct=Math.round(correct/total*100),wrong=total-correct;
+  qs('sc-circle').style.setProperty('--pct',pct);
+  qs('r-score').textContent=correct;qs('r-denom').textContent='/ '+total;
+  qs('r-name').textContent=sName;qs('r-meta').textContent=sDept+' \u00B7 Polytech Lille';
+  qs('r-ok').textContent=correct+' correcte'+(correct>1?'s':'');
+  qs('r-ko').textContent=wrong+' incorrecte'+(wrong>1?'s':'');
+  qs('r-pc').textContent=pct+' %';qs('r-eq').textContent=pct;
+  const rd=qs('rd');rd.innerHTML='';
+  ITEMS.forEach((item,idx)=>{
+    if(item.t==='pass'){
+      const b=document.createElement('div');b.className='passage-box';b.style.margin='1.2rem 0 .6rem';
+      b.innerHTML='<strong>\u{1F4C4} '+item.label+'</strong>'+item.html;rd.appendChild(b);
+    } else {
+      const sel=getSel(idx);const ok=sel===item.a;
+      const card=document.createElement('div');card.className='q-card '+(ok?'q-ok':'q-ko');card.style.marginBottom='.75rem';
+      const isLong=item.long||false;
+      const optsHtml=item.o.map((opt,oi)=>{let cls='opt';if(oi===item.a)cls+=' ans-ok';else if(sel===oi)cls+=' ans-ko';return`<div class="${cls}"><div class="opt-k">${K[oi]}</div><span>${opt}</span></div>`;}).join('');
+      card.innerHTML=`<div class="q-num">Q ${item.n}</div><div class="q-text" style="margin-top:.25rem">${blank(item.tx)}</div><div class="opts${isLong?' long':''}" style="margin-bottom:.5rem">${optsHtml}</div><div class="q-fb show ${ok?'ok':'ko'}">${ok?'\u2713 Correct':'\u2717 '+(sel>=0?`Votre réponse : (${K[sel]}) ${item.o[sel]} \u2014 `:'Sans réponse \u2014 ')+'Bonne réponse : ('+K[item.a]+') '+item.o[item.a]}</div>`;
+      rd.appendChild(card);
+    }
+  });
+  qs('sc-quiz').classList.remove('active');qs('sc-results').classList.add('active');window.scrollTo(0,0);
+}
+
+</script>
+</body>
+</html>
