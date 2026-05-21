@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Part 5 – Test A – Grammar (Q101-130)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap');
+  :root{--navy:#00274C;--blue:#1565C0;--light-blue:#E3F0FF;--accent:#F59E0B;--green:#16A34A;--red:#DC2626;--bg:#F8FAFC;--white:#FFFFFF;--text:#1E293B;--muted:#64748B;--border:#CBD5E1}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  header{background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .hdr-brand{font-family:'Merriweather',serif;font-size:.85rem;line-height:1.4;opacity:.9}
+  .hdr-brand span{display:block;font-size:.75rem;opacity:.7}
+  .hdr-title{font-family:'Merriweather',serif;font-size:1rem;font-weight:700;letter-spacing:.04em;text-align:center}
+  #timer{background:var(--accent);color:var(--navy);font-family:'Merriweather',serif;font-size:1.5rem;font-weight:700;padding:6px 18px;border-radius:6px;letter-spacing:.08em;min-width:90px;text-align:center;transition:background .3s}
+  #timer.warn{background:#EF4444;color:white;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+  main{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+  .directions{background:var(--white);border:2px solid var(--navy);border-radius:8px;padding:16px 20px;margin-bottom:28px;font-size:.92rem;line-height:1.6}
+  .directions strong{display:block;font-size:.95rem;margin-bottom:6px;color:var(--navy)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .question-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 16px;transition:border-color .2s}
+  .question-card.answered{border-color:var(--blue)}
+  .q-stem{font-size:.9rem;line-height:1.55;margin-bottom:10px;color:var(--text)}
+  .q-num{font-weight:700;color:var(--navy)}
+  .blank{display:inline-block;min-width:60px;border-bottom:2px solid var(--navy);text-align:center;color:var(--blue);font-weight:700;font-size:.82rem;vertical-align:bottom;line-height:1.6}
+  .options label{display:flex;align-items:flex-start;gap:8px;padding:5px 8px;border-radius:5px;cursor:pointer;font-size:.88rem;line-height:1.4;transition:background .15s}
+  .options label:hover{background:var(--light-blue)}
+  .options input[type=radio]{margin-top:2px;accent-color:var(--blue);cursor:pointer;flex-shrink:0}
+  .submit-wrap{text-align:center;margin:32px 0 8px}
+  #submit-btn{background:var(--blue);color:white;border:none;border-radius:8px;padding:14px 40px;font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:background .2s,transform .15s;box-shadow:0 4px 12px rgba(21,101,192,.3)}
+  #submit-btn:hover:not(:disabled){background:var(--navy);transform:translateY(-1px)}
+  #submit-btn:disabled{background:var(--muted);cursor:not-allowed;box-shadow:none;transform:none}
+  .req-note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:6px}
+  #results{display:none;margin-top:36px}
+  .score-banner{background:var(--navy);color:white;border-radius:12px;padding:24px;text-align:center;margin-bottom:24px}
+  .score-banner .score-num{font-family:'Merriweather',serif;font-size:3rem;font-weight:700;color:var(--accent)}
+  .score-banner .score-sub{font-size:.9rem;opacity:.8;margin-top:4px}
+  .correction-title{font-family:'Merriweather',serif;font-size:1.05rem;font-weight:700;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:16px}
+  .corr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .corr-card{border-radius:8px;padding:12px 14px;border-left:5px solid}
+  .corr-card.correct{background:#F0FDF4;border-color:var(--green)}
+  .corr-card.wrong{background:#FEF2F2;border-color:var(--red)}
+  .c-head{display:flex;align-items:center;gap:7px;font-weight:700;margin-bottom:5px;font-size:.88rem}
+  .badge-ok{background:var(--green);color:white;border-radius:4px;padding:1px 7px;font-size:.76rem}
+  .badge-err{background:var(--red);color:white;border-radius:4px;padding:1px 7px;font-size:.76rem}
+  .c-ans{font-size:.84rem;margin-bottom:5px}
+  .c-ans .good{color:var(--green);font-weight:700}
+  .c-ans .bad{color:var(--red);text-decoration:line-through}
+  .c-expl{font-size:.82rem;color:#374151;background:rgba(255,255,255,.7);border-radius:5px;padding:7px 9px;border-left:3px solid var(--muted);line-height:1.5}
+  @media(max-width:680px){.grid,.corr-grid{grid-template-columns:1fr}header{padding:10px 14px;flex-wrap:wrap;gap:6px}.hdr-title{order:-1;width:100%;text-align:center}#timer{font-size:1.2rem}main{padding:14px 10px 48px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-brand">Marc VASSEUR<span>Polytech Lille · Intensif TOEIC</span></div>
+  <div class="hdr-title">TOEIC PART 5 — Q101–130</div>
+  <div id="timer">15:00</div>
+</header>
+<main>
+<div class="directions">
+  <strong>PART 5 – DIRECTIONS</strong>
+  A word or phrase is missing in each of the sentences below. Four answer choices are given below each sentence. Select the best answer to complete the sentence. Then mark the letter (A), (B), (C), or (D). — <em>30 questions · 15 minutes</em>
+</div>
+
+<div class="grid">
+<div class="question-card" id="qc101"><div class="q-stem"><span class="q-num">101.</span> Traskam's CEO, Hyo Kim, would like to invite all of <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> staff to a holiday luncheon.</div><div class="options">
+  <label><input type="radio" name="q101" value="A"> (A)&nbsp;he</label>
+  <label><input type="radio" name="q101" value="B"> (B)&nbsp;him</label>
+  <label><input type="radio" name="q101" value="C"> (C)&nbsp;his</label>
+  <label><input type="radio" name="q101" value="D"> (D)&nbsp;himself</label>
+</div></div>
+<div class="question-card" id="qc102"><div class="q-stem"><span class="q-num">102.</span> Before <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> the bookcase, make sure you have all the parts listed in the instruction manual.</div><div class="options">
+  <label><input type="radio" name="q102" value="A"> (A)&nbsp;developing</label>
+  <label><input type="radio" name="q102" value="B"> (B)&nbsp;assembling</label>
+  <label><input type="radio" name="q102" value="C"> (C)&nbsp;commenting</label>
+  <label><input type="radio" name="q102" value="D"> (D)&nbsp;involving</label>
+</div></div>
+<div class="question-card" id="qc103"><div class="q-stem"><span class="q-num">103.</span> Burstein Bank is now interviewing <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> for teller and security positions.</div><div class="options">
+  <label><input type="radio" name="q103" value="A"> (A)&nbsp;apply</label>
+  <label><input type="radio" name="q103" value="B"> (B)&nbsp;applied</label>
+  <label><input type="radio" name="q103" value="C"> (C)&nbsp;applies</label>
+  <label><input type="radio" name="q103" value="D"> (D)&nbsp;applicants</label>
+</div></div>
+<div class="question-card" id="qc104"><div class="q-stem"><span class="q-num">104.</span> All Babayemi Finance personnel are evaluated on an annual basis, <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> by their immediate supervisors.</div><div class="options">
+  <label><input type="radio" name="q104" value="A"> (A)&nbsp;usually</label>
+  <label><input type="radio" name="q104" value="B"> (B)&nbsp;exactly</label>
+  <label><input type="radio" name="q104" value="C"> (C)&nbsp;nearly</label>
+  <label><input type="radio" name="q104" value="D"> (D)&nbsp;already</label>
+</div></div>
+<div class="question-card" id="qc105"><div class="q-stem"><span class="q-num">105.</span> At Reynolds and Rowles Company, we are <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> of our 60-year tradition of service in the food industry.</div><div class="options">
+  <label><input type="radio" name="q105" value="A"> (A)&nbsp;agreeable</label>
+  <label><input type="radio" name="q105" value="B"> (B)&nbsp;eager</label>
+  <label><input type="radio" name="q105" value="C"> (C)&nbsp;proud</label>
+  <label><input type="radio" name="q105" value="D"> (D)&nbsp;faithful</label>
+</div></div>
+<div class="question-card" id="qc106"><div class="q-stem"><span class="q-num">106.</span> Mr. Ahiro's company <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> its first hotel in Tokyo many years ago.</div><div class="options">
+  <label><input type="radio" name="q106" value="A"> (A)&nbsp;establish</label>
+  <label><input type="radio" name="q106" value="B"> (B)&nbsp;establishes</label>
+  <label><input type="radio" name="q106" value="C"> (C)&nbsp;established</label>
+  <label><input type="radio" name="q106" value="D"> (D)&nbsp;establishment</label>
+</div></div>
+<div class="question-card" id="qc107"><div class="q-stem"><span class="q-num">107.</span> Stain resistance is an <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> benefit of all Modern Knots fabrics.</div><div class="options">
+  <label><input type="radio" name="q107" value="A"> (A)&nbsp;added</label>
+  <label><input type="radio" name="q107" value="B"> (B)&nbsp;addition</label>
+  <label><input type="radio" name="q107" value="C"> (C)&nbsp;add</label>
+  <label><input type="radio" name="q107" value="D"> (D)&nbsp;adding</label>
+</div></div>
+<div class="question-card" id="qc108"><div class="q-stem"><span class="q-num">108.</span> Since Ms. Tan goes on vacation <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>, please submit your time sheets by 4 PM today.</div><div class="options">
+  <label><input type="radio" name="q108" value="A"> (A)&nbsp;weekly</label>
+  <label><input type="radio" name="q108" value="B"> (B)&nbsp;tomorrow</label>
+  <label><input type="radio" name="q108" value="C"> (C)&nbsp;possibly</label>
+  <label><input type="radio" name="q108" value="D"> (D)&nbsp;instead</label>
+</div></div>
+<div class="question-card" id="qc109"><div class="q-stem"><span class="q-num">109.</span> After the orientation, the interns will be taken on a tour <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> the corporate campus.</div><div class="options">
+  <label><input type="radio" name="q109" value="A"> (A)&nbsp;for</label>
+  <label><input type="radio" name="q109" value="B"> (B)&nbsp;with</label>
+  <label><input type="radio" name="q109" value="C"> (C)&nbsp;among</label>
+  <label><input type="radio" name="q109" value="D"> (D)&nbsp;of</label>
+</div></div>
+<div class="question-card" id="qc110"><div class="q-stem"><span class="q-num">110.</span> The Pearlflower Hotel's <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> implemented procedures make checking in more pleasant.</div><div class="options">
+  <label><input type="radio" name="q110" value="A"> (A)&nbsp;new</label>
+  <label><input type="radio" name="q110" value="B"> (B)&nbsp;newer</label>
+  <label><input type="radio" name="q110" value="C"> (C)&nbsp;newness</label>
+  <label><input type="radio" name="q110" value="D"> (D)&nbsp;newly</label>
+</div></div>
+<div class="question-card" id="qc111"><div class="q-stem"><span class="q-num">111.</span> If you do not receive a response to your appliance repair request <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> two days, please call our customer support line.</div><div class="options">
+  <label><input type="radio" name="q111" value="A"> (A)&nbsp;while</label>
+  <label><input type="radio" name="q111" value="B"> (B)&nbsp;since</label>
+  <label><input type="radio" name="q111" value="C"> (C)&nbsp;within</label>
+  <label><input type="radio" name="q111" value="D"> (D)&nbsp;although</label>
+</div></div>
+<div class="question-card" id="qc112"><div class="q-stem"><span class="q-num">112.</span> The <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> plan to completely renovate the picnic shelters in Lakeside Park has been revised.</div><div class="options">
+  <label><input type="radio" name="q112" value="A"> (A)&nbsp;initial</label>
+  <label><input type="radio" name="q112" value="B"> (B)&nbsp;typical</label>
+  <label><input type="radio" name="q112" value="C"> (C)&nbsp;variable</label>
+  <label><input type="radio" name="q112" value="D"> (D)&nbsp;secluded</label>
+</div></div>
+<div class="question-card" id="qc113"><div class="q-stem"><span class="q-num">113.</span> The store offered many discount coupons last month, but <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> have now expired.</div><div class="options">
+  <label><input type="radio" name="q113" value="A"> (A)&nbsp;several</label>
+  <label><input type="radio" name="q113" value="B"> (B)&nbsp;every</label>
+  <label><input type="radio" name="q113" value="C"> (C)&nbsp;any</label>
+  <label><input type="radio" name="q113" value="D"> (D)&nbsp;much</label>
+</div></div>
+<div class="question-card" id="qc114"><div class="q-stem"><span class="q-num">114.</span> Monetary <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> from local businesses have enabled the purchase of twelve desktop computers for Molina Library.</div><div class="options">
+  <label><input type="radio" name="q114" value="A"> (A)&nbsp;disclosures</label>
+  <label><input type="radio" name="q114" value="B"> (B)&nbsp;systems</label>
+  <label><input type="radio" name="q114" value="C"> (C)&nbsp;contributions</label>
+  <label><input type="radio" name="q114" value="D"> (D)&nbsp;machines</label>
+</div></div>
+<div class="question-card" id="qc115"><div class="q-stem"><span class="q-num">115.</span> To receive a price <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> on tickets, present your employee identification card at the box office window.</div><div class="options">
+  <label><input type="radio" name="q115" value="A"> (A)&nbsp;reduction</label>
+  <label><input type="radio" name="q115" value="B"> (B)&nbsp;reduce</label>
+  <label><input type="radio" name="q115" value="C"> (C)&nbsp;reducing</label>
+  <label><input type="radio" name="q115" value="D"> (D)&nbsp;reduced</label>
+</div></div>
+<div class="question-card" id="qc116"><div class="q-stem"><span class="q-num">116.</span> Recommendations for staff promotions are due to the management team <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Monday.</div><div class="options">
+  <label><input type="radio" name="q116" value="A"> (A)&nbsp;apart from</label>
+  <label><input type="radio" name="q116" value="B"> (B)&nbsp;unlike</label>
+  <label><input type="radio" name="q116" value="C"> (C)&nbsp;at the time</label>
+  <label><input type="radio" name="q116" value="D"> (D)&nbsp;no later than</label>
+</div></div>
+<div class="question-card" id="qc117"><div class="q-stem"><span class="q-num">117.</span> Last week, STN Industries delivered the rest of the refrigerators <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> were ordered by Pollini's Cafés.</div><div class="options">
+  <label><input type="radio" name="q117" value="A"> (A)&nbsp;that</label>
+  <label><input type="radio" name="q117" value="B"> (B)&nbsp;whose</label>
+  <label><input type="radio" name="q117" value="C"> (C)&nbsp;what</label>
+  <label><input type="radio" name="q117" value="D"> (D)&nbsp;them</label>
+</div></div>
+<div class="question-card" id="qc118"><div class="q-stem"><span class="q-num">118.</span> After successfully <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> the Grains Grill for five years, the owners have announced plans to open a second restaurant.</div><div class="options">
+  <label><input type="radio" name="q118" value="A"> (A)&nbsp;engaging</label>
+  <label><input type="radio" name="q118" value="B"> (B)&nbsp;operating</label>
+  <label><input type="radio" name="q118" value="C"> (C)&nbsp;proceeding</label>
+  <label><input type="radio" name="q118" value="D"> (D)&nbsp;achieving</label>
+</div></div>
+<div class="question-card" id="qc119"><div class="q-stem"><span class="q-num">119.</span> A <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> of Alarm Mix, our new smartphone application, is that users can create their own ringtones.</div><div class="options">
+  <label><input type="radio" name="q119" value="A"> (A)&nbsp;feature</label>
+  <label><input type="radio" name="q119" value="B"> (B)&nbsp;position</label>
+  <label><input type="radio" name="q119" value="C"> (C)&nbsp;reason</label>
+  <label><input type="radio" name="q119" value="D"> (D)&nbsp;fascination</label>
+</div></div>
+<div class="question-card" id="qc120"><div class="q-stem"><span class="q-num">120.</span> The <em>Roadway Companion</em>, a travel guide for motorists, is published <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> by the Ashbarrow Historical Society.</div><div class="options">
+  <label><input type="radio" name="q120" value="A"> (A)&nbsp;quarter</label>
+  <label><input type="radio" name="q120" value="B"> (B)&nbsp;quartered</label>
+  <label><input type="radio" name="q120" value="C"> (C)&nbsp;quarterlies</label>
+  <label><input type="radio" name="q120" value="D"> (D)&nbsp;quarterly</label>
+</div></div>
+<div class="question-card" id="qc121"><div class="q-stem"><span class="q-num">121.</span> The latest poll indicates that mayoral candidate Dita Wright is gaining favorability, <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> among first-time voters.</div><div class="options">
+  <label><input type="radio" name="q121" value="A"> (A)&nbsp;eventually</label>
+  <label><input type="radio" name="q121" value="B"> (B)&nbsp;closely</label>
+  <label><input type="radio" name="q121" value="C"> (C)&nbsp;especially</label>
+  <label><input type="radio" name="q121" value="D"> (D)&nbsp;approximately</label>
+</div></div>
+<div class="question-card" id="qc122"><div class="q-stem"><span class="q-num">122.</span> Precision Planner software helps managers to track projects <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> all departments in a company.</div><div class="options">
+  <label><input type="radio" name="q122" value="A"> (A)&nbsp;onto</label>
+  <label><input type="radio" name="q122" value="B"> (B)&nbsp;after</label>
+  <label><input type="radio" name="q122" value="C"> (C)&nbsp;across</label>
+  <label><input type="radio" name="q122" value="D"> (D)&nbsp;toward</label>
+</div></div>
+<div class="question-card" id="qc123"><div class="q-stem"><span class="q-num">123.</span> All Zeralite mobile phones must be <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> with secure foam to prevent damage during shipping.</div><div class="options">
+  <label><input type="radio" name="q123" value="A"> (A)&nbsp;packages</label>
+  <label><input type="radio" name="q123" value="B"> (B)&nbsp;package</label>
+  <label><input type="radio" name="q123" value="C"> (C)&nbsp;packaging</label>
+  <label><input type="radio" name="q123" value="D"> (D)&nbsp;packaged</label>
+</div></div>
+<div class="question-card" id="qc124"><div class="q-stem"><span class="q-num">124.</span> Customers are <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> to back up all files on their computers before installing the new software.</div><div class="options">
+  <label><input type="radio" name="q124" value="A"> (A)&nbsp;advised</label>
+  <label><input type="radio" name="q124" value="B"> (B)&nbsp;introduced</label>
+  <label><input type="radio" name="q124" value="C"> (C)&nbsp;exchanged</label>
+  <label><input type="radio" name="q124" value="D"> (D)&nbsp;noticed</label>
+</div></div>
+<div class="question-card" id="qc125"><div class="q-stem"><span class="q-num">125.</span> Provitrax, Inc., will continue developing new products <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> a market for them exists.</div><div class="options">
+  <label><input type="radio" name="q125" value="A"> (A)&nbsp;in case of</label>
+  <label><input type="radio" name="q125" value="B"> (B)&nbsp;as long as</label>
+  <label><input type="radio" name="q125" value="C"> (C)&nbsp;in order to</label>
+  <label><input type="radio" name="q125" value="D"> (D)&nbsp;in conjunction with</label>
+</div></div>
+<div class="question-card" id="qc126"><div class="q-stem"><span class="q-num">126.</span> In an effort to conserve resources, Brinmann's Deli no longer serves its fruit drinks in <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> cups.</div><div class="options">
+  <label><input type="radio" name="q126" value="A"> (A)&nbsp;disposed</label>
+  <label><input type="radio" name="q126" value="B"> (B)&nbsp;disposable</label>
+  <label><input type="radio" name="q126" value="C"> (C)&nbsp;disposing</label>
+  <label><input type="radio" name="q126" value="D"> (D)&nbsp;disposes</label>
+</div></div>
+<div class="question-card" id="qc127"><div class="q-stem"><span class="q-num">127.</span> When your account password expires, you <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> to update it using the new security standards.</div><div class="options">
+  <label><input type="radio" name="q127" value="A"> (A)&nbsp;will be prompting</label>
+  <label><input type="radio" name="q127" value="B"> (B)&nbsp;will be prompted</label>
+  <label><input type="radio" name="q127" value="C"> (C)&nbsp;had been prompt</label>
+  <label><input type="radio" name="q127" value="D"> (D)&nbsp;had been prompted</label>
+</div></div>
+<div class="question-card" id="qc128"><div class="q-stem"><span class="q-num">128.</span> At James & Lewin Consulting, our financial advisors specialize in <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> that help people exceed their savings goals.</div><div class="options">
+  <label><input type="radio" name="q128" value="A"> (A)&nbsp;strategies</label>
+  <label><input type="radio" name="q128" value="B"> (B)&nbsp;occasions</label>
+  <label><input type="radio" name="q128" value="C"> (C)&nbsp;postures</label>
+  <label><input type="radio" name="q128" value="D"> (D)&nbsp;variations</label>
+</div></div>
+<div class="question-card" id="qc129"><div class="q-stem"><span class="q-num">129.</span> The <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> candidate will possess strong interpersonal skills and demonstrate an ability to work well in team settings.</div><div class="options">
+  <label><input type="radio" name="q129" value="A"> (A)&nbsp;frequent</label>
+  <label><input type="radio" name="q129" value="B"> (B)&nbsp;ideal</label>
+  <label><input type="radio" name="q129" value="C"> (C)&nbsp;broad</label>
+  <label><input type="radio" name="q129" value="D"> (D)&nbsp;alone</label>
+</div></div>
+<div class="question-card" id="qc130"><div class="q-stem"><span class="q-num">130.</span> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> they offer large spaces for low rental fees, the neighborhoods adjacent to Framdale Highway attract artists seeking work spaces.</div><div class="options">
+  <label><input type="radio" name="q130" value="A"> (A)&nbsp;Meanwhile</label>
+  <label><input type="radio" name="q130" value="B"> (B)&nbsp;Why</label>
+  <label><input type="radio" name="q130" value="C"> (C)&nbsp;How</label>
+  <label><input type="radio" name="q130" value="D"> (D)&nbsp;Because</label>
+</div></div>
+</div>
+
+
+<div class="submit-wrap">
+  <button id="submit-btn" disabled>Voir la correction</button>
+  <p class="req-note">Toutes les questions doivent être répondues avant d&apos;afficher la correction.</p>
+</div>
+
+<div id="results">
+  <div class="score-banner">
+    <div class="score-num" id="score-display">—</div>
+    <div class="score-sub" id="score-pct"></div>
+  </div>
+  <p class="correction-title">Correction détaillée</p>
+  <div id="corr-list"></div>
+</div>
+</main>
+<script>
+
+  var TOTAL = 900;
+  var remaining = TOTAL;
+  var timerEl = document.getElementById('timer');
+  function fmt(s){var m=Math.floor(s/60);return String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+  timerEl.textContent = fmt(remaining);
+  var iv = setInterval(function(){
+    remaining--;
+    timerEl.textContent = fmt(remaining);
+    if(remaining<=120) timerEl.classList.add('warn');
+    if(remaining<=0){clearInterval(iv);timerEl.textContent='00:00';}
+  }, 1000);
+
+  var KEYS   = {"101": "C", "102": "B", "103": "D", "104": "A", "105": "C", "106": "C", "107": "A", "108": "B", "109": "D", "110": "D", "111": "C", "112": "A", "113": "A", "114": "C", "115": "A", "116": "D", "117": "A", "118": "B", "119": "A", "120": "D", "121": "C", "122": "C", "123": "D", "124": "A", "125": "B", "126": "B", "127": "B", "128": "A", "129": "B", "130": "D"};
+  var EXPL   = {"101": "<strong>(C) his</strong> \u2014 adjectif possessif devant le nom <em>staff</em>. \u00ab&nbsp;he&nbsp;\u00bb et \u00ab&nbsp;him&nbsp;\u00bb sont des pronoms (sujets/objets), \u00ab&nbsp;himself&nbsp;\u00bb est r\u00e9fl\u00e9chi ; aucun ne peut pr\u00e9c\u00e9der un nom.", "102": "<strong>(B) assembling</strong> \u2014 apr\u00e8s la pr\u00e9position <em>before</em>, un g\u00e9rondif (-ing) est obligatoire. \u00ab&nbsp;Assembling the bookcase&nbsp;\u00bb = monter l'\u00e9tag\u00e8re.", "103": "<strong>(D) applicants</strong> \u2014 le verbe <em>interview</em> requiert un nom de personne comme objet. Les candidats (applicants) sont ceux qui postulent.", "104": "<strong>(A) usually</strong> \u2014 adverbe de fr\u00e9quence appropri\u00e9 pour une pratique annuelle r\u00e9guli\u00e8re. \u00ab&nbsp;Exactly&nbsp;\u00bb et \u00ab&nbsp;nearly&nbsp;\u00bb sont des adverbes de degr\u00e9, \u00ab&nbsp;already&nbsp;\u00bb de temporalit\u00e9 ; aucun n'exprime une habitude.", "105": "<strong>(C) proud</strong> \u2014 la collocation est \u00ab&nbsp;be proud of&nbsp;\u00bb (\u00eatre fier de). \u00ab&nbsp;Agreeable&nbsp;\u00bb, \u00ab&nbsp;eager&nbsp;\u00bb et \u00ab&nbsp;faithful&nbsp;\u00bb ne se construisent pas avec <em>of</em> dans ce sens.", "106": "<strong>(C) established</strong> \u2014 \u00ab&nbsp;many years ago&nbsp;\u00bb impose le pr\u00e9t\u00e9rit simple. \u00ab&nbsp;Establish&nbsp;\u00bb est la base verbale, \u00ab&nbsp;establishes&nbsp;\u00bb le pr\u00e9sent simple, \u00ab&nbsp;establishment&nbsp;\u00bb un nom.", "107": "<strong>(A) added</strong> \u2014 \u00ab&nbsp;an added benefit&nbsp;\u00bb est une collocation fig\u00e9e signifiant \u00ab&nbsp;un avantage suppl\u00e9mentaire&nbsp;\u00bb. \u00ab&nbsp;Addition&nbsp;\u00bb est un nom, \u00ab&nbsp;add&nbsp;\u00bb et \u00ab&nbsp;adding&nbsp;\u00bb sont des formes verbales qui ne peuvent pas modifier un nom.", "108": "<strong>(B) tomorrow</strong> \u2014 la logique impose de soumettre les feuilles de temps <em>aujourd'hui</em> parce que Ms. Tan part <em>demain</em>. Les autres options ne cr\u00e9ent pas ce lien causal.", "109": "<strong>(D) of</strong> \u2014 \u00ab&nbsp;a tour of&nbsp;\u00bb est la seule pr\u00e9position correcte pour d\u00e9signer ce dont on fait la visite. \u00ab&nbsp;For&nbsp;\u00bb, \u00ab&nbsp;with&nbsp;\u00bb et \u00ab&nbsp;among&nbsp;\u00bb sont incorrects dans ce contexte.", "110": "<strong>(D) newly</strong> \u2014 adverbe modifiant le participe pass\u00e9 <em>implemented</em>. \u00ab&nbsp;New&nbsp;\u00bb et \u00ab&nbsp;newer&nbsp;\u00bb sont adjectifs (modifient un nom), \u00ab&nbsp;newness&nbsp;\u00bb est un nom.", "111": "<strong>(C) within</strong> \u2014 \u00ab&nbsp;within two days&nbsp;\u00bb = d'ici deux jours, dans un d\u00e9lai de deux jours. \u00ab&nbsp;While&nbsp;\u00bb et \u00ab&nbsp;although&nbsp;\u00bb sont des conjonctions ; \u00ab&nbsp;since&nbsp;\u00bb exprime une origine temporelle.", "112": "<strong>(A) initial</strong> \u2014 \u00ab&nbsp;the initial plan&nbsp;\u00bb = le plan d'origine (qui a depuis \u00e9t\u00e9 r\u00e9vis\u00e9). \u00ab&nbsp;Typical&nbsp;\u00bb = habituel, \u00ab&nbsp;variable&nbsp;\u00bb = changeant, \u00ab&nbsp;secluded&nbsp;\u00bb = isol\u00e9 ; aucun ne convient.", "113": "<strong>(A) several</strong> \u2014 pronom pluriel reprenant \u00ab&nbsp;many discount coupons&nbsp;\u00bb. \u00ab&nbsp;Every&nbsp;\u00bb ne peut pas \u00eatre pronom seul, \u00ab&nbsp;much&nbsp;\u00bb est ind\u00e9nombrable, \u00ab&nbsp;any&nbsp;\u00bb serait neutre/conditionnel.", "114": "<strong>(C) contributions</strong> \u2014 \u00ab&nbsp;monetary contributions&nbsp;\u00bb = dons financiers, locution standard. \u00ab&nbsp;Disclosures&nbsp;\u00bb = divulgations, \u00ab&nbsp;systems&nbsp;\u00bb et \u00ab&nbsp;machines&nbsp;\u00bb sont hors contexte.", "115": "<strong>(A) reduction</strong> \u2014 \u00ab&nbsp;a price reduction&nbsp;\u00bb = une remise sur le prix. Nom n\u00e9cessaire apr\u00e8s l'article <em>a</em> et le nom <em>price</em>. \u00ab&nbsp;Reduce/reducing/reduced&nbsp;\u00bb sont des formes verbales ou adjectivales qui ne conviennent pas.", "116": "<strong>(D) no later than</strong> \u2014 exprime une \u00e9ch\u00e9ance limite : \u00ab&nbsp;au plus tard lundi&nbsp;\u00bb. \u00ab&nbsp;Apart from&nbsp;\u00bb = \u00e0 part, \u00ab&nbsp;unlike&nbsp;\u00bb = contrairement \u00e0, \u00ab&nbsp;at the time&nbsp;\u00bb = \u00e0 ce moment-l\u00e0.", "117": "<strong>(A) that</strong> \u2014 pronom relatif sujet pour des choses (<em>the refrigerators</em>). \u00ab&nbsp;Whose&nbsp;\u00bb est possessif, \u00ab&nbsp;what&nbsp;\u00bb ne peut pas introduire une relative d\u00e9terminative, \u00ab&nbsp;them&nbsp;\u00bb est un pronom objet.", "118": "<strong>(B) operating</strong> \u2014 \u00ab&nbsp;operating a restaurant&nbsp;\u00bb = g\u00e9rer/exploiter un restaurant. G\u00e9rondif apr\u00e8s <em>after successfully</em>. \u00ab&nbsp;Engaging&nbsp;\u00bb, \u00ab&nbsp;proceeding&nbsp;\u00bb et \u00ab&nbsp;achieving&nbsp;\u00bb ne se construisent pas ainsi avec un restaurant en objet.", "119": "<strong>(A) feature</strong> \u2014 \u00ab&nbsp;a feature of the app&nbsp;\u00bb = une fonctionnalit\u00e9, une caract\u00e9ristique. \u00ab&nbsp;Position&nbsp;\u00bb = poste, \u00ab&nbsp;reason&nbsp;\u00bb = raison, \u00ab&nbsp;fascination&nbsp;\u00bb = fascination ; aucun ne convient.", "120": "<strong>(D) quarterly</strong> \u2014 adverbe de fr\u00e9quence modifiant le verbe <em>published</em> (tous les trimestres). \u00ab&nbsp;Quarter&nbsp;\u00bb est un nom, \u00ab&nbsp;quartered&nbsp;\u00bb = divis\u00e9 en quarts, \u00ab&nbsp;quarterlies&nbsp;\u00bb est un nom pluriel.", "121": "<strong>(C) especially</strong> \u2014 \u00ab&nbsp;especially among first-time voters&nbsp;\u00bb = particuli\u00e8rement, surtout parmi. \u00ab&nbsp;Eventually&nbsp;\u00bb = finalement, \u00ab&nbsp;closely&nbsp;\u00bb = de pr\u00e8s, \u00ab&nbsp;approximately&nbsp;\u00bb = approximativement.", "122": "<strong>(C) across</strong> \u2014 \u00ab&nbsp;across all departments&nbsp;\u00bb = dans l'ensemble des d\u00e9partements. \u00ab&nbsp;Onto&nbsp;\u00bb = sur, \u00ab&nbsp;after&nbsp;\u00bb = apr\u00e8s, \u00ab&nbsp;toward&nbsp;\u00bb = vers ; aucun n'exprime la port\u00e9e globale.", "123": "<strong>(D) packaged</strong> \u2014 voix passive requise : \u00ab&nbsp;must be packaged&nbsp;\u00bb (doivent \u00eatre emball\u00e9s). \u00ab&nbsp;Packages&nbsp;\u00bb et \u00ab&nbsp;package&nbsp;\u00bb sont des noms/formes actives, \u00ab&nbsp;packaging&nbsp;\u00bb est un nom ou participe pr\u00e9sent.", "124": "<strong>(A) advised</strong> \u2014 \u00ab&nbsp;are advised to&nbsp;\u00bb = il est conseill\u00e9 de, forme passive standard pour une recommandation. \u00ab&nbsp;Introduced&nbsp;\u00bb, \u00ab&nbsp;exchanged&nbsp;\u00bb et \u00ab&nbsp;noticed&nbsp;\u00bb ne se construisent pas avec <em>to + infinitif</em> dans ce sens.", "125": "<strong>(B) as long as</strong> \u2014 conjonction conditionnelle : \u00ab&nbsp;tant qu'il existe un march\u00e9&nbsp;\u00bb. \u00ab&nbsp;In case of&nbsp;\u00bb + nom, \u00ab&nbsp;in order to&nbsp;\u00bb + infinitif, \u00ab&nbsp;in conjunction with&nbsp;\u00bb = conjointement avec.", "126": "<strong>(B) disposable</strong> \u2014 adjectif qualifiant <em>cups</em> : gobelets jetables. \u00ab&nbsp;Disposed&nbsp;\u00bb = d\u00e9barrass\u00e9 de, \u00ab&nbsp;disposing&nbsp;\u00bb et \u00ab&nbsp;disposes&nbsp;\u00bb sont des formes verbales.", "127": "<strong>(B) will be prompted</strong> \u2014 voix passive au futur : le syst\u00e8me vous invitera (= vous serez invit\u00e9) \u00e0 mettre \u00e0 jour. \u00ab&nbsp;Will be prompting&nbsp;\u00bb est actif, \u00ab&nbsp;had been prompt/prompted&nbsp;\u00bb est au plus-que-parfait.", "128": "<strong>(A) strategies</strong> \u2014 \u00ab&nbsp;specialize in strategies&nbsp;\u00bb = se sp\u00e9cialiser dans des strat\u00e9gies. Les conseillers financiers proposent des strat\u00e9gies. \u00ab&nbsp;Occasions&nbsp;\u00bb, \u00ab&nbsp;postures&nbsp;\u00bb et \u00ab&nbsp;variations&nbsp;\u00bb sont hors contexte.", "129": "<strong>(B) ideal</strong> \u2014 \u00ab&nbsp;the ideal candidate&nbsp;\u00bb = le candidat id\u00e9al, parfait pour le poste. \u00ab&nbsp;Frequent&nbsp;\u00bb = fr\u00e9quent, \u00ab&nbsp;broad&nbsp;\u00bb = large, \u00ab&nbsp;alone&nbsp;\u00bb = seul ; aucun ne qualifie un profil recherch\u00e9.", "130": "<strong>(D) Because</strong> \u2014 conjonction causale introduisant la raison : \u00ab&nbsp;Parce qu'ils offrent de grands espaces, les quartiers attirent les artistes&nbsp;\u00bb. \u00ab&nbsp;Meanwhile&nbsp;\u00bb = pendant ce temps, \u00ab&nbsp;Why&nbsp;\u00bb et \u00ab&nbsp;How&nbsp;\u00bb sont des interrogatifs/relatifs."};
+  var LABELS = {"101": {"A": "he", "B": "him", "C": "his", "D": "himself"}, "102": {"A": "developing", "B": "assembling", "C": "commenting", "D": "involving"}, "103": {"A": "apply", "B": "applied", "C": "applies", "D": "applicants"}, "104": {"A": "usually", "B": "exactly", "C": "nearly", "D": "already"}, "105": {"A": "agreeable", "B": "eager", "C": "proud", "D": "faithful"}, "106": {"A": "establish", "B": "establishes", "C": "established", "D": "establishment"}, "107": {"A": "added", "B": "addition", "C": "add", "D": "adding"}, "108": {"A": "weekly", "B": "tomorrow", "C": "possibly", "D": "instead"}, "109": {"A": "for", "B": "with", "C": "among", "D": "of"}, "110": {"A": "new", "B": "newer", "C": "newness", "D": "newly"}, "111": {"A": "while", "B": "since", "C": "within", "D": "although"}, "112": {"A": "initial", "B": "typical", "C": "variable", "D": "secluded"}, "113": {"A": "several", "B": "every", "C": "any", "D": "much"}, "114": {"A": "disclosures", "B": "systems", "C": "contributions", "D": "machines"}, "115": {"A": "reduction", "B": "reduce", "C": "reducing", "D": "reduced"}, "116": {"A": "apart from", "B": "unlike", "C": "at the time", "D": "no later than"}, "117": {"A": "that", "B": "whose", "C": "what", "D": "them"}, "118": {"A": "engaging", "B": "operating", "C": "proceeding", "D": "achieving"}, "119": {"A": "feature", "B": "position", "C": "reason", "D": "fascination"}, "120": {"A": "quarter", "B": "quartered", "C": "quarterlies", "D": "quarterly"}, "121": {"A": "eventually", "B": "closely", "C": "especially", "D": "approximately"}, "122": {"A": "onto", "B": "after", "C": "across", "D": "toward"}, "123": {"A": "packages", "B": "package", "C": "packaging", "D": "packaged"}, "124": {"A": "advised", "B": "introduced", "C": "exchanged", "D": "noticed"}, "125": {"A": "in case of", "B": "as long as", "C": "in order to", "D": "in conjunction with"}, "126": {"A": "disposed", "B": "disposable", "C": "disposing", "D": "disposes"}, "127": {"A": "will be prompting", "B": "will be prompted", "C": "had been prompt", "D": "had been prompted"}, "128": {"A": "strategies", "B": "occasions", "C": "postures", "D": "variations"}, "129": {"A": "frequent", "B": "ideal", "C": "broad", "D": "alone"}, "130": {"A": "Meanwhile", "B": "Why", "C": "How", "D": "Because"}};
+  var TOTAL_Q = 30;
+
+  var btn   = document.getElementById('submit-btn');
+  var qnums = Object.keys(KEYS).map(Number);
+
+  function allAnswered(){
+    return qnums.every(function(n){return document.querySelector('input[name="q'+n+'"]:checked');});
+  }
+
+  document.querySelectorAll('input[type=radio]').forEach(function(r){
+    r.addEventListener('change', function(){
+      var num = r.name.replace('q','');
+      var card = document.getElementById('qc'+num);
+      if(card) card.classList.add('answered');
+      btn.disabled = !allAnswered();
+    });
+  });
+
+  btn.addEventListener('click', function(){
+    if(!allAnswered()) return;
+    var score = 0;
+    var res  = document.getElementById('results');
+    var list = document.getElementById('corr-list');
+    list.innerHTML = '';
+    var grid = document.createElement('div');
+    grid.className = 'corr-grid';
+    qnums.forEach(function(n){
+      var sel     = document.querySelector('input[name="q'+n+'"]:checked').value;
+      var correct = KEYS[n];
+      var ok      = sel === correct;
+      if(ok) score++;
+      var labelMap = LABELS[n] || {};
+      var card = document.createElement('div');
+      card.className = 'corr-card ' + (ok ? 'correct' : 'wrong');
+      card.innerHTML =
+        '<div class="c-head"><span class="badge-'+(ok?'ok':'err')+'">'+(ok?'&#10003;':'&#10007;')+'</span> Q.'+n+'</div>' +
+        '<div class="c-ans">' +
+          (ok
+            ? '<span class="good">('+correct+') '+labelMap[correct]+'</span>'
+            : '<span class="bad">('+sel+') '+labelMap[sel]+'</span> &rarr; <span class="good">('+correct+') '+labelMap[correct]+'</span>'
+          ) +
+        '</div>' +
+        '<div class="c-expl">'+EXPL[n]+'</div>';
+      grid.appendChild(card);
+    });
+    list.appendChild(grid);
+    document.getElementById('score-display').textContent = score+'/'+TOTAL_Q;
+    document.getElementById('score-pct').textContent = Math.round(score/TOTAL_Q*100)+'%';
+    res.style.display = 'block';
+    res.scrollIntoView({behavior:'smooth'});
+  });
+
+</script>
+</body>
+</html>
